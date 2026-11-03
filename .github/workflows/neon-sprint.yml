@@ -1,0 +1,51 @@
+name: Build NEON SPRINT for Windows
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'NeonSprint_Godot_Project.zip'
+      - '.github/workflows/neon-sprint.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Extract source project
+        run: unzip -oq NeonSprint_Godot_Project.zip
+      - name: Install Godot 4.7.2 and Windows export templates
+        uses: chickensoft-games/setup-godot@v2
+        with:
+          version: 4.7.2
+          use-dotnet: false
+          include-templates: true
+      - name: Import and validate Godot project
+        run: godot --headless --path neon_sprint_godot --editor --import --quit
+      - name: Smoke-test launch
+        run: godot --headless --path neon_sprint_godot --quit-after 15
+      - name: Export Windows executable
+        run: |
+          mkdir -p neon_sprint_godot/build
+          godot --headless --path neon_sprint_godot --export-release "Windows Desktop" build/NeonSprint.exe
+          test -s neon_sprint_godot/build/NeonSprint.exe
+      - name: Upload Windows executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeonSprint-Windows-x64
+          path: neon_sprint_godot/build/NeonSprint.exe
+          if-no-files-found: error
+      - name: Publish Windows release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: neon-sprint-v1.0
+          name: NEON SPRINT v1.0 (Windows x64)
+          target_commitish: main
+          make_latest: false
+          files: neon_sprint_godot/build/NeonSprint.exe
