@@ -1,91 +1,114 @@
-<!DOCTYPE html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#42247e"><title>Большой куш — 2D</title>
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#44206f">
+<title>Большой куш — Сейф</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#1b123d;color:#fff;font-family:system-ui,-apple-system,Arial,sans-serif;touch-action:none;user-select:none}button{font-family:inherit;cursor:pointer;touch-action:manipulation}#game{width:100vw;height:100dvh;display:block}#menu,#ending,#paused{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:max(10px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));background:radial-gradient(circle at 85% 12%,#f889a0 0,transparent 40%),radial-gradient(circle at 10% 82%,#6a49c7 0,transparent 50%),linear-gradient(128deg,#39237c,#834bbb);overflow:hidden} .hidden{display:none!important}
-.orb{position:absolute;width:36vmax;height:36vmax;top:-25vmax;left:12%;background:#ffd07545;border-radius:50%;filter:blur(35px);animation:orb 9s ease-in-out infinite alternate;pointer-events:none}@keyframes orb{to{transform:translate(24vw,14vh)}}
-.panel{position:relative;display:grid;grid-template-columns:1fr 1.05fr;align-items:center;gap:12px;width:min(1040px,100%);height:min(540px,100%);padding:clamp(14px,3vw,44px);border:2px solid #ffffff55;border-radius:30px;background:linear-gradient(120deg,#2d2057ef,#64409ad9);box-shadow:0 22px 65px #21113c88;overflow:hidden}.copy{z-index:2}.small{color:#ffe399;font-size:clamp(9px,1.4vw,15px);font-weight:900;letter-spacing:2px}.logo{font-size:clamp(45px,8.6vw,104px);font-weight:1000;line-height:.86;letter-spacing:-3px;text-shadow:0 7px 0 #8e4098,0 15px 20px #150e3666;transform:rotate(-3deg);margin:16px 0}.logo strong{color:#ffe36a;text-shadow:0 7px 0 #c46864,0 15px 25px #150e3677}.copy p{font-size:clamp(11px,1.3vw,15px);color:#f0dcff;max-width:355px;line-height:1.45;margin:12px 0 22px}.primary{border:2px solid #fff0a4;background:linear-gradient(#ffea81,#ffb839);border-radius:17px;box-shadow:0 7px 0 #a85555,0 13px 23px #160f2d55;color:#523375;padding:12px 23px;font-size:clamp(17px,2.4vw,23px);font-weight:1000;min-height:56px;width:min(310px,100%);display:flex;justify-content:space-between;align-items:center;gap:10px;animation:pulse 2.3s ease-in-out infinite}.primary:active{transform:translateY(5px);animation:none;box-shadow:0 2px 0 #a85555}@keyframes pulse{50%{filter:brightness(1.12);transform:translateY(-2px)}}.sub{margin-top:17px;font-size:10px;color:#e6c9ff;font-weight:800;letter-spacing:1px}.scene{width:100%;height:100%;min-height:0;overflow:visible;filter:drop-shadow(0 12px 10px #23124670);animation:float 4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-9px) rotate(1deg)}}.center{width:min(430px,92vw);padding:28px;background:#33245df0;border:2px solid #ffffff55;border-radius:28px;text-align:center;box-shadow:0 20px 50px #0008}.center h2{font-size:clamp(25px,5vw,38px);margin:8px}.center p{color:#edd9ff}.center .primary{margin:20px auto 0}.secondary{border:1px solid #ffffff77;background:#ffffff1c;color:#fff;padding:12px 18px;border-radius:15px;font-weight:800;margin-top:14px;min-height:46px}
-#hud{position:fixed;z-index:2;left:12px;top:max(9px,env(safe-area-inset-top));right:64px;display:none;align-items:center;gap:8px;pointer-events:none}#hud.visible{display:flex}.pill{padding:8px 12px;border:1px solid #ffffff5b;background:#2c205ddc;border-radius:14px;font-weight:950;font-size:clamp(11px,2vw,15px);white-space:nowrap}#status{margin-left:auto;font-size:12px;color:#fff5b2;font-weight:900}#pauseBtn{position:fixed;z-index:3;right:max(12px,env(safe-area-inset-right));top:max(9px,env(safe-area-inset-top));display:none;width:43px;height:41px;border:1px solid #ffffff70;color:#fff;border-radius:12px;background:#3c2a74d9;font-size:19px}#pauseBtn.visible{display:block}
-#controls{display:none;position:fixed;inset:0;z-index:3;pointer-events:none}#controls.visible{display:block}#stick{position:absolute;left:max(18px,env(safe-area-inset-left));bottom:max(17px,env(safe-area-inset-bottom));width:126px;height:126px;border:2px solid #ffffff7a;border-radius:50%;background:#3c36708f;pointer-events:auto;touch-action:none}#knob{position:absolute;top:50%;left:50%;width:54px;height:54px;transform:translate(-50%,-50%);border-radius:50%;background:linear-gradient(#d2c7ff,#9b72e2);box-shadow:0 3px 12px #0008;border:3px solid #fff9}#take{position:absolute;right:max(17px,env(safe-area-inset-right));bottom:max(30px,env(safe-area-inset-bottom));pointer-events:auto;border-radius:50%;width:91px;height:91px;background:linear-gradient(#ffe585,#f9a933);border:4px solid #fff2b9;color:#53327c;font-size:14px;font-weight:1000;box-shadow:0 7px 0 #a55b3c}#take:active{transform:translateY(4px)}
-#toast{position:fixed;z-index:4;top:60px;left:50%;transform:translateX(-50%);background:#362562ee;border:1px solid #e8bc7a;padding:10px 15px;border-radius:13px;font-size:13px;font-weight:900;display:none;white-space:nowrap}
-@media(max-height:440px){.panel{padding:12px 26px}.logo{font-size:clamp(40px,11vh,66px);margin:9px 0}.copy p{font-size:11px;margin:8px 0 12px}.primary{min-height:43px;padding:6px 15px}.sub{margin-top:10px}#stick{width:98px;height:98px}#knob{width:43px;height:43px}#take{width:72px;height:72px;font-size:12px}}
-@media(max-width:620px) and (orientation:portrait){.panel{display:flex;flex-direction:column;justify-content:space-around;text-align:center;padding:20px 17px;gap:2px}.logo{font-size:clamp(50px,13vw,80px);margin:13px 0}.copy p{margin:10px auto 15px}.primary{margin:auto;min-height:52px}.scene{height:45%;width:min(100%,420px)}.sub{margin-top:12px}}
-
-/* FULL SCREEN VAULT STAGE */
-#vaultScreen{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#955cc9 0%,#543487 48%,#201337 100%);touch-action:manipulation}
-#vaultScreen:before{content:"";position:absolute;inset:-30%;opacity:.2;background:repeating-conic-gradient(from 0deg,#fff 0deg 4deg,transparent 4deg 19deg);animation:spinGlow 35s linear infinite}
-@keyframes spinGlow{to{transform:rotate(360deg)}}
-#vaultScreen .vaultTop{position:absolute;top:max(10px,env(safe-area-inset-top));left:0;right:0;text-align:center;color:#ffe495;font-weight:1000;font-size:clamp(14px,4vw,25px);letter-spacing:.08em;text-shadow:0 3px 2px #2b145a;z-index:4;pointer-events:none}
-#vaultScreen .vaultTap{position:absolute;inset:0;z-index:3;cursor:pointer;border:0;background:transparent;touch-action:manipulation}
-#vaultScreen .vaultBox{position:relative;width:min(90vw,138vh);height:min(84dvh,90vw);max-height:100%;aspect-ratio:1.45;border:clamp(7px,2vw,20px) solid #2b244a;border-radius:clamp(22px,5vw,60px);background:linear-gradient(138deg,#a5c4d6,#617c9c 45%,#30415f 100%);box-shadow:0 0 0 8px #c8ab67,0 25px 65px #160d36d9,inset 0 0 0 14px #263651;overflow:hidden;transition:transform 1s ease}
-#vaultScreen .vaultInside{position:absolute;inset:5%;background:radial-gradient(ellipse at center,#e2a742,#72501f 60%,#241932 92%);border:10px solid #1b2139;border-radius:25px;display:flex;align-items:center;justify-content:center;gap:3%;font-size:clamp(28px,7vw,105px);filter:saturate(1.3)}
-#vaultScreen .vaultDoor{position:absolute;inset:0;transform-origin:left center;background:linear-gradient(145deg,#e1f2ff,#93b8d1 18%,#536b96 63%,#344767);border:clamp(6px,1.5vw,15px) solid #d7e2e8;border-radius:clamp(15px,3vw,43px);box-shadow:inset 0 0 0 10px #344561,0 5px 24px #0e193d;display:flex;align-items:center;justify-content:center;transition:transform 1.35s cubic-bezier(.2,.5,.2,1),filter 1.35s;backface-visibility:hidden}
-#vaultScreen .vaultDoor:before{content:"";position:absolute;inset:7%;border:5px solid #f3e9bf77;border-radius:22px;pointer-events:none}
-#vaultScreen .vaultWheel{width:min(42vw,40vh);height:min(42vw,40vh);border-radius:50%;background:radial-gradient(circle,#fdf8cc 0 9%,#cf9f4e 10% 22%,#403858 23% 29%,#e8b864 30% 41%,#7b5881 42% 50%,#ead89c 51% 57%,#33415e 58%);border:7px solid #fff2b1;box-shadow:0 12px 32px #171633bb,inset 0 0 16px #170d3466;position:relative;animation:wheelBreath 2s ease-in-out infinite}
-#vaultScreen .vaultWheel:before,#vaultScreen .vaultWheel:after{content:"";position:absolute;left:48%;top:8%;width:4%;height:84%;background:#ffefbd;border-radius:12px;box-shadow:2px 2px 3px #594169}
-#vaultScreen .vaultWheel:after{transform:rotate(60deg)}
-#vaultScreen .vaultWheel i{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:clamp(21px,4vw,50px);font-style:normal;font-weight:1000;color:#53335d;z-index:1}
-@keyframes wheelBreath{50%{filter:brightness(1.2);transform:scale(1.04)}}
-#vaultScreen .tapHint{position:absolute;z-index:4;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:linear-gradient(#ffe78d,#ffaf39);padding:12px 34px;border-radius:100px;border:4px solid #fff4bd;box-shadow:0 7px 0 #985161,0 0 25px #ffdb6a99;color:#542d70;font-weight:1000;font-size:clamp(18px,4vw,34px);letter-spacing:.08em;animation:hintBounce 1s ease-in-out infinite;white-space:nowrap;pointer-events:none}
-@keyframes hintBounce{50%{transform:translateX(-50%) translateY(-8px);filter:brightness(1.12)}}
-#vaultScreen.opened .vaultDoor{transform:perspective(1000px) rotateY(-105deg);filter:brightness(.6)}
-#vaultScreen.opened .vaultWheel{animation:none}
-#vaultScreen.opened .tapHint{display:none}
-#vaultScreen .vaultPrize{position:absolute;inset:0;z-index:5;display:none;align-items:center;justify-content:flex-end;flex-direction:column;gap:10px;padding-bottom:max(15px,env(safe-area-inset-bottom));pointer-events:none}
-#vaultScreen.opened .vaultPrize{display:flex;animation:appearPrize .65s ease both}
-@keyframes appearPrize{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
-#vaultScreen .vaultPrize strong{font-size:clamp(20px,5vw,44px);color:#ffdc71;text-shadow:0 3px 9px #000}
-#vaultScreen .vaultPrize button{pointer-events:auto;width:min(290px,80vw);border:3px solid #fff4bc;border-radius:18px;background:linear-gradient(#ffe27f,#ffc044);font-weight:1000;color:#4a306a;font-size:clamp(15px,3vw,22px);padding:12px;box-shadow:0 5px 0 #99516a}
-@media(max-height:420px){#vaultScreen .vaultTop{font-size:13px}#vaultScreen .tapHint{padding:8px 20px;font-size:17px}#vaultScreen .vaultPrize button{padding:7px}}
-</style></head>
-<body><canvas id="game"></canvas>
-<div id="menu"><div class="orb"></div><div class="panel"><div class="copy"><div class="small">★ ЯРКАЯ 2D-АРКАДА ★</div><div class="logo">БОЛЬШОЙ<br><strong>КУШ!</strong></div><p>Собирай деньги, открывай сейф и добегай до выхода. Только не попадись охранникам!</p><button id="playBtn" class="primary" type="button" onclick="window.startBigScore && window.startBigScore()"><span>▶</span> ИГРАТЬ <span>➜</span></button><div class="sub">● БЕЗ ИНТЕРНЕТА &nbsp; ● ДЛЯ ТЕЛЕФОНА</div></div>
-<svg class="scene" viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="gold" x2="0" y2="1"><stop stop-color="#fff4ad"/><stop offset="1" stop-color="#ffad54"/></linearGradient><linearGradient id="coin" x2="0" y2="1"><stop stop-color="#fffbb1"/><stop offset="1" stop-color="#ffac22"/></linearGradient></defs><ellipse cx="260" cy="404" rx="220" ry="22" fill="#210f4c" opacity=".33"/><path d="M67 178 268 58 463 178Z" fill="#fff0ae" stroke="#50307b" stroke-width="11"/><path d="M103 174 267 83 426 174Z" fill="#ffb36c"/><circle cx="266" cy="136" r="26" fill="#ffe294" stroke="#5d3984" stroke-width="7"/><text x="266" y="147" fill="#7d4595" font-size="33" font-weight="900" text-anchor="middle">$</text><rect x="77" y="175" width="381" height="211" rx="13" fill="url(#gold)" stroke="#50317c" stroke-width="10"/><rect x="58" y="169" width="418" height="28" rx="9" fill="#7045a8" stroke="#50317c" stroke-width="7"/><g fill="#fff7d1" stroke="#58418c" stroke-width="7"><rect x="98" y="213" width="43" height="139" rx="5"/><rect x="159" y="213" width="43" height="139" rx="5"/><rect x="328" y="213" width="43" height="139" rx="5"/><rect x="392" y="213" width="43" height="139" rx="5"/></g><rect x="224" y="215" width="87" height="165" rx="9" fill="#69449b" stroke="#51317a" stroke-width="8"/><path d="M267 220v156" stroke="#4c2d76" stroke-width="6"/><g transform="translate(340 281) rotate(8)"><rect width="113" height="106" rx="14" fill="#4e3682" stroke="#352363" stroke-width="8"/><rect x="12" y="12" width="90" height="80" rx="9" fill="#9bd7ef" stroke="#37316e" stroke-width="7"/><circle cx="57" cy="52" r="27" fill="#e7f9ff" stroke="#51609a" stroke-width="7"/><path d="M57 29v46M34 52h46" stroke="#6479a8" stroke-width="7"/></g><g transform="translate(93 270)"><path d="M37 99 30 123h24l16-27m35 0 14 27h28l-19-33" fill="#3b2c62" stroke="#302154" stroke-width="7"/><rect x="25" y="38" width="110" height="69" rx="26" fill="#ffcc53" stroke="#513178" stroke-width="9"/><path d="M26 61 8 84m128-25 21 17" stroke="#513178" stroke-width="17" stroke-linecap="round"/><circle cx="84" cy="21" r="39" fill="#f9bf93" stroke="#503177" stroke-width="9"/><path d="M49 10Q44-19 85-19q42 0 40 29l-19-5-8-8q-25 12-49 13" fill="#47305f"/><rect x="55" y="11" width="25" height="15" rx="7" fill="#342b56"/><rect x="88" y="11" width="25" height="15" rx="7" fill="#342b56"/><path d="M81 18h8" stroke="#342b56" stroke-width="6"/><path d="M83 40q8 6 17-1" stroke="#9e5664" stroke-width="4" fill="none"/><rect x="124" y="53" width="59" height="57" rx="12" fill="#5ed4a3" stroke="#3c3979" stroke-width="7"/><path d="M136 72h34m-34 12h34" stroke="#ddffca" stroke-width="6"/></g><g fill="url(#coin)" stroke="#ffef8e" stroke-width="7"><circle cx="77" cy="116" r="26"/><circle cx="464" cy="116" r="32"/><circle cx="486" cy="377" r="19"/></g><g fill="#b77828" font-weight="1000" text-anchor="middle"><text x="77" y="127" font-size="32">$</text><text x="464" y="129" font-size="40">$</text><text x="486" y="386" font-size="23">$</text></g></svg></div></div>
-<div id="hud"><div class="pill" id="cash">0 / 0</div><div class="pill" id="hearts">♥ ♥ ♥</div><div id="status">БАНК 1</div></div><button id="pauseBtn" type="button" aria-label="Пауза">Ⅱ</button><div id="controls"><div id="stick"><div id="knob"></div></div><button id="take" type="button">ВЗЯТЬ</button></div><div id="toast"></div>
-<div id="paused" class="hidden"><div class="center"><h2>ПАУЗА</h2><p>Продолжить операцию?</p><button id="resume" class="primary" type="button">▶ ПРОДОЛЖИТЬ</button><button id="back" class="secondary" type="button">В МЕНЮ</button></div></div>
-<div id="ending" class="hidden"><div class="center"><h2 id="endTitle">ПОБЕДА!</h2><p id="endText"></p><button id="again" class="primary" type="button">↻ ИГРАТЬ СНОВА</button><button id="endMenu" class="secondary" type="button">В МЕНЮ</button></div></div>
-<section id="vaultScreen" class="hidden" aria-label="Большой сейф">
-  <div class="vaultTop">БОЛЬШОЙ КУШ • СЕЙФ</div>
-  <div class="vaultBox">
-    <div class="vaultInside"><span>💰</span><span>💎</span><span>💵</span></div>
-    <div class="vaultDoor"><div class="vaultWheel"><i>★</i></div></div>
-  </div>
-  <button class="vaultTap" id="vaultTap" type="button" aria-label="Нажми, чтобы открыть сейф"></button>
-  <div class="tapHint" id="tapHint">👆 НАЖМИ</div>
-  <div class="vaultPrize"><strong>СЕЙФ ОТКРЫТ!</strong><button id="vaultContinue" type="button">ЗАБРАТЬ КУШ ➜</button></div>
-</section>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#241349;color:white;font-family:system-ui,-apple-system,Arial,sans-serif;touch-action:manipulation;user-select:none}
+button{font:inherit;cursor:pointer}
+.scene{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;overflow:hidden}
+.hide{display:none!important}
+#menu{background:radial-gradient(ellipse at 75% 20%,#d869ab 0%,transparent 42%),radial-gradient(ellipse at 15% 90%,#7556e2 0%,transparent 52%),linear-gradient(125deg,#28145b,#7040a8)}
+#menu:before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(#ffe49b12 0 6deg,transparent 6deg 24deg);animation:turn 40s linear infinite}
+@keyframes turn{to{transform:rotate(360deg)}}
+.menuPanel{z-index:1;position:relative;width:min(1000px,95vw);max-height:94dvh;display:grid;grid-template-columns:1.2fr 1fr;align-items:center;gap:12px;background:linear-gradient(130deg,#372166eb,#6040a6db);border:2px solid #ffffff60;border-radius:30px;padding:clamp(14px,4vw,43px);box-shadow:0 22px 70px #190b3d99}
+.eyebrow{font-weight:1000;font-size:clamp(11px,1.6vw,17px);color:#ffdc8c;letter-spacing:2px}
+.logo{font-weight:1000;font-size:clamp(44px,8vw,100px);letter-spacing:-.06em;line-height:.86;text-shadow:0 7px 0 #8b3e91,0 12px 15px #1f0b4799;transform:rotate(-3deg);margin:19px 0 25px;white-space:nowrap}
+.logo b{color:#ffe076;text-shadow:0 7px 0 #bf6a61,0 12px 15px #1f0b4799}
+.intro{color:#f4e4ff;font-size:clamp(12px,1.6vw,18px);line-height:1.5;margin:0 0 22px;max-width:410px}
+.bigbutton{min-height:57px;width:min(320px,100%);display:flex;align-items:center;justify-content:center;gap:18px;border:3px solid #ffefae;border-radius:18px;color:#572f78;font-weight:1000;font-size:clamp(18px,2.5vw,27px);background:linear-gradient(#fff4a9,#ffc044);box-shadow:0 8px 0 #a55360,0 14px 18px #1b113e78;animation:bounce 1.7s ease-in-out infinite}
+.bigbutton:active{animation:none;transform:translateY(6px);box-shadow:0 2px 0 #a55360}
+@keyframes bounce{50%{transform:translateY(-4px);filter:brightness(1.09)}}
+.smalltext{color:#dcc2ef;font-size:11px;letter-spacing:1px;margin-top:24px;font-weight:800}
+.art{width:100%;max-height:68dvh;filter:drop-shadow(0 18px 18px #170b3f80);animation:float 4s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-9px)}}
+#vault{background:radial-gradient(ellipse at 50% 44%,#9667bd 0%,#4b2b7d 50%,#190f32 100%);perspective:1400px}
+#vault:before{content:"";position:absolute;inset:-50%;background:repeating-conic-gradient(#fff4a315 0deg 5deg,transparent 5deg 22deg);animation:turn 45s linear infinite}
+.vtitle{z-index:5;position:absolute;top:max(10px,env(safe-area-inset-top));font-weight:1000;letter-spacing:2px;font-size:clamp(14px,3vw,23px);color:#ffe7a4;text-shadow:0 3px 7px #10092d}
+.safe{position:relative;width:min(93vw,145vh);height:min(84dvh,87vw);border:clamp(8px,2vw,18px) solid #282640;border-radius:clamp(18px,3vw,42px);background:linear-gradient(130deg,#b0c4dc,#647a9a 55%,#27334f);box-shadow:0 0 0 7px #dbb667,0 17px 55px #120b2d,inset 0 0 0 12px #405170;transform-style:preserve-3d}
+.inside{position:absolute;inset:5%;border-radius:20px;border:8px solid #2c263d;background:radial-gradient(ellipse at 55% 60%,#b98735,#4b2c28 55%,#180f26 95%);display:flex;justify-content:center;align-items:center}
+.gold{position:relative;display:flex;align-items:flex-end;gap:1.5vw}
+.bar{width:min(14vw,130px);height:min(18vh,115px);background:linear-gradient(130deg,#fff3a0,#ffc42b 55%,#d7841b);border:4px solid #fff0aa;border-radius:12px;box-shadow:0 8px 0 #995219,inset -10px -10px 0 #d68f23}
+.bar:nth-child(2){height:min(25vh,155px)}
+.bar:after{content:"$";display:grid;place-items:center;height:100%;font-weight:1000;color:#ba7920;font-size:clamp(25px,6vw,60px)}
+.door{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;border:clamp(5px,1.2vw,12px) solid #e3edf3;border-radius:clamp(11px,2vw,30px);background:linear-gradient(140deg,#eef8ff,#a3c8df 24%,#546e99 67%,#35405f);box-shadow:inset 0 0 0 12px #435c80,0 4px 18px #160d35;transform-origin:left center;transition:transform 1.4s cubic-bezier(.15,.6,.16,1)}
+.door:before{content:"";position:absolute;inset:7%;border:4px solid #f5e7b08c;border-radius:18px}
+.wheel{width:min(41vw,42vh);height:min(41vw,42vh);border-radius:50%;background:radial-gradient(circle,#fff7c7 0 10%,#c18e40 11% 24%,#394669 25% 32%,#efc873 33% 44%,#6a5781 45% 53%,#ffd97d 54% 59%,#37476c 60%);border:7px solid #ffe4a1;box-shadow:0 10px 25px #1b2044aa;position:relative;animation:glowWheel 1.7s ease-in-out infinite}
+@keyframes glowWheel{50%{filter:brightness(1.25);transform:scale(1.05)}}
+.wheel:before,.wheel:after{content:"";position:absolute;top:47%;left:10%;width:80%;height:6%;border-radius:15px;background:#fff3c1;box-shadow:0 2px 4px #553f53}
+.wheel:after{transform:rotate(60deg)}
+.wheel i{position:absolute;inset:0;display:grid;place-items:center;color:#76506b;font-size:clamp(25px,6vw,60px);font-style:normal;font-weight:1000;z-index:1}
+.tapOverlay{position:absolute;inset:0;z-index:4;border:0;background:transparent;touch-action:manipulation}
+.hint{position:absolute;z-index:5;bottom:max(15px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);border-radius:100px;border:3px solid #fff2b3;background:linear-gradient(#ffed92,#ffac3e);color:#51296d;font-weight:1000;font-size:clamp(20px,4vw,35px);padding:10px 30px;white-space:nowrap;pointer-events:none;animation:pulseHint 1s ease-in-out infinite;box-shadow:0 8px 0 #98556a}
+@keyframes pulseHint{50%{transform:translateX(-50%) translateY(-9px);filter:brightness(1.17)}}
+#vault.open .door{transform:rotateY(-113deg);animation:none}
+#vault.open .wheel{animation:none}
+#vault.open .tapOverlay,#vault.open .hint{display:none}
+.openLabel{display:none;position:absolute;z-index:6;bottom:max(20px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);flex-direction:column;align-items:center;gap:10px;white-space:nowrap}
+.openLabel strong{font-size:clamp(18px,4vw,36px);color:#ffec9b;text-shadow:0 3px 7px #000}
+#vault.open .openLabel{display:flex;animation:showUp 1s ease-out both}
+@keyframes showUp{from{opacity:0;transform:translateX(-50%) translateY(15px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.action{border:3px solid #fff2b3;border-radius:16px;padding:10px 22px;background:linear-gradient(#ffed92,#ffc343);color:#543474;font-weight:1000;font-size:clamp(14px,2vw,19px)}
+@media(max-width:650px) and (orientation:portrait){.menuPanel{display:flex;flex-direction:column;text-align:center;justify-content:space-around;height:95dvh;gap:0}.logo{font-size:clamp(48px,12vw,78px);margin:12px 0}.intro{margin:8px 0 12px}.bigbutton{margin:0 auto}.art{max-height:43dvh}.smalltext{margin-top:13px}}
+@media(max-height:440px){.menuPanel{padding:14px 24px}.logo{font-size:clamp(37px,12vh,68px);margin:11px 0}.intro{margin:8px 0 12px;font-size:12px}.bigbutton{min-height:45px}.smalltext{margin-top:12px}}
+</style>
 <script>
-(function(){
-'use strict';
-const el=id=>document.getElementById(id),canvas=el('game'),ctx=canvas.getContext('2d');let width=0,height=0,scale=1,offsetX=0,offsetY=0,mode='menu',money=0,lives=3,level=1,inv=0,last=0,phase=0,toastTimeout=0;const world={w:900,h:540},player={x:92,y:267},safe={x:630,y:150,open:false},exit={x:838,y:272},keys={},axis={x:0,y:0};let notes=[],guards=[],pointer=null;
-function visible(id,on){el(id).classList.toggle('hidden',!on)}
-function gameUI(on){el('hud').classList.toggle('visible',on);el('pauseBtn').classList.toggle('visible',on);el('controls').classList.toggle('visible',on)}
-function resize(){width=innerWidth;height=innerHeight;let d=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(width*d));canvas.height=Math.max(1,Math.round(height*d));ctx.setTransform(d,0,0,d,0,0);scale=Math.min(width/900,height/540);offsetX=(width-900*scale)/2;offsetY=(height-540*scale)/2}addEventListener('resize',resize);resize();
-function reset(){money=0;lives=3;inv=0;player.x=92;player.y=267;safe.open=false;notes=[{x:275,y:123,t:false},{x:340,y:377,t:false},{x:487,y:320,t:false},{x:715,y:414,t:false}];guards=[{x:461,y:230,p:1},{x:740,y:300,p:3.1}];axis.x=axis.y=0;hud()}
-function hud(){el('cash').textContent='▣ '+money+' / 400';el('hearts').textContent='♥ '.repeat(lives);el('status').textContent='БАНК '+level}
-function msg(t){el('toast').textContent=t;el('toast').style.display='block';clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>{el('toast').style.display='none'},1500)}
-function begin(){level=1;reset();mode='vault';visible('menu',false);visible('ending',false);visible('paused',false);visible('vaultScreen',true);el('vaultScreen').classList.remove('opened');el('vaultTap').disabled=false;gameUI(false)}
-function openVault(){if(mode!=='vault'||el('vaultScreen').classList.contains('opened'))return;el('vaultScreen').classList.add('opened');el('vaultTap').disabled=true}
-function continueVault(){if(mode!=='vault')return;visible('vaultScreen',false);safe.open=true;money=100;mode='play';gameUI(true);hud();msg('КУШ ВЗЯТ! ИЩИ ОСТАЛЬНЫЕ ДЕНЬГИ!')}
-function pause(){if(mode!=='play')return;mode='pause';visible('paused',true);gameUI(false)}
-function resume(){if(mode!=='pause')return;mode='play';visible('paused',false);gameUI(true);last=performance.now()}
-function menu(){visible('vaultScreen',false);mode='menu';gameUI(false);visible('menu',true);visible('ending',false);visible('paused',false);axis.x=axis.y=0}
-function finish(win){mode='end';gameUI(false);visible('ending',true);el('endTitle').textContent=win?'КУШ СОРВАН!':'ТЕБЯ ПОЙМАЛИ';el('endText').textContent=win?'Ты собрал деньги и выбрался из банка!':'Обойди охранников и попробуй ещё раз.'}
-function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
-function interact(){if(mode!=='play')return;if(dist(player,safe)<87&&!safe.open){safe.open=true;money+=100;hud();msg('СЕЙФ ОТКРЫТ! +100');return}if(dist(player,exit)<72){if(money>=500){finish(true)}else msg('Сначала собери все деньги и открой сейф!');return}msg('Подойди к сейфу или выходу')}
-el('vaultTap').addEventListener('click',openVault);el('vaultContinue').addEventListener('click',continueVault);window.startBigScore=begin;el('playBtn').addEventListener('click',begin);el('pauseBtn').onclick=pause;el('resume').onclick=resume;el('back').onclick=menu;el('again').onclick=begin;el('endMenu').onclick=menu;el('take').onclick=interact;
-addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(e.key.toLowerCase()))e.preventDefault();if(e.key.toLowerCase()==='e'||e.key===' ')interact();if(e.key==='Escape'){if(mode==='play')pause();else if(mode==='pause')resume()}});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
-const stick=el('stick'),knob=el('knob');function moveStick(e){const r=stick.getBoundingClientRect(),dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2,m=Math.hypot(dx,dy)||1,limit=r.width*.31,k=Math.min(1,limit/m);axis.x=dx*k/limit;axis.y=dy*k/limit;knob.style.transform='translate(calc(-50% + '+dx*k+'px),calc(-50% + '+dy*k+'px))'}
-stick.addEventListener('pointerdown',e=>{e.preventDefault();pointer=e.pointerId;try{stick.setPointerCapture(e.pointerId)}catch(_){}moveStick(e)});stick.addEventListener('pointermove',e=>{if(pointer===e.pointerId)moveStick(e)});function stop(e){if(pointer!==e.pointerId)return;pointer=null;axis.x=axis.y=0;knob.style.transform='translate(-50%,-50%)'}stick.addEventListener('pointerup',stop);stick.addEventListener('pointercancel',stop);
-function rr(x,y,w,h,c,r=0){ctx.fillStyle=c;ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);else ctx.rect(x,y,w,h);ctx.fill()}function circle(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}function text(t,x,y,s=17,c='#fff'){ctx.textAlign='center';ctx.fillStyle=c;ctx.font='900 '+s+'px system-ui,Arial';ctx.fillText(t,x,y)}function pile(x,y){rr(x-24,y-13,48,26,'#19664f',5);rr(x-19,y-9,38,18,'#68eb93',3);circle(x,y,7,'#16875d');text('$',x,y+5,15,'#e5ffb6')}
-function character(x,y,police){circle(x,y+14,18,'#0a0a2255');rr(x-14,y-11,28,34,police?'#347eb9':'#f5bd4f',8);circle(x,y-19,15,'#eebd9b');rr(x-14,y-33,28,11,police?'#263e69':'#4b2a60',4);rr(x-11,y-22,22,8,'#292b47',4);circle(x-5,y-19,2,'#fff');circle(x+5,y-19,2,'#fff')}
-function paint(){ctx.fillStyle='#20173d';ctx.fillRect(0,0,width,height);ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(scale,scale);rr(0,0,900,540,'#261c4b');rr(25,25,850,490,'#43376b',18);for(let x=37;x<865;x+=46)for(let y=37;y<504;y+=46)rr(x,y,43,43,(x+y)%3<1?'#504277':'#4a3c70',4);
-rr(100,66,245,72,'#674a9c',13);text('КАССЫ',223,111,27,'#fff1a6');rr(110,147,140,22,'#a58ad0',7);rr(298,411,260,58,'#6e5396',10);text('СТОЙКА',428,445,21,'#ffeea3');
-rr(557,65,150,155,'#2d234e',16);rr(567,74,130,137,safe.open?'#395e67':'#a5a5c1',11);rr(577,85,111,116,safe.open?'#1d3544':'#58658c',8);circle(632,148,32,safe.open?'#2cb98b':'#eac779');circle(632,148,23,safe.open?'#173a51':'#627f9c');text(safe.open?'✓':'✣',632,157,30,'#fff5bf');text(safe.open?'ОТКРЫТО':'СЕЙФ',632,246,19,'#fff1b1');
-rr(781,198,95,150,'#242446',10);rr(794,210,71,126,'#29c599',8);text('ВЫХОД',829,190,18,'#fff7ac');text('➜',829,286,35,'#165a51');
-notes.forEach(n=>{if(!n.t)pile(n.x,n.y)});guards.forEach(g=>character(g.x,g.y,true));if(inv===0||Math.floor(phase*10)%2===0)character(player.x,player.y,false);
-if(dist(player,safe)<87&&!safe.open){rr(player.x-60,player.y-70,120,27,'#6e31b5',8);text('ОТКРЫТЬ',player.x,player.y-51,14,'#fff')}ctx.restore()}
-function update(dt){phase+=dt;let vx=axis.x+(keys.d||keys.arrowright?1:0)-(keys.a||keys.arrowleft?1:0),vy=axis.y+(keys.s||keys.arrowdown?1:0)-(keys.w||keys.arrowup?1:0),len=Math.hypot(vx,vy);if(len){player.x=Math.max(52,Math.min(847,player.x+vx/Math.max(1,len)*215*dt));player.y=Math.max(75,Math.min(479,player.y+vy/Math.max(1,len)*215*dt))}notes.forEach(n=>{if(!n.t&&dist(player,n)<35){n.t=true;money+=100;hud();msg('+100 МОНЕТ!')}});guards.forEach((g,i)=>{g.p+=dt*(.9+i*.2);g.x=(i===0?470:733)+Math.sin(g.p)*57;g.y=(i===0?266:315)+Math.cos(g.p*1.2)*88});inv=Math.max(0,inv-dt);if(inv===0&&guards.some(g=>dist(player,g)<33)){lives--;inv=1.6;player.x=92;player.y=267;hud();msg('ОСТОРОЖНО, ОХРАННИК!');if(lives<=0)finish(false)}if(dist(player,exit)<54&&money>=500)finish(true)}
-function frame(now){let dt=Math.min(.045,Math.max(0,(now-(last||now))/1000));last=now;if(mode==='play')update(dt);paint();requestAnimationFrame(frame)}requestAnimationFrame(frame);
-window.__bigScoreTest={start:begin,state:()=>mode}; 
-})();
-</script></body></html>
+function startVault(){document.getElementById('menu').classList.add('hide');var v=document.getElementById('vault');v.classList.remove('hide','open');}
+function tapVault(){var v=document.getElementById('vault');if(v.classList.contains('open'))return;v.classList.add('open');}
+function resetVault(){var v=document.getElementById('vault');v.classList.remove('open');void v.offsetWidth;}
+function goMenu(){document.getElementById('vault').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
+</script>
+</head>
+<body>
+<main id="menu" class="scene">
+ <div class="menuPanel">
+  <div class="copy">
+   <div class="eyebrow">★ ИГРА ПРО ОГРОМНЫЙ СЕЙФ ★</div>
+   <div class="logo">БОЛЬШОЙ<br><b>КУШ!</b></div>
+   <p class="intro">Перед тобой огромный сейф. Открой его одним нажатием и забери сокровища!</p>
+   <button id="playBtn" class="bigbutton" type="button" onclick="startVault()">▶ ИГРАТЬ ➜</button>
+   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D</div>
+  </div>
+  <svg class="art" viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" aria-label="Нарисованный банк и персонаж">
+   <ellipse cx="260" cy="407" rx="215" ry="21" fill="#221045" opacity=".4"/>
+   <path d="M74 172 262 54 454 172Z" fill="#ffdc7c" stroke="#53347e" stroke-width="11"/>
+   <path d="M105 168 262 80 423 168Z" fill="#ffb773"/>
+   <circle cx="262" cy="128" r="25" fill="#fff0ad" stroke="#61408d" stroke-width="7"/>
+   <text x="262" y="142" font-family="Arial" font-size="37" font-weight="900" fill="#67418c" text-anchor="middle">$</text>
+   <rect x="79" y="175" width="377" height="212" rx="12" fill="#ffc97e" stroke="#543180" stroke-width="11"/>
+   <rect x="58" y="171" width="416" height="27" rx="9" fill="#8152bd" stroke="#50337f" stroke-width="7"/>
+   <g fill="#fff4d2" stroke="#63478f" stroke-width="7">
+   <rect x="100" y="210" width="44" height="145" rx="6"/><rect x="161" y="210" width="44" height="145" rx="6"/><rect x="326" y="210" width="44" height="145" rx="6"/><rect x="388" y="210" width="44" height="145" rx="6"/></g>
+   <rect x="221" y="219" width="86" height="166" rx="10" fill="#694b9b" stroke="#563580" stroke-width="8"/>
+   <g transform="translate(331 271)"><rect width="118" height="112" rx="15" fill="#4a386e" stroke="#2f215b" stroke-width="9"/><rect x="14" y="14" width="89" height="84" rx="9" fill="#9fc4d7" stroke="#394775" stroke-width="7"/><circle cx="58" cy="55" r="28" fill="#e8faff" stroke="#50668e" stroke-width="6"/><path d="M58 32v46M35 55h46" stroke="#566da0" stroke-width="7"/></g>
+   <g transform="translate(78 268)">
+   <path d="M33 93 25 121h26l16-27m38 0 14 27h28l-19-28" fill="#443368" stroke="#302254" stroke-width="7"/>
+   <rect x="25" y="31" width="116" height="74" rx="26" fill="#f4bc44" stroke="#53347a" stroke-width="9"/>
+   <path d="M23 56 5 79m137-19 18 19" stroke="#53347a" stroke-width="17" stroke-linecap="round"/>
+   <circle cx="84" cy="12" r="39" fill="#efb88f" stroke="#503278" stroke-width="9"/>
+   <path d="M48 6q-8-41 37-41 44 0 40 42l-23-6-10-8q-21 13-44 13" fill="#38284e"/>
+   <rect x="55" y="6" width="60" height="20" rx="9" fill="#332543"/>
+   <circle cx="70" cy="15" r="3" fill="white"/><circle cx="101" cy="15" r="3" fill="white"/>
+   <path d="M82 40q10 7 18-1" fill="none" stroke="#ae5563" stroke-width="4"/>
+   <rect x="130" y="52" width="63" height="58" rx="12" fill="#63dea3" stroke="#393875" stroke-width="7"/>
+   <path d="M142 69h39m-39 14h39" stroke="#dcffbb" stroke-width="7"/></g>
+   <g fill="#ffca38" stroke="#ffef97" stroke-width="7"><circle cx="74" cy="111" r="29"/><circle cx="463" cy="103" r="34"/><circle cx="481" cy="380" r="22"/></g>
+   <g fill="#b77327" font-family="Arial" font-weight="900" text-anchor="middle"><text x="74" y="122" font-size="35">$</text><text x="463" y="116" font-size="43">$</text><text x="481" y="389" font-size="26">$</text></g>
+  </svg>
+ </div>
+</main>
+<section id="vault" class="scene hide" aria-label="Огромный сейф">
+ <div class="vtitle">БОЛЬШОЙ КУШ • СЕЙФ</div>
+ <div class="safe">
+  <div class="inside"><div class="gold"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div>
+  <div class="door"><div class="wheel"><i>★</i></div></div>
+ </div>
+ <button class="tapOverlay" type="button" aria-label="Нажми, чтобы открыть сейф" onclick="tapVault()"></button>
+ <div class="hint">НАЖМИ</div>
+ <div class="openLabel"><strong>СЕЙФ ОТКРЫТ!</strong><button class="action" type="button" onclick="resetVault()">↻ ОТКРЫТЬ ЕЩЁ РАЗ</button><button class="action" type="button" onclick="goMenu()">⌂ В МЕНЮ</button></div>
+</section>
+</body></html>
