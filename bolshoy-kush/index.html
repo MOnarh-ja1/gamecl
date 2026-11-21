@@ -9,6 +9,33 @@
 #toast{position:fixed;z-index:4;top:60px;left:50%;transform:translateX(-50%);background:#362562ee;border:1px solid #e8bc7a;padding:10px 15px;border-radius:13px;font-size:13px;font-weight:900;display:none;white-space:nowrap}
 @media(max-height:440px){.panel{padding:12px 26px}.logo{font-size:clamp(40px,11vh,66px);margin:9px 0}.copy p{font-size:11px;margin:8px 0 12px}.primary{min-height:43px;padding:6px 15px}.sub{margin-top:10px}#stick{width:98px;height:98px}#knob{width:43px;height:43px}#take{width:72px;height:72px;font-size:12px}}
 @media(max-width:620px) and (orientation:portrait){.panel{display:flex;flex-direction:column;justify-content:space-around;text-align:center;padding:20px 17px;gap:2px}.logo{font-size:clamp(50px,13vw,80px);margin:13px 0}.copy p{margin:10px auto 15px}.primary{margin:auto;min-height:52px}.scene{height:45%;width:min(100%,420px)}.sub{margin-top:12px}}
+
+/* FULL SCREEN VAULT STAGE */
+#vaultScreen{position:fixed;inset:0;z-index:8;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,#955cc9 0%,#543487 48%,#201337 100%);touch-action:manipulation}
+#vaultScreen:before{content:"";position:absolute;inset:-30%;opacity:.2;background:repeating-conic-gradient(from 0deg,#fff 0deg 4deg,transparent 4deg 19deg);animation:spinGlow 35s linear infinite}
+@keyframes spinGlow{to{transform:rotate(360deg)}}
+#vaultScreen .vaultTop{position:absolute;top:max(10px,env(safe-area-inset-top));left:0;right:0;text-align:center;color:#ffe495;font-weight:1000;font-size:clamp(14px,4vw,25px);letter-spacing:.08em;text-shadow:0 3px 2px #2b145a;z-index:4;pointer-events:none}
+#vaultScreen .vaultTap{position:absolute;inset:0;z-index:3;cursor:pointer;border:0;background:transparent;touch-action:manipulation}
+#vaultScreen .vaultBox{position:relative;width:min(90vw,138vh);height:min(84dvh,90vw);max-height:100%;aspect-ratio:1.45;border:clamp(7px,2vw,20px) solid #2b244a;border-radius:clamp(22px,5vw,60px);background:linear-gradient(138deg,#a5c4d6,#617c9c 45%,#30415f 100%);box-shadow:0 0 0 8px #c8ab67,0 25px 65px #160d36d9,inset 0 0 0 14px #263651;overflow:hidden;transition:transform 1s ease}
+#vaultScreen .vaultInside{position:absolute;inset:5%;background:radial-gradient(ellipse at center,#e2a742,#72501f 60%,#241932 92%);border:10px solid #1b2139;border-radius:25px;display:flex;align-items:center;justify-content:center;gap:3%;font-size:clamp(28px,7vw,105px);filter:saturate(1.3)}
+#vaultScreen .vaultDoor{position:absolute;inset:0;transform-origin:left center;background:linear-gradient(145deg,#e1f2ff,#93b8d1 18%,#536b96 63%,#344767);border:clamp(6px,1.5vw,15px) solid #d7e2e8;border-radius:clamp(15px,3vw,43px);box-shadow:inset 0 0 0 10px #344561,0 5px 24px #0e193d;display:flex;align-items:center;justify-content:center;transition:transform 1.35s cubic-bezier(.2,.5,.2,1),filter 1.35s;backface-visibility:hidden}
+#vaultScreen .vaultDoor:before{content:"";position:absolute;inset:7%;border:5px solid #f3e9bf77;border-radius:22px;pointer-events:none}
+#vaultScreen .vaultWheel{width:min(42vw,40vh);height:min(42vw,40vh);border-radius:50%;background:radial-gradient(circle,#fdf8cc 0 9%,#cf9f4e 10% 22%,#403858 23% 29%,#e8b864 30% 41%,#7b5881 42% 50%,#ead89c 51% 57%,#33415e 58%);border:7px solid #fff2b1;box-shadow:0 12px 32px #171633bb,inset 0 0 16px #170d3466;position:relative;animation:wheelBreath 2s ease-in-out infinite}
+#vaultScreen .vaultWheel:before,#vaultScreen .vaultWheel:after{content:"";position:absolute;left:48%;top:8%;width:4%;height:84%;background:#ffefbd;border-radius:12px;box-shadow:2px 2px 3px #594169}
+#vaultScreen .vaultWheel:after{transform:rotate(60deg)}
+#vaultScreen .vaultWheel i{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:clamp(21px,4vw,50px);font-style:normal;font-weight:1000;color:#53335d;z-index:1}
+@keyframes wheelBreath{50%{filter:brightness(1.2);transform:scale(1.04)}}
+#vaultScreen .tapHint{position:absolute;z-index:4;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:linear-gradient(#ffe78d,#ffaf39);padding:12px 34px;border-radius:100px;border:4px solid #fff4bd;box-shadow:0 7px 0 #985161,0 0 25px #ffdb6a99;color:#542d70;font-weight:1000;font-size:clamp(18px,4vw,34px);letter-spacing:.08em;animation:hintBounce 1s ease-in-out infinite;white-space:nowrap;pointer-events:none}
+@keyframes hintBounce{50%{transform:translateX(-50%) translateY(-8px);filter:brightness(1.12)}}
+#vaultScreen.opened .vaultDoor{transform:perspective(1000px) rotateY(-105deg);filter:brightness(.6)}
+#vaultScreen.opened .vaultWheel{animation:none}
+#vaultScreen.opened .tapHint{display:none}
+#vaultScreen .vaultPrize{position:absolute;inset:0;z-index:5;display:none;align-items:center;justify-content:flex-end;flex-direction:column;gap:10px;padding-bottom:max(15px,env(safe-area-inset-bottom));pointer-events:none}
+#vaultScreen.opened .vaultPrize{display:flex;animation:appearPrize .65s ease both}
+@keyframes appearPrize{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+#vaultScreen .vaultPrize strong{font-size:clamp(20px,5vw,44px);color:#ffdc71;text-shadow:0 3px 9px #000}
+#vaultScreen .vaultPrize button{pointer-events:auto;width:min(290px,80vw);border:3px solid #fff4bc;border-radius:18px;background:linear-gradient(#ffe27f,#ffc044);font-weight:1000;color:#4a306a;font-size:clamp(15px,3vw,22px);padding:12px;box-shadow:0 5px 0 #99516a}
+@media(max-height:420px){#vaultScreen .vaultTop{font-size:13px}#vaultScreen .tapHint{padding:8px 20px;font-size:17px}#vaultScreen .vaultPrize button{padding:7px}}
 </style></head>
 <body><canvas id="game"></canvas>
 <div id="menu"><div class="orb"></div><div class="panel"><div class="copy"><div class="small">★ ЯРКАЯ 2D-АРКАДА ★</div><div class="logo">БОЛЬШОЙ<br><strong>КУШ!</strong></div><p>Собирай деньги, открывай сейф и добегай до выхода. Только не попадись охранникам!</p><button id="playBtn" class="primary" type="button" onclick="window.startBigScore && window.startBigScore()"><span>▶</span> ИГРАТЬ <span>➜</span></button><div class="sub">● БЕЗ ИНТЕРНЕТА &nbsp; ● ДЛЯ ТЕЛЕФОНА</div></div>
@@ -16,6 +43,16 @@
 <div id="hud"><div class="pill" id="cash">0 / 0</div><div class="pill" id="hearts">♥ ♥ ♥</div><div id="status">БАНК 1</div></div><button id="pauseBtn" type="button" aria-label="Пауза">Ⅱ</button><div id="controls"><div id="stick"><div id="knob"></div></div><button id="take" type="button">ВЗЯТЬ</button></div><div id="toast"></div>
 <div id="paused" class="hidden"><div class="center"><h2>ПАУЗА</h2><p>Продолжить операцию?</p><button id="resume" class="primary" type="button">▶ ПРОДОЛЖИТЬ</button><button id="back" class="secondary" type="button">В МЕНЮ</button></div></div>
 <div id="ending" class="hidden"><div class="center"><h2 id="endTitle">ПОБЕДА!</h2><p id="endText"></p><button id="again" class="primary" type="button">↻ ИГРАТЬ СНОВА</button><button id="endMenu" class="secondary" type="button">В МЕНЮ</button></div></div>
+<section id="vaultScreen" class="hidden" aria-label="Большой сейф">
+  <div class="vaultTop">БОЛЬШОЙ КУШ • СЕЙФ</div>
+  <div class="vaultBox">
+    <div class="vaultInside"><span>💰</span><span>💎</span><span>💵</span></div>
+    <div class="vaultDoor"><div class="vaultWheel"><i>★</i></div></div>
+  </div>
+  <button class="vaultTap" id="vaultTap" type="button" aria-label="Нажми, чтобы открыть сейф"></button>
+  <div class="tapHint" id="tapHint">👆 НАЖМИ</div>
+  <div class="vaultPrize"><strong>СЕЙФ ОТКРЫТ!</strong><button id="vaultContinue" type="button">ЗАБРАТЬ КУШ ➜</button></div>
+</section>
 <script>
 (function(){
 'use strict';
@@ -26,14 +63,16 @@ function resize(){width=innerWidth;height=innerHeight;let d=Math.min(devicePixel
 function reset(){money=0;lives=3;inv=0;player.x=92;player.y=267;safe.open=false;notes=[{x:275,y:123,t:false},{x:340,y:377,t:false},{x:487,y:320,t:false},{x:715,y:414,t:false}];guards=[{x:461,y:230,p:1},{x:740,y:300,p:3.1}];axis.x=axis.y=0;hud()}
 function hud(){el('cash').textContent='▣ '+money+' / 400';el('hearts').textContent='♥ '.repeat(lives);el('status').textContent='БАНК '+level}
 function msg(t){el('toast').textContent=t;el('toast').style.display='block';clearTimeout(toastTimeout);toastTimeout=setTimeout(()=>{el('toast').style.display='none'},1500)}
-function begin(){level=1;reset();mode='play';visible('menu',false);visible('ending',false);visible('paused',false);gameUI(true);msg('Собери 4 пачки и открой сейф!')}
+function begin(){level=1;reset();mode='vault';visible('menu',false);visible('ending',false);visible('paused',false);visible('vaultScreen',true);el('vaultScreen').classList.remove('opened');el('vaultTap').disabled=false;gameUI(false)}
+function openVault(){if(mode!=='vault'||el('vaultScreen').classList.contains('opened'))return;el('vaultScreen').classList.add('opened');el('vaultTap').disabled=true}
+function continueVault(){if(mode!=='vault')return;visible('vaultScreen',false);safe.open=true;money=100;mode='play';gameUI(true);hud();msg('КУШ ВЗЯТ! ИЩИ ОСТАЛЬНЫЕ ДЕНЬГИ!')}
 function pause(){if(mode!=='play')return;mode='pause';visible('paused',true);gameUI(false)}
 function resume(){if(mode!=='pause')return;mode='play';visible('paused',false);gameUI(true);last=performance.now()}
-function menu(){mode='menu';gameUI(false);visible('menu',true);visible('ending',false);visible('paused',false);axis.x=axis.y=0}
+function menu(){visible('vaultScreen',false);mode='menu';gameUI(false);visible('menu',true);visible('ending',false);visible('paused',false);axis.x=axis.y=0}
 function finish(win){mode='end';gameUI(false);visible('ending',true);el('endTitle').textContent=win?'КУШ СОРВАН!':'ТЕБЯ ПОЙМАЛИ';el('endText').textContent=win?'Ты собрал деньги и выбрался из банка!':'Обойди охранников и попробуй ещё раз.'}
 function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
 function interact(){if(mode!=='play')return;if(dist(player,safe)<87&&!safe.open){safe.open=true;money+=100;hud();msg('СЕЙФ ОТКРЫТ! +100');return}if(dist(player,exit)<72){if(money>=500){finish(true)}else msg('Сначала собери все деньги и открой сейф!');return}msg('Подойди к сейфу или выходу')}
-window.startBigScore=begin;el('playBtn').addEventListener('click',begin);el('pauseBtn').onclick=pause;el('resume').onclick=resume;el('back').onclick=menu;el('again').onclick=begin;el('endMenu').onclick=menu;el('take').onclick=interact;
+el('vaultTap').addEventListener('click',openVault);el('vaultContinue').addEventListener('click',continueVault);window.startBigScore=begin;el('playBtn').addEventListener('click',begin);el('pauseBtn').onclick=pause;el('resume').onclick=resume;el('back').onclick=menu;el('again').onclick=begin;el('endMenu').onclick=menu;el('take').onclick=interact;
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;if([' ','arrowup','arrowdown','arrowleft','arrowright'].includes(e.key.toLowerCase()))e.preventDefault();if(e.key.toLowerCase()==='e'||e.key===' ')interact();if(e.key==='Escape'){if(mode==='play')pause();else if(mode==='pause')resume()}});addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
 const stick=el('stick'),knob=el('knob');function moveStick(e){const r=stick.getBoundingClientRect(),dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2,m=Math.hypot(dx,dy)||1,limit=r.width*.31,k=Math.min(1,limit/m);axis.x=dx*k/limit;axis.y=dy*k/limit;knob.style.transform='translate(calc(-50% + '+dx*k+'px),calc(-50% + '+dy*k+'px))'}
 stick.addEventListener('pointerdown',e=>{e.preventDefault();pointer=e.pointerId;try{stick.setPointerCapture(e.pointerId)}catch(_){}moveStick(e)});stick.addEventListener('pointermove',e=>{if(pointer===e.pointerId)moveStick(e)});function stop(e){if(pointer!==e.pointerId)return;pointer=null;axis.x=axis.y=0;knob.style.transform='translate(-50%,-50%)'}stick.addEventListener('pointerup',stop);stick.addEventListener('pointercancel',stop);
