@@ -220,6 +220,186 @@ button{font:inherit;cursor:pointer}
 #present .van{filter:drop-shadow(0 8px 12px #11172a66)}
 @media(max-height:480px){#present .dialogue{bottom:77px;font-size:15px;padding:8px 13px;gap:2px}#present.choosing .dialogue{bottom:78px}#present .dialogue .speaker{font-size:11px}#present .choices button{min-height:48px}}
 @media(max-width:550px) and (orientation:portrait){#present .dialogue{bottom:165px}#present.choosing .dialogue{bottom:165px}#present .choices{flex-direction:column}#present .choices button{min-height:64px}}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#0a1020;color:#fff;font-family:system-ui,-apple-system,Arial,sans-serif;user-select:none;touch-action:manipulation}button:active{transform:translateY(3px)}.chapterScene{position:fixed;inset:0;display:none;overflow:hidden}.chapterScene.active{display:block}.sky{position:absolute;inset:0;background:radial-gradient(circle at 50% 36%,#344b6c,#111827 67%,#070b12)}.tag{position:absolute;top:max(14px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);white-space:nowrap;padding:10px 20px;border:2px solid #ffe19d;border-radius:16px;background:#101a31ec;color:#fbd98e;font-weight:1000;font-size:clamp(14px,2.7vw,22px);z-index:9}
+#ride{background:#111827}.rideWindow{position:absolute;top:13%;width:32%;height:33%;border:10px solid #5f6d83;border-radius:24px;background:linear-gradient(#7bc0e6 0 54%,#dcc599 55% 62%,#7d775f 63%);box-shadow:inset 0 0 30px #0a0e2044;overflow:hidden}.rideWindow.left{left:7%}.rideWindow.right{right:7%}.roadMove{position:absolute;bottom:0;left:-100%;width:220%;height:40%;background:repeating-linear-gradient(90deg,#516f60 0 38px,#c4ac70 38px 71px,#4a7567 71px 110px);animation:passing 1s linear infinite}@keyframes passing{to{transform:translateX(50%)}}.rail{position:absolute;left:0;right:0;top:0;height:9%;background:linear-gradient(#303d56,#171d2b);border-bottom:7px solid #485971}.side{position:absolute;bottom:0;width:12%;top:10%;background:linear-gradient(90deg,#313a4d,#101724)}.side.right{right:0;transform:scaleX(-1)}.bench{position:absolute;bottom:14%;left:12%;width:76%;height:19%;background:linear-gradient(#3c4963,#182237);border:8px solid #59677e;border-radius:20px}.bench:after{content:"";position:absolute;bottom:-22px;left:8%;width:84%;height:17px;background:#141b2c;border-radius:8px}.bagHero{position:absolute;left:50%;top:20%;transform:translateX(-50%);width:min(41vw,315px);height:63%;animation:bump 1.2s ease-in-out infinite;filter:drop-shadow(0 14px 12px #0008)}@keyframes bump{50%{transform:translate(-50%,3px)}}.bagHero svg{width:100%;height:100%}.subtitle{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:50%;width:min(720px,92vw);transform:translateX(-50%);border:2px solid #ffe19d;border-radius:18px;padding:13px;background:#111a32ee;text-align:center;font-size:clamp(14px,2vw,20px);font-weight:900}.skip{position:absolute;right:12px;top:max(65px,calc(env(safe-area-inset-top) + 53px));z-index:9;border:2px solid #fff4c0;background:#efc36e;color:#332744;padding:10px 15px;border-radius:14px;font-weight:1000}
+#trade{background:linear-gradient(#18243b 0%,#0b101b 70%)}.room{position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,#294d8050,transparent 65%)}.monitor{position:absolute;left:4%;top:9%;width:68%;height:67%;border:11px solid #303d51;border-radius:20px;background:#0b1424;box-shadow:0 20px 50px #0008;overflow:hidden}.monitorHead{height:43px;background:#152139;border-bottom:1px solid #425474;display:flex;justify-content:space-between;padding:12px 15px;color:#d0e2ff;font-weight:900;font-size:clamp(11px,1.5vw,15px)}.graph{position:absolute;top:43px;bottom:0;left:0;right:0;background-image:linear-gradient(#ffffff13 1px,transparent 1px),linear-gradient(90deg,#ffffff13 1px,transparent 1px);background-size:45px 45px}.graph svg{width:100%;height:100%}.monitorFoot{position:absolute;left:25%;bottom:1%;width:26%;height:13px;border-radius:20px;background:#344256}.desk{position:absolute;bottom:0;left:0;width:100%;height:20%;background:linear-gradient(#655045,#352720);border-top:10px solid #876d5c}.hands{position:absolute;left:15%;bottom:5%;width:46%;height:14%;display:flex;justify-content:space-between;pointer-events:none}.hand{width:29%;height:100%;background:#e0b093;border:5px solid #ae796d;border-radius:65% 65% 30% 30%;transform:rotate(45deg)}.hand:last-child{transform:rotate(-45deg)}.mission{position:absolute;right:1.5%;top:9%;width:26%;background:#111e38f5;border:2px solid #ffe09b;border-radius:20px;padding:14px;box-shadow:0 10px 25px #0008}.mission h3{margin:0 0 7px;color:#ffdf91;font-size:clamp(12px,1.5vw,16px);letter-spacing:.06em}.mission h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,27px);line-height:1.12}.mission p{margin:6px 0 11px;color:#dce5fa;line-height:1.35;font-size:clamp(13px,1.5vw,16px)}.attempt{font-weight:900;font-size:15px;color:#eacf9f;margin-bottom:11px}.buttons{display:flex;gap:9px}.vote{flex:1;min-width:0;min-height:56px;color:#fff;font-weight:1000;font-size:clamp(14px,1.6vw,20px);border:2px solid #fff1bd;border-radius:14px}.up{background:linear-gradient(#57bc83,#237d77)}.down{background:linear-gradient(#dd7384,#923e68)}.msg{font-weight:900;min-height:42px;margin-top:12px;color:#f9dba5;font-size:clamp(13px,1.5vw,17px)}.progress{width:100%;height:7px;border-radius:10px;background:#273b5e;overflow:hidden;margin:8px 0}.progress div{height:100%;width:0;background:#f8cc7a;transition:width .3s}.intro{color:#aebee0;font-size:12px;margin-top:6px}#end{background:#080b15;text-align:center;align-items:center;justify-content:center;padding:25px}#end.active{display:flex}.endInner{max-width:700px}.eyebrow{color:#ffd281;letter-spacing:.18em;font-size:17px;font-weight:1000}.headline{font-size:clamp(35px,7vw,75px);font-weight:1000;margin:15px 0}.desc{font-size:clamp(16px,2vw,24px);line-height:1.4;color:#e8edfc;margin-bottom:23px}.restart{border:2px solid #fff0bc;background:#f2c76d;color:#3a2a48;border-radius:15px;padding:13px 24px;font-weight:1000;font-size:17px}.black{position:fixed;inset:0;z-index:30;pointer-events:none;background:#02040a;opacity:0;transition:opacity .7s}.black.on{opacity:1}
+@media(max-width:760px){.monitor{left:3%;top:10%;width:94%;height:39%}.mission{left:3%;right:3%;top:auto;bottom:max(7px,env(safe-area-inset-bottom));width:94%;border-radius:15px;padding:10px 12px}.mission h2{font-size:18px;margin:3px 0}.mission p{font-size:13px;margin:4px 0}.mission h3{font-size:12px}.vote{min-height:46px}.msg{min-height:25px;margin-top:6px;font-size:13px}.attempt{margin-bottom:5px;font-size:13px}.monitorFoot{display:none}.hands{display:none}.rideWindow{top:15%;height:25%}.bagHero{width:53vw;height:52%;top:27%}.subtitle{font-size:13px}.tag{font-size:13px}}
+@media(max-height:470px){.mission{width:34%;right:1%;left:auto;top:11%;bottom:auto}.monitor{width:62%;height:69%;top:13%;left:2%}.mission h2{font-size:16px}.mission p{font-size:12px}.vote{font-size:12px;min-height:42px}.mission h3{font-size:11px}.msg{min-height:24px;font-size:12px}}
+
+/* Fullscreen cinematic animation pass — iPhone portrait and landscape */
+html,body{height:100%;height:100dvh;width:100vw;overscroll-behavior:none}
+.chapterScene{width:100vw;height:100vh;height:100dvh;inset:0}
+.chapterScene.active{animation:sceneAppear .7s ease-out both}
+@keyframes sceneAppear{from{opacity:.35;filter:brightness(.6)}to{opacity:1;filter:brightness(1)}}
+#ride .sky{animation:skyTravel 8s ease-in-out infinite alternate}
+@keyframes skyTravel{to{filter:hue-rotate(7deg) brightness(1.13)}}
+#ride .rail{animation:metalRattle .45s ease-in-out infinite alternate}
+@keyframes metalRattle{to{transform:translateY(2px)}}
+#ride .side{box-shadow:inset -12px 0 18px #080e1d88}
+#ride .rideWindow{animation:windowRattle .65s ease-in-out infinite alternate}
+@keyframes windowRattle{to{transform:translateY(2px)}}
+#ride .rideWindow:before{content:"";position:absolute;left:-130%;top:0;width:80%;height:100%;background:linear-gradient(110deg,transparent,#efffff3d,transparent);z-index:2;animation:windowLight 4.6s linear infinite}
+@keyframes windowLight{to{left:190%}}
+#ride .roadMove{animation:passing .65s linear infinite}
+#ride .bench{animation:benchShake .65s ease-in-out infinite alternate}
+@keyframes benchShake{to{transform:translateY(1.5px)}}
+#ride .bagHero svg{animation:swayBag 1.8s ease-in-out infinite alternate;transform-origin:center 55%}
+@keyframes swayBag{to{transform:rotate(2.5deg) translateY(3px)}}
+#ride .bagHero svg path:nth-of-type(8){animation:clothShift 2.3s ease-in-out infinite alternate}
+@keyframes clothShift{to{filter:brightness(1.12)}}
+#ride .tag,#trade .tag{animation:titleDescend .7s cubic-bezier(.2,.8,.25,1) both}
+@keyframes titleDescend{from{opacity:0;translate:0 -22px}to{opacity:1;translate:0 0}}
+#ride .subtitle{animation:captionReveal .8s ease .3s both}
+@keyframes captionReveal{from{opacity:0;transform:translate(-50%,18px)}to{opacity:1;transform:translate(-50%,0)}}
+#ride .skip{animation:skipPulse 2s ease-in-out infinite;touch-action:manipulation}
+@keyframes skipPulse{50%{box-shadow:0 0 0 8px #ffdb7730,0 7px 15px #0005}}
+#trade .room{animation:roomPulse 7s ease-in-out infinite alternate}
+@keyframes roomPulse{to{filter:brightness(1.32)}}
+#trade .monitor{animation:monitorOn .85s cubic-bezier(.2,.85,.3,1) both}
+@keyframes monitorOn{from{opacity:0;transform:scale(.965);filter:brightness(.4)}to{opacity:1;transform:scale(1);filter:brightness(1)}}
+#trade .graph{animation:screenGlow 3s ease-in-out infinite alternate}
+@keyframes screenGlow{to{filter:brightness(1.13)}}
+#trade .graph:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,#b9ebff07 0px,#b9ebff07 1px,transparent 2px,transparent 6px);pointer-events:none;animation:scanlines 8s linear infinite}
+@keyframes scanlines{to{background-position:0 30px}}
+#trade #chartPath{stroke-dasharray:1650;stroke-dashoffset:0;animation:chartDraw 2s ease-out both;transition:stroke .55s ease,filter .55s ease}
+@keyframes chartDraw{from{stroke-dashoffset:1650}to{stroke-dashoffset:0}}
+#trade #chartDot{animation:dotGlow 1.3s ease-in-out infinite;transform-origin:center;transform-box:fill-box;transition:cy .9s ease}
+@keyframes dotGlow{50%{opacity:.55;scale:1.3}}
+#trade .hands{animation:handsBreathe 2.7s ease-in-out infinite alternate}
+@keyframes handsBreathe{to{transform:translateY(3px)}}
+#trade .mission{animation:missionSlide .65s cubic-bezier(.2,.9,.25,1) both}
+@keyframes missionSlide{from{opacity:0;translate:30px 0}to{opacity:1;translate:0 0}}
+#trade .vote{transition:transform .16s,filter .2s,box-shadow .2s;touch-action:manipulation}
+#trade .vote:not(:disabled):active{filter:brightness(1.22);box-shadow:0 2px 0 #171c32}
+#trade .vote:disabled{opacity:.65;filter:saturate(.5)}
+#trade .msg{transition:color .25s}
+#trade .msg.good{color:#86f3ac;animation:msgPop .45s ease}
+#trade .msg.bad{color:#ffc0ba;animation:msgPop .45s ease}
+@keyframes msgPop{0%{scale:.94;opacity:.3}100%{scale:1;opacity:1}}
+#trade .progress div{transition:width .45s ease-out}
+#end .endInner{animation:endReveal .85s ease both}
+@keyframes endReveal{from{opacity:0;scale:.89;filter:blur(7px)}to{opacity:1;scale:1;filter:blur(0)}}
+#end .restart{animation:skipPulse 2.1s ease-in-out infinite}
+@media (orientation:portrait){
+ #ride .rideWindow{top:15%;height:23%;width:36%}
+ #ride .rideWindow.left{left:3%}
+ #ride .rideWindow.right{right:3%}
+ #ride .bagHero{top:30%;height:50%;width:min(64vw,360px)}
+ #ride .bench{bottom:14%;height:13%;left:7%;width:86%}
+ #ride .subtitle{bottom:max(12px,env(safe-area-inset-bottom));padding:12px 15px;font-size:clamp(14px,3.8vw,18px)}
+ #trade .monitor{left:3vw;width:94vw;top:max(54px,calc(env(safe-area-inset-top) + 43px));height:35dvh;border-width:8px;border-radius:16px}
+ #trade .monitorHead{height:34px;padding:9px;font-size:10px}
+ #trade .graph{top:34px}
+ #trade .mission{position:absolute;left:3vw;right:auto;top:auto;bottom:max(8px,env(safe-area-inset-bottom));width:94vw;padding:clamp(10px,2.5vh,18px);max-height:52dvh;overflow:auto;overscroll-behavior:contain}
+ #trade .mission h2{font-size:clamp(18px,4.6vw,23px)}
+ #trade .mission p{font-size:clamp(12px,3.1vw,16px);margin:5px 0}
+ #trade .attempt{font-size:clamp(13px,3.1vw,15px)}
+ #trade .vote{min-height:clamp(47px,7.5vh,64px);font-size:clamp(15px,3.8vw,20px)}
+ #trade .msg{min-height:28px}
+ #trade .intro{font-size:11px}
+ #trade .monitorFoot{display:none}
+ #trade .hands{display:none}
+ #trade .desk{height:20%}
+}
+@media (orientation:landscape) and (max-height:520px){
+ #ride .bagHero{height:67vh;top:14%}
+ #ride .rideWindow{top:16%;height:42%}
+ #ride .subtitle{bottom:8px;padding:8px 12px;font-size:13px}
+ #trade .tag{top:5px;font-size:12px;padding:6px 12px}
+ #trade .monitor{top:12%;height:76%;width:62%;left:2%}
+ #trade .mission{top:11%;height:auto;max-height:86%;overflow:auto;bottom:auto;right:1%;left:auto;width:34%;padding:8px 10px}
+ #trade .mission h2{font-size:16px}
+ #trade .mission p{font-size:12px;line-height:1.15}
+ #trade .vote{min-height:43px;font-size:13px}
+ #trade .msg{font-size:12px;min-height:22px}
+ #trade .intro{display:none}
+ #trade .monitorHead{height:30px;padding:7px}
+ #trade .graph{top:30px}
+}
+
+/* Smooth 60fps market visual, generated independently of the guess UI. */
+#graphBox{overflow:hidden;isolation:isolate;background:radial-gradient(circle at 50% 50%,#162844,#07111f 78%)}
+#marketCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#floatingPrice{position:absolute;right:7px;top:12%;background:#143756;color:#a9ffca;border:1px solid #5edcba;padding:7px 9px;border-radius:9px;font-size:clamp(11px,1.6vw,18px);font-weight:1000;letter-spacing:.025em;box-shadow:0 0 25px #38d3b555;transition:color .3s,border-color .3s;z-index:4}
+#floatingPrice.falling{color:#ffc4c4;border-color:#ff8fa2}
+#marketFlash{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .35s;background:#78edac23}
+#marketFlash.bad{background:#ff7b9b1b;opacity:1}
+#marketFlash.good{background:#78edac28;opacity:1}
+#trade .monitor{overflow:hidden}
+#trade .graph:after{display:none!important}
+#trade .mission{z-index:10}
+#trade .msg{padding:5px 0;line-height:1.3}
+#trade .msg.good{color:#9cffb9}
+#trade .msg.bad{color:#ffc6b7}
+#trade .vote:disabled{pointer-events:none}
+#end{position:fixed;overflow:hidden;background:radial-gradient(circle at 50% 36%,#253b54,#070b17 72%)}
+#confetti{position:absolute;inset:0;width:100%;height:100%;display:block}
+#end .endInner{position:relative;z-index:2;max-width:750px;background:#101b32d6;border:2px solid #f8d388;border-radius:25px;padding:clamp(20px,4vw,42px);box-shadow:0 22px 70px #0008}
+#end .endInner:before{content:"";position:absolute;inset:-3px;border-radius:27px;box-shadow:0 0 36px #f8c86c54;pointer-events:none;animation:winGlow 2.2s ease-in-out infinite alternate}
+@keyframes winGlow{to{box-shadow:0 0 75px #f8c86c99}}
+#end .headline{letter-spacing:.03em;animation:winTitle 1.1s cubic-bezier(.22,.9,.25,1) both}
+@keyframes winTitle{from{opacity:0;transform:translateY(35px) scale(.76);filter:blur(8px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+#end .eyebrow{animation:labelBlink 1s ease .2s both}
+@keyframes labelBlink{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.18em}}
+#end .desc{animation:descFade 1s ease .65s both}
+@keyframes descFade{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+#end .restart{animation:skipPulse 2s ease-in-out infinite;min-height:54px}
+@media(max-width:760px){#trade .monitor{height:34dvh}#trade .mission{max-height:53dvh;overflow-y:auto}#end .endInner{width:min(94vw,700px)}}
+@media(orientation:portrait) and (max-height:720px){#trade .monitor{height:30dvh}#trade .mission{max-height:55dvh}}
+
+
+/* Integrated post-market story (same document, never navigates away) */
+#phoneStage,#missionTwo{position:fixed;inset:0;z-index:16;overflow:hidden;background:#0b1020;color:#fff;font-family:system-ui,-apple-system,Arial,sans-serif}
+#phoneStage{display:none;align-items:center;justify-content:center;background:radial-gradient(circle at 70% 25%,#315278,#0b1120 66%)}
+#phoneStage.open{display:flex}
+#phoneStage:before{content:"";position:absolute;inset:0;background:linear-gradient(145deg,#47718c3d,transparent 45%),repeating-linear-gradient(95deg,transparent 0 92px,#ffffff08 92px 95px);animation:phoneBg 12s linear infinite}
+@keyframes phoneBg{to{background-position:90px 0}}
+#phoneStage .sleeve{position:absolute;bottom:-25vh;width:min(78vw,700px);height:30vh;background:#434c69;border-radius:48% 48% 0 0;filter:blur(2px)}
+#phoneBody{position:relative;width:min(86vw,340px,calc(80dvh * .52));height:min(80dvh,680px);border:9px solid #202b43;border-radius:39px;background:#0e1730;box-shadow:0 25px 90px #000b,0 0 0 3px #687997;overflow:hidden;transform:translateY(110vh) rotate(-17deg) scale(.7)}
+#phoneStage.open #phoneBody{animation:pullPhone 1.35s cubic-bezier(.13,.81,.23,1.07) both}
+@keyframes pullPhone{0%{transform:translateY(110vh) rotate(-17deg) scale(.7)}65%{transform:translateY(-20px) rotate(5deg) scale(1.02)}100%{transform:translateY(0) rotate(0) scale(1)}}
+#phoneBody:before{content:"";position:absolute;top:9px;left:50%;transform:translateX(-50%);width:90px;height:20px;background:#050810;border-radius:16px;z-index:10}
+#lockFace{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 38%,#7d65b9,#253c6e 48%,#101429);display:flex;flex-direction:column;align-items:center;padding:14% 10% 9%;text-align:center;transition:transform .65s ease,opacity .65s ease;z-index:3}
+#lockFace.unlocked{transform:translateY(-100%);opacity:0;pointer-events:none}
+#lockFace .lockClock{font-size:clamp(52px,10vw,72px);font-weight:200;margin:15% 0 0}
+#lockFace .lockDate{font-size:15px;letter-spacing:.09em;color:#f3e9ff}
+#lockFace .notification{margin-top:24%;width:100%;border-radius:15px;background:#f2f4ff33;border:1px solid #fff7;padding:12px;color:#fff;text-align:left;backdrop-filter:blur(7px)}
+#lockFace .notification b{display:block;font-size:13px;color:#f7d48c;margin-bottom:4px}
+#swipeArea{margin-top:auto;width:100%;min-height:76px;padding:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:5px;touch-action:none;cursor:pointer;font-weight:900;animation:swipeGlow 1.4s ease-in-out infinite alternate}
+#swipeArea:before{content:"";width:54px;height:6px;background:#fff;border-radius:15px}
+@keyframes swipeGlow{to{opacity:.55;transform:translateY(-5px)}}
+#phoneChat{position:absolute;inset:0;display:flex;flex-direction:column;padding-top:34px;background:#111b30}
+#phoneChat header{display:flex;align-items:center;gap:12px;padding:15px 14px;background:#24324f;border-bottom:1px solid #52617b}
+#phoneChat header .avatar{border-radius:100%;width:40px;height:40px;background:#52617b;display:grid;place-items:center;color:#fce19e;font-size:23px}
+#phoneChat header strong{font-size:18px}
+#phoneChat header small{display:block;color:#9dceac;font-size:11px}
+#chatScroll{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:15px 12px;display:flex;flex-direction:column;gap:11px}
+.chatBubble{max-width:91%;background:#263957;border-radius:14px 14px 14px 4px;padding:11px 12px;line-height:1.35;font-size:clamp(13px,2vw,16px);animation:chatPop .48s ease both;box-shadow:0 6px 12px #0003}
+.chatBubble.mine{margin-left:auto;background:#31625b;border-radius:14px 14px 4px 14px}
+@keyframes chatPop{from{opacity:0;transform:translateY(13px) scale(.93)}to{opacity:1;transform:translateY(0) scale(1)}}
+#chatChoices{padding:9px 11px max(12px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:8px;background:#17243e;border-top:1px solid #51617b;max-height:45%;overflow-y:auto}
+#chatChoices button{width:100%;background:linear-gradient(125deg,#5268a4,#384e86);color:#fff;border:1px solid #9eb6e4;border-radius:11px;min-height:43px;padding:8px 11px;font-size:clamp(12px,1.8vw,15px);font-weight:800;text-align:left;animation:chatPop .4s ease both}
+#missionTwo{display:none;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(circle at 30% 30%,#283e6a,#060b18 75%);padding:clamp(14px,3vw,32px)}
+#missionTwo.open{display:flex;animation:sceneAppear .7s ease both}
+#missionTwo .missionCard{width:min(790px,96vw);max-height:93dvh;overflow-y:auto;border:2px solid #edd081;border-radius:24px;background:#111b30ee;box-shadow:0 25px 80px #0009;padding:clamp(16px,3vw,29px)}
+#missionTwo h2{margin:5px 0 9px;font-size:clamp(25px,4vw,42px)}
+#missionTwo .kicker{color:#e8c783;font-size:13px;font-weight:1000;letter-spacing:.13em}
+#missionTwo .note{color:#b7c8e4;line-height:1.45;font-size:clamp(14px,2vw,19px)}
+#missionTwo .assetGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.assetCard{padding:clamp(10px,2vw,19px);border:2px solid #647c9f;border-radius:16px;background:#202f4b;color:#fff;min-height:144px;text-align:left;transition:transform .2s,background .2s,border-color .2s}
+.assetCard:active{transform:scale(.97)}
+.assetCard strong{display:block;font-size:clamp(17px,2.5vw,24px);margin-bottom:8px}
+.assetCard span{display:block;color:#e3e9fd;font-size:clamp(12px,1.8vw,16px);margin-top:6px}
+.assetCard em{font-style:normal;color:#d2b7ff}
+.assetCard.chosen{background:#2c5e5c;border-color:#a1f6bb;box-shadow:0 0 24px #6ac69b44}
+#submitAsset{background:linear-gradient(#ffe69a,#e7af56);border:2px solid #fff0c7;border-radius:13px;padding:13px 24px;color:#332646;font-size:19px;font-weight:1000;width:100%;min-height:54px}
+#submitAsset:disabled{opacity:.4}
+#secondFeedback{min-height:27px;margin-top:12px;color:#f9d6a6;font-weight:900}
+#missionTwo .status{display:flex;justify-content:space-between;gap:16px;font-weight:900;color:#d6c092;font-size:14px;margin:14px 0}
+#phoneCurtain{position:fixed;inset:0;z-index:21;background:#040710;opacity:0;pointer-events:none;transition:opacity .8s ease}
+#phoneCurtain.on{opacity:1}
+@media(max-width:580px){#missionTwo .assetGrid{gap:6px}#missionTwo .assetCard{min-height:130px;padding:9px 6px}#missionTwo .assetCard strong{font-size:16px}#missionTwo .assetCard span{font-size:11px}#missionTwo .missionCard{padding:14px}#phoneBody{max-height:78dvh}}
+
 </style>
 <script>
 var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('present').classList.add('hide');document.getElementById('present').classList.remove('arrived','unload','speaking','choosing');document.getElementById('timeCard').classList.remove('visible');document.getElementById('endingCut').classList.remove('visible');document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
@@ -265,7 +445,7 @@ after(11900,function(){document.getElementById('present').classList.add('unload'
 after(13200,function(){document.getElementById('present').classList.add('speaking')});
 after(15000,function(){document.getElementById('present').classList.add('choosing')});}
 function previewPresent(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('present').classList.remove('hide');after(450,function(){document.getElementById('present').classList.add('arrived')});after(1800,function(){document.getElementById('present').classList.add('unload')});after(3300,function(){document.getElementById('present').classList.add('speaking')});after(4600,function(){document.getElementById('present').classList.add('choosing')});}
-function chooseEnding(choice){const p=document.getElementById('present');if(!p.classList.contains('choosing'))return;p.classList.remove('choosing');if(choice==='yes'){document.getElementById('endingKicker').textContent='ГЛАВА 1';document.getElementById('endingTitle').textContent='СТАНОВЛЕНИЕ';after(250,function(){document.getElementById('endingCut').classList.add('visible')});after(2100,function(){location.href='./chapter1.html?v=0c66d866'})}else{document.getElementById('endingKicker').textContent='КОНЦОВКА 1';document.getElementById('endingTitle').textContent='ОТКАЗ';after(600,function(){document.getElementById('endingCut').classList.add('visible')})}}
+function chooseEnding(choice){const p=document.getElementById('present');if(!p.classList.contains('choosing'))return;p.classList.remove('choosing');if(choice==='yes'){document.getElementById('endingKicker').textContent='ГЛАВА 1';document.getElementById('endingTitle').textContent='СТАНОВЛЕНИЕ';after(250,function(){document.getElementById('endingCut').classList.add('visible')});after(1850,function(){document.getElementById('endingCut').classList.remove('visible');window.startIntegratedChapter()})}else{document.getElementById('endingKicker').textContent='КОНЦОВКА 1';document.getElementById('endingTitle').textContent='ОТКАЗ';after(600,function(){document.getElementById('endingCut').classList.add('visible')})}}
 function backToMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide')}
 function resetVault(){startVault()}
 function goMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
@@ -279,7 +459,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
    <div class="logo">БОЛЬШОЙ<br><b>КУШ!</b></div>
    <p class="intro">Перед тобой огромный сейф. Открой его одним нажатием и забери сокровища!</p>
    <button id="playBtn" class="bigbutton" type="button" onclick="startVault()">▶ ИГРАТЬ ➜</button>
-   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D &nbsp; ● СЦЕНА 2</div><button type="button" onclick="location.href='./chapter1.html?v=0c66d866'" style="margin-top:8px;margin-left:6px;background:#e3bd78;color:#352744;border:2px solid #fff4bd;border-radius:12px;padding:11px 16px;font-weight:1000">ГЛАВА 1 • БИРЖА ➜</button><button type="button" onclick="previewPresent()" style="margin-top:8px;margin-left:6px;border:2px solid #fff0a9;background:#ffda7e;color:#443060;border-radius:12px;padding:11px 16px;font-weight:1000">СЦЕНА С ФУРГОНОМ ➜</button><button type="button" id="testScene" onclick="showCityDirect()" style="margin-top:12px;background:#ffffff20;border:1px solid #ffffff80;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">ПОСМОТРЕТЬ «ДЕНЬ НАЗАД»</button>
+   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D &nbsp; ● СЦЕНА 2</div><button type="button" onclick="window.startIntegratedChapter()" style="margin-top:8px;margin-left:6px;background:#e3bd78;color:#352744;border:2px solid #fff4bd;border-radius:12px;padding:11px 16px;font-weight:1000">ГЛАВА 1 • БИРЖА ➜</button><button type="button" onclick="previewPresent()" style="margin-top:8px;margin-left:6px;border:2px solid #fff0a9;background:#ffda7e;color:#443060;border-radius:12px;padding:11px 16px;font-weight:1000">СЦЕНА С ФУРГОНОМ ➜</button><button type="button" id="testScene" onclick="showCityDirect()" style="margin-top:12px;background:#ffffff20;border:1px solid #ffffff80;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">ПОСМОТРЕТЬ «ДЕНЬ НАЗАД»</button>
   </div>
   <svg class="art" viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" aria-label="Нарисованный банк и персонаж">
    <ellipse cx="260" cy="407" rx="215" ry="21" fill="#221045" opacity=".4"/>
@@ -457,4 +637,237 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <div class="endingKicker" id="endingKicker"></div>
 <div class="endingTitle" id="endingTitle"></div>
 <button type="button" onclick="backToMenu()">В ГЛАВНОЕ МЕНЮ</button>
-</section><div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div></body></html>
+</section><div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div>
+<div id="black" class="black"></div>
+<section id="ride" class="chapterScene"><div class="sky"></div><div class="rail"></div><div class="side"></div><div class="side right"></div><div class="rideWindow left"><div class="roadMove"></div></div><div class="rideWindow right"><div class="roadMove"></div></div><div class="bench"></div><div class="bagHero"><svg viewBox="0 0 230 400" xmlns="http://www.w3.org/2000/svg"><path d="M75 245L57 367h41l25-110m12-1 27 111h41l-19-128" fill="#344868" stroke="#26364b" stroke-width="7"/><path d="M60 360l-23 21q0 15 23 15h58v-19l-21-17m67 0-5 21q0 15 20 15h43l-21-36" fill="#e9e9e7" stroke="#26364b" stroke-width="6"/><path d="M67 143q47-25 94 0l22 114q-54 38-139 0Z" fill="#efc584" stroke="#685674" stroke-width="8"/><path d="M62 158q-25 26-27 98m137-99q25 26 26 95" stroke="#dfa989" stroke-width="26" fill="none" stroke-linecap="round"/><circle cx="35" cy="260" r="16" fill="#dfa989"/><circle cx="198" cy="257" r="16" fill="#dfa989"/><path d="M90 147v-18h29v19" fill="#dca58c"/><path d="M68 101q-5-72 47-77 58 2 62 76l-14 77q-52 23-89 0Z" fill="#ac8f67" stroke="#68563d" stroke-width="7"/><path d="M71 107q40-16 104 0m-92-53q24-16 63-3" fill="none" stroke="#c1ae86" stroke-width="6"/><path d="M81 178q40 15 79-2" fill="none" stroke="#554333" stroke-width="5"/></svg></div><div class="tag">ГЛАВА 1 • ПО ДОРОГЕ НА БАЗУ</div><button class="skip" onclick="openTrade()">ПРОПУСТИТЬ ➜</button><div class="subtitle">Фургон едет. Герой в мешке на голове пытается понять, куда его везут…</div></section>
+<section id="trade" class="chapterScene"><div class="room"></div><div class="tag">БИРЖА • ЗАДАНИЕ ДЛЯ НОВИКА</div><div class="monitor"><div class="monitorHead"><span>MPOL TERMINAL • MARKET</span><span id="marketStatus">НОВЫЙ ПРОГНОЗ</span></div><div class="graph" id="graphBox"><canvas id="marketCanvas" aria-label="Непрерывно движущийся график вымышленной биржи"></canvas><div id="floatingPrice" class="floatPrice">100.00</div><div id="marketFlash" class="marketFlash"></div></div></div><div class="monitorFoot"></div><div class="desk"></div><div class="hands"><div class="hand"></div><div class="hand"></div></div><aside class="mission"><h3>ЗАДАНИЕ №1 • НОВИЧОК</h3><h2>Биржа пойдёт вверх или вниз?</h2><p>Угадай направление хотя бы один раз. У тебя <b>три попытки</b>. Каждый прогноз — новый раунд.</p><div id="attempts" class="attempt">ПОПЫТКИ: ● ● ●</div><div class="progress"><div id="bar"></div></div><div class="buttons"><button id="btnDown" class="vote down" onclick="guess('down')">↘ УПАДЁТ</button><button id="btnUp" class="vote up" onclick="guess('up')">↗ ВЫРАСТЕТ</button></div><div id="msg" class="msg">Выбери прогноз.</div><div class="intro">Вымышленная биржа • график движется непрерывно • 3 прогноза</div></aside></section>
+<section id="end" class="chapterScene"><canvas id="confetti" aria-hidden="true"></canvas><div class="endInner"><div id="endKick" class="eyebrow"></div><div id="endTitle" class="headline"></div><div id="endDesc" class="desc"></div><button class="restart" onclick="restart()">↻ ИГРАТЬ ЕЩЁ</button></div></section>
+
+<section id="phoneStage" aria-label="Телефон и сообщения от Незнакомца">
+<div class="sleeve"></div>
+<div id="phoneBody">
+ <div id="phoneChat">
+  <header><div class="avatar">?</div><div><strong>Незнакомец</strong><small>в сети • зашифрованный канал</small></div></header>
+  <div id="chatScroll"></div>
+  <div id="chatChoices"></div>
+ </div>
+ <div id="lockFace"><div class="lockClock">09:41</div><div class="lockDate">Сегодня • новое сообщение</div>
+  <div class="notification"><b>НЕИЗВЕСТНЫЙ ОТПРАВИТЕЛЬ</b>Ты прошёл первое испытание. Открой сообщения.</div>
+  <div id="swipeArea">↑ СМАХНИ ВВЕРХ, ЧТОБЫ ОТКРЫТЬ</div>
+ </div>
+</div>
+</section>
+<section id="missionTwo" aria-label="Второе задание Новичка">
+<div class="missionCard"><div class="kicker">ГЛАВА 1 • ЗАДАНИЕ 02</div>
+<h2>Найди безопасный актив</h2>
+<div class="note">Незнакомец дал тебе три вымышленных актива. Выбери актив с <b>наименьшим риском</b>, а не самой большой прибылью. У тебя две попытки.</div>
+<div class="assetGrid">
+<button class="assetCard" type="button" onclick="window.chooseAsset('NORD',this)"><strong>NORD</strong><span>Рост: +2,4%</span><span>Риск: <em>6 / 10</em></span></button>
+<button class="assetCard" type="button" onclick="window.chooseAsset('ARK',this)"><strong>ARK</strong><span>Рост: +8,1%</span><span>Риск: <em>9 / 10</em></span></button>
+<button class="assetCard" type="button" onclick="window.chooseAsset('SOL',this)"><strong>SOL</strong><span>Рост: +1,1%</span><span>Риск: <em>2 / 10</em></span></button>
+</div>
+<div class="status"><span id="trustStatus">Доверие: —</span><span id="secondTries">Попытки: 2</span></div>
+<button type="button" id="submitAsset" onclick="window.submitAsset()" disabled>ПОДТВЕРДИТЬ ВЫБОР</button>
+<div id="secondFeedback">Выбери один актив.</div></div>
+</section>
+<div id="phoneCurtain"></div><script>
+(function(){
+
+
+var phase='inactive',tries=0,locked=false,roundAnswer='up',price=100,priceTarget=100,drift=0;
+var points=[], lastFrame=0,accum=0,roundMotion=null,raf=0,clock=0;
+var canvas=document.getElementById('marketCanvas'),ctx=canvas.getContext('2d');
+var confettiCanvas=document.getElementById('confetti'),confettiCtx=confettiCanvas.getContext('2d');
+var confettiBits=[],confettiFrame=0,transitioning=false,ended=false,rideTimer=null;
+var lastGuessPrice=100,roundIndex=0;
+function el(id){return document.getElementById(id)}
+function show(id){document.querySelectorAll('.chapterScene').forEach(function(n){n.classList.remove('active')});el(id).classList.add('active');phase=id}
+function dim(next){if(transitioning)return;transitioning=true;el('black').classList.add('on');setTimeout(function(){next();el('black').classList.remove('on');transitioning=false},760)}
+function resizeCanvas(){
+ var r=canvas.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
+ if(r.width>0&&r.height>0&&(canvas.width!==Math.round(r.width*d)||canvas.height!==Math.round(r.height*d))){
+  canvas.width=Math.round(r.width*d);canvas.height=Math.round(r.height*d);
+ }
+}
+function startRound(){
+ roundAnswer=Math.random()<.5?'up':'down';roundIndex++;
+ el('marketStatus').textContent='РАУНД '+roundIndex+' • LIVE';
+ el('msg').className='msg';el('msg').textContent='Сделай прогноз: вырастет или упадёт?';
+ el('btnDown').disabled=false;el('btnUp').disabled=false;
+ locked=false;roundMotion=null;lastGuessPrice=price;
+ el('marketFlash').className='marketFlash';
+}
+function openTrade(){
+ if(phase!=='ride'||transitioning)return;
+ clearTimeout(rideTimer);
+ dim(function(){show('trade');resizeCanvas();startRound()});
+}
+function updateAttempts(){
+ el('attempts').textContent='ПОПЫТКИ: '+('● '.repeat(tries))+('○ '.repeat(3-tries))+' ('+(3-tries)+' осталось)';
+ el('bar').style.width=(tries/3*100)+'%';
+}
+function eased(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2}
+function guess(direction){
+ if(phase!=='trade'||locked||ended)return;
+ locked=true;tries++;updateAttempts();
+ el('btnDown').disabled=true;el('btnUp').disabled=true;
+ roundMotion={start:performance.now(),duration:1950,from:price,direction:roundAnswer,done:false,correct:direction===roundAnswer};
+ el('marketStatus').textContent='ПРОВЕРКА ПРОГНОЗА…';
+ el('msg').className='msg';el('msg').textContent='Биржа движется… результат через мгновение.';
+}
+function finalizeRound(){
+ if(!roundMotion||roundMotion.done)return;
+ roundMotion.done=true;
+ var good=roundMotion.correct;
+ el('marketFlash').className='marketFlash '+(good?'good':'bad');
+ el('marketStatus').textContent=roundAnswer==='up'?'РЫНОК ВЫРОС ↑':'РЫНОК УПАЛ ↓';
+ el('msg').className='msg '+(good?'good':'bad');
+ el('msg').textContent=good?'ВЕРНО! Прогноз принят, первое задание пройдено.':'НЕВЕРНО. Биржа пошла в другую сторону.';
+ if(good){setTimeout(function(){finish(true)},1700)}
+ else if(tries>=3){setTimeout(function(){finish(false)},1700)}
+ else{setTimeout(function(){startRound()},1750)}
+}
+function tickPrice(now,dt){
+ if(phase!=='trade')return;
+ if(roundMotion&&!roundMotion.done){
+  var m=roundMotion,p=Math.min(1,(now-m.start)/m.duration),goal=m.from*(m.direction==='up'?1.13:.87);
+  var expected=m.from+(goal-m.from)*eased(p);
+  price+=(expected-price)*Math.min(1,dt/80);
+  if(p>=1){price=goal;finalizeRound()}
+ }else{
+  drift+=(Math.random()-.5)*.18;
+  drift=Math.max(-.4,Math.min(.4,drift));
+  price+=(drift*dt/1000)+Math.sin(now/730)*dt/1800;
+ }
+ price=Math.max(15,price);
+ accum+=dt;
+ while(accum>52){points.push(price);if(points.length>105)points.shift();accum-=52}
+ el('floatingPrice').textContent=price.toFixed(2);
+ el('floatingPrice').classList.toggle('falling',points.length>2&&price<points[Math.max(0,points.length-12)]);
+}
+function paintChart(){
+ if(phase!=='trade')return;
+ resizeCanvas();var w=canvas.width,h=canvas.height;if(!w||!h)return;
+ ctx.clearRect(0,0,w,h);
+ var d=Math.min(window.devicePixelRatio||1,2);
+ ctx.strokeStyle='#ffffff14';ctx.lineWidth=d;
+ for(var x=0;x<w;x+=52*d){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+ for(var y=0;y<h;y+=44*d){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+ if(points.length<2)return;
+ var low=Math.min.apply(null,points),high=Math.max.apply(null,points),pad=Math.max((high-low)*.32,1.6);
+ low-=pad;high+=pad;
+ var step=w/104,startedAt=w-(points.length-1)*step, coords=[];
+ for(var i=0;i<points.length;i++)coords.push({x:startedAt+i*step,y:h-(points[i]-low)/(high-low)*h});
+ var green=coords[coords.length-1].y<=coords[Math.max(0,coords.length-8)].y;
+ var shade=ctx.createLinearGradient(0,0,0,h);
+ shade.addColorStop(0,green?'#62e7a350':'#eb678350');shade.addColorStop(1,'#00000000');
+ ctx.beginPath();ctx.moveTo(coords[0].x,h);
+ for(var j=0;j<coords.length;j++)ctx.lineTo(coords[j].x,coords[j].y);
+ ctx.lineTo(coords[coords.length-1].x,h);ctx.closePath();ctx.fillStyle=shade;ctx.fill();
+ ctx.beginPath();for(var k=0;k<coords.length;k++){if(k===0)ctx.moveTo(coords[k].x,coords[k].y);else ctx.lineTo(coords[k].x,coords[k].y)}
+ ctx.strokeStyle=green?'#78f1b1':'#ff8e9e';ctx.lineWidth=3*d;ctx.lineJoin='round';ctx.lineCap='round';ctx.shadowColor=ctx.strokeStyle;ctx.shadowBlur=10*d;ctx.stroke();ctx.shadowBlur=0;
+ var p=coords[coords.length-1];
+ ctx.beginPath();ctx.arc(p.x,p.y,5*d,0,Math.PI*2);ctx.fillStyle='#fff6ca';ctx.fill();
+ ctx.beginPath();ctx.moveTo(0,p.y);ctx.lineTo(w,p.y);ctx.strokeStyle='#ffffff39';ctx.setLineDash([5*d,6*d]);ctx.lineWidth=d;ctx.stroke();ctx.setLineDash([]);
+}
+function animationLoop(t){
+ if(!lastFrame)lastFrame=t;var dt=Math.max(0,Math.min(50,t-lastFrame));lastFrame=t;
+ tickPrice(t,dt);paintChart();
+ raf=requestAnimationFrame(animationLoop);
+}
+function fillConfetti(){
+ var r=confettiCanvas.getBoundingClientRect(),d=Math.min(window.devicePixelRatio||1,2);
+ confettiCanvas.width=Math.round(r.width*d);confettiCanvas.height=Math.round(r.height*d);
+ confettiBits=[];for(var i=0;i<105;i++)confettiBits.push({x:Math.random()*confettiCanvas.width,y:-Math.random()*confettiCanvas.height,vy:(1+Math.random()*2.6)*d,vx:(Math.random()-.5)*1.5*d,size:(4+Math.random()*6)*d,rot:Math.random()*6,color:['#ffda6a','#7ef2b3','#ff9bb3','#9ad6ff'][i%4]});
+}
+function animateConfetti(){
+ if(phase!=='end'||!ended||!confettiBits.length)return;
+ var w=confettiCanvas.width,h=confettiCanvas.height;confettiCtx.clearRect(0,0,w,h);
+ for(var i=0;i<confettiBits.length;i++){var p=confettiBits[i];p.x+=p.vx+Math.sin(p.y/55)*.45;p.y+=p.vy;p.rot+=.035;if(p.y>h+15){p.y=-20;p.x=Math.random()*w}
+ confettiCtx.save();confettiCtx.translate(p.x,p.y);confettiCtx.rotate(p.rot);confettiCtx.fillStyle=p.color;confettiCtx.fillRect(-p.size/2,-p.size/2,p.size,p.size*.55);confettiCtx.restore()}
+ confettiFrame=requestAnimationFrame(animateConfetti);
+}
+function finish(win){
+ if(ended)return;ended=true;
+ dim(function(){
+   show('end');
+   el('endKick').textContent=win?'МИССИЯ ПРОЙДЕНА':'КОНЦОВКА 2';
+   el('endTitle').textContent=win?'ПОБЕДА!':'ПРОВАЛ';
+   el('endDesc').textContent=win?'Биржа угадана. Первый контракт выполнен.':'Все три прогноза неверны. Доступ закрыт.';
+   if(win){fillConfetti();cancelAnimationFrame(confettiFrame);animateConfetti();setTimeout(function(){window.startPhoneStory()},2750)}
+ });
+}
+function restart(){window.storyToMenu()}
+window.addEventListener('resize',function(){resizeCanvas();if(phase==='end'&&ended)fillConfetti()});
+updateAttempts();points=Array(105).fill(0).map(function(_,i){return 99.2+Math.sin(i/9)*2.4+Math.sin(i/4)*.7+i*.015});
+price=points[104];
+raf=requestAnimationFrame(animationLoop);
+/* initialized when chapter is entered */
+
+
+window.openTrade=openTrade;window.guess=guess;window.restart=restart;
+window.chapterLaunch=function(){if(phase==='ride'||phase==='trade')return;tries=0;ended=false;locked=false;transitioning=false;roundIndex=0;points=[];price=100;roundMotion=null;phase='inactive';updateAttempts();document.getElementById('black').classList.remove('on');show('ride');clearTimeout(rideTimer);rideTimer=setTimeout(openTrade,6100)};
+window.chapterClose=function(){clearTimeout(rideTimer);cancelAnimationFrame(confettiFrame);phase='inactive';document.querySelectorAll('.chapterScene').forEach(function(n){n.classList.remove('active')})};
+
+})();
+
+(function(){
+ var trust=0,answer='',secondTries=2,chatState=0,swipeFrom=null,stopped=false;
+ var timers=[];
+ function E(id){return document.getElementById(id)}
+ function later(ms,fn){var t=setTimeout(fn,ms);timers.push(t)}
+ function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+ function chat(text,mine){var x=document.createElement('div');x.className='chatBubble'+(mine?' mine':'');x.textContent=text;E('chatScroll').appendChild(x);E('chatScroll').scrollTop=E('chatScroll').scrollHeight}
+ function options(choices){var box=E('chatChoices');box.innerHTML='';choices.forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c.label;b.onclick=function(){box.innerHTML='';chat(c.label,true);trust+=c.trust;later(400,function(){c.act()})};box.appendChild(b)})}
+ function firstReply(){
+ chat('Ты не в своём городе. Тебя доставили на закрытую базу «Сектор 7». Здесь проверяют людей, умеющих принимать решения.',false);
+ later(700,function(){chat('У тебя был выбор у фургона. Ты согласился, и мы дали тебе простой биржевой тест. Но зачем тебя выбрали — ещё предстоит выяснить.',false);
+ options([
+ {label:'Где я? И как отсюда выбраться?',trust:0,act:explain},
+ {label:'Это похоже на похищение. Отпустите меня.',trust:-2,act:explain},
+ {label:'Я слушаю. Что вы от меня хотите?',trust:2,act:explain}
+ ])})
+ }
+ function explain(){
+ chat('Твои решения фиксируются. Чем больше доверия, тем больше ты узнаешь. Но никто не заставит тебя соглашаться с каждым приказом.',false);
+ later(700,function(){chat('Следующий шаг: выбрать самый безопасный актив. Самый большой рост — не всегда лучший выбор.',false);
+ options([
+ {label:'Я готов ко второму заданию.',trust:1,act:missionEntry},
+ {label:'Сначала скажи, кто ты на самом деле.',trust:-1,act:function(){chat('Пока называй меня Незнакомцем. Я тоже под наблюдением. Докажи, что можешь думать самостоятельно.',false);later(700,missionEntry)}},
+ {label:'Я буду выполнять задания, но проверю каждое условие.',trust:2,act:missionEntry}
+ ])})
+ }
+ function missionEntry(){chat('Задание 02 отправлено на терминал. Выбирай актив с минимальным риском. У тебя две попытки.',false);later(1200,function(){E('phoneCurtain').classList.add('on');later(750,function(){E('phoneStage').classList.remove('open');E('missionTwo').classList.add('open');E('phoneCurtain').classList.remove('on');E('trustStatus').textContent='Доверие: '+(trust>1?'высокое':trust>=0?'нейтральное':'низкое')})})}
+ function unlock(){if(E('lockFace').classList.contains('unlocked'))return;E('lockFace').classList.add('unlocked');later(420,function(){chat('НЕЗНАКОМЕЦ • защищённый канал',false);later(500,firstReply)})}
+ var swipe=E('swipeArea');
+ swipe.addEventListener('pointerdown',function(e){swipeFrom=e.clientY});
+ swipe.addEventListener('pointerup',function(e){if(swipeFrom!==null&&(swipeFrom-e.clientY>25||Math.abs(e.clientY-swipeFrom)<12))unlock();swipeFrom=null});
+ swipe.addEventListener('click',unlock);
+ E('lockFace').addEventListener('touchstart',function(e){swipeFrom=e.touches[0].clientY},{passive:true});
+ E('lockFace').addEventListener('touchend',function(e){if(swipeFrom!==null&&swipeFrom-e.changedTouches[0].clientY>35)unlock();swipeFrom=null},{passive:true});
+ window.startPhoneStory=function(){clearTimers();E('end').classList.remove('active');E('phoneStage').classList.add('open');E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';chatState=0;trust=0;answer='';secondTries=2;stopped=false};
+ window.chooseAsset=function(code,btn){if(stopped)return;answer=code;document.querySelectorAll('.assetCard').forEach(function(x){x.classList.remove('chosen')});btn.classList.add('chosen');E('submitAsset').disabled=false;E('secondFeedback').textContent='Выбран '+code+'. Подтверди ответ.'};
+ window.submitAsset=function(){if(stopped||!answer)return;E('submitAsset').disabled=true;secondTries--;E('secondTries').textContent='Попытки: '+secondTries;
+ if(answer==='SOL'){stopped=true;E('secondFeedback').textContent='Верно! SOL — риск 2 из 10, самый низкий.';trust+=1;later(1600,function(){showSecondEnding(true)})}
+ else if(secondTries<=0){stopped=true;E('secondFeedback').textContent='Неверно. Попытки закончились.';later(1600,function(){showSecondEnding(false)})}
+ else{E('secondFeedback').textContent='Слишком высокий риск. Ещё одна попытка.';answer='';document.querySelectorAll('.assetCard').forEach(function(x){x.classList.remove('chosen')})}};
+ function showSecondEnding(win){
+  E('phoneCurtain').classList.add('on');
+  later(700,function(){
+   E('missionTwo').classList.remove('open');window.chapterClose();
+   E('endingCut').classList.add('visible');
+   E('endingKicker').textContent=win?'ГЛАВА 1 ПРОЙДЕНА':'КОНЦОВКА 3';
+   E('endingTitle').textContent=win?(trust>=2?'ДОВЕРИЕ ЗАСЛУЖЕНО':'ПОД НАБЛЮДЕНИЕМ'):'НЕУДАЧНЫЙ ВЫБОР';
+   E('endingCut').querySelector('button').textContent='ПРОЙТИ ИСТОРИЮ СНОВА';
+   E('phoneCurtain').classList.remove('on');
+  })
+ }
+ window.storyToMenu=function(){
+ clearTimers();E('phoneStage').classList.remove('open');E('missionTwo').classList.remove('open');
+ E('phoneCurtain').classList.remove('on');window.chapterClose();window.backToMenu();
+ E('endingCut').querySelector('button').textContent='В ГЛАВНОЕ МЕНЮ';
+ };
+})();
+
+window.startIntegratedChapter=function(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('present').classList.add('hide');document.getElementById('endingCut').classList.remove('visible');window.chapterLaunch()};
+</script></body></html>
