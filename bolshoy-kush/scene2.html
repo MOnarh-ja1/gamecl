@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#44206f">
-<title>Большой куш — День назад (исправленная сцена)</title>
+<title>БОЛЬШОЙ КУШ — полная история</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#241349;color:white;font-family:system-ui,-apple-system,Arial,sans-serif;touch-action:manipulation;user-select:none}
@@ -845,7 +845,7 @@ window.chapterClose=function(){clearTimeout(rideTimer);cancelAnimationFrame(conf
  swipe.addEventListener('click',unlock);
  E('lockFace').addEventListener('touchstart',function(e){swipeFrom=e.touches[0].clientY},{passive:true});
  E('lockFace').addEventListener('touchend',function(e){if(swipeFrom!==null&&swipeFrom-e.changedTouches[0].clientY>35)unlock();swipeFrom=null},{passive:true});
- window.startPhoneStory=function(){clearTimers();E('end').classList.remove('active');E('phoneStage').classList.add('open');E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';chatState=0;trust=0;answer='';secondTries=2;stopped=false};
+ window.startPhoneStory=function(){clearTimers();window.chapterClose();E('end').classList.remove('active');E('phoneStage').classList.add('open');E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';chatState=0;trust=0;answer='';secondTries=2;stopped=false};
  window.chooseAsset=function(code,btn){if(stopped)return;answer=code;document.querySelectorAll('.assetCard').forEach(function(x){x.classList.remove('chosen')});btn.classList.add('chosen');E('submitAsset').disabled=false;E('secondFeedback').textContent='Выбран '+code+'. Подтверди ответ.'};
  window.submitAsset=function(){if(stopped||!answer)return;E('submitAsset').disabled=true;secondTries--;E('secondTries').textContent='Попытки: '+secondTries;
  if(answer==='SOL'){stopped=true;E('secondFeedback').textContent='Верно! SOL — риск 2 из 10, самый низкий.';trust+=1;later(1600,function(){showSecondEnding(true)})}
