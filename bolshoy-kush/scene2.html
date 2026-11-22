@@ -400,6 +400,36 @@ html,body{height:100%;height:100dvh;width:100vw;overscroll-behavior:none}
 #phoneCurtain.on{opacity:1}
 @media(max-width:580px){#missionTwo .assetGrid{gap:6px}#missionTwo .assetCard{min-height:130px;padding:9px 6px}#missionTwo .assetCard strong{font-size:16px}#missionTwo .assetCard span{font-size:11px}#missionTwo .missionCard{padding:14px}#phoneBody{max-height:78dvh}}
 
+
+/* Four-mission trust ranks, animated evidence files and HUD */
+#trustHUD{position:fixed;z-index:30;top:max(9px,env(safe-area-inset-top));right:max(9px,env(safe-area-inset-right));background:#0c1528ef;border:1.5px solid #ffd88c;border-radius:16px;padding:8px 11px;display:none;min-width:135px;max-width:44vw;box-shadow:0 9px 25px #0008;pointer-events:none}
+#trustHUD.visible{display:block;animation:hudEnter .5s cubic-bezier(.14,.8,.3,1) both}
+#trustHUD .trustStars{font-size:clamp(14px,2.5vw,21px);letter-spacing:2px;color:#ffd36d;white-space:nowrap}
+#trustHUD .trustRank{font-weight:900;font-size:clamp(11px,1.8vw,15px);color:#ffe3ac}
+#trustHUD .trustProgress{height:5px;background:#3c4b65;border-radius:5px;overflow:hidden;margin-top:5px}
+#trustHUD .trustProgress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#e9a458,#ffe78c);transition:width .65s}
+@keyframes hudEnter{from{opacity:0;transform:translateY(-22px)}to{opacity:1;transform:translateY(0)}}
+#trustToast{position:fixed;z-index:35;left:50%;top:19%;transform:translate(-50%,-24px) scale(.85);opacity:0;pointer-events:none;padding:15px 21px;background:linear-gradient(120deg,#554129,#1c3244);border:2px solid #ffdf8c;color:#fff0c1;border-radius:17px;font-weight:1000;font-size:clamp(14px,3vw,21px);box-shadow:0 14px 45px #0009;transition:opacity .4s,transform .4s;text-align:center;white-space:nowrap}
+#trustToast.show{opacity:1;transform:translate(-50%,0) scale(1)}
+#missionTwo .missionCard{width:min(900px,96vw);max-height:90dvh;overflow-y:auto}
+#missionTwo .missionCard::-webkit-scrollbar{width:5px}
+#missionTwo .missionCard::-webkit-scrollbar-thumb{background:#7688a8;border-radius:10px}
+.evidenceRow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:11px 0}
+.evidence{background:#10172a;border:2px solid #657ca0;border-radius:14px;padding:8px;overflow:hidden}
+.evidence svg{display:block;width:100%;height:auto;max-height:175px}
+.evidence .evidenceLabel{color:#e6ce91;font-size:clamp(11px,1.8vw,14px);font-weight:900;margin:0 0 5px}
+#missionTwo .assetGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#missionTwo .assetCard{min-height:94px}
+#missionTwo .missionStep{color:#ffd88a;font-size:13px;font-weight:900;letter-spacing:.06em}
+#missionTwo .missionCard .resultPulse{animation:resultPulse .6s ease-out both}
+@keyframes resultPulse{0%{filter:brightness(2);transform:scale(.94)}100%{filter:brightness(1);transform:scale(1)}}
+#missionTwo .missionNumber{color:#ffe19d;font-size:14px;font-weight:900}
+#phoneChat .chatEvidence{max-width:100%;background:#243550;border:1px solid #6683a1;border-radius:13px;padding:8px;animation:chatPop .5s ease both}
+#phoneChat .chatEvidence svg{width:100%;display:block;height:auto;max-height:165px}
+#phoneChat .chatEvidence strong{font-size:12px;color:#f9da9d}
+#phoneChat .chatEvidence small{font-size:11px;color:#c6d3ef}
+#phoneStage .trustMini{color:#ffe29b;font-size:12px}
+@media(max-width:580px){#missionTwo .missionCard{max-height:90dvh;padding:12px}#missionTwo .note{font-size:13px;line-height:1.3}#missionTwo h2{font-size:24px}#missionTwo .assetCard{min-height:80px}#missionTwo .assetCard strong{font-size:15px}#missionTwo .assetCard span{font-size:10px}#trustHUD{min-width:107px}#trustToast{max-width:90vw;white-space:normal}#missionTwo .evidence svg{max-height:125px}}
 </style>
 <script>
 var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('present').classList.add('hide');document.getElementById('present').classList.remove('arrived','unload','speaking','choosing');document.getElementById('timeCard').classList.remove('visible');document.getElementById('endingCut').classList.remove('visible');document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
@@ -670,7 +700,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <button type="button" id="submitAsset" onclick="window.submitAsset()" disabled>ПОДТВЕРДИТЬ ВЫБОР</button>
 <div id="secondFeedback">Выбери один актив.</div></div>
 </section>
-<div id="phoneCurtain"></div><script>
+<div id="phoneCurtain"></div><div id="trustHUD"><div id="trustStars" class="trustStars">◇ ◇ ◇ ◇</div><div id="trustRank" class="trustRank">Новичок</div><div class="trustProgress"><span id="trustFill"></span></div></div><div id="trustToast"></div><script>
 (function(){
 
 
@@ -811,62 +841,180 @@ window.chapterClose=function(){clearTimeout(rideTimer);cancelAnimationFrame(conf
 
 })();
 
+
 (function(){
- var trust=0,answer='',secondTries=2,chatState=0,swipeFrom=null,stopped=false;
- var timers=[];
- function E(id){return document.getElementById(id)}
- function later(ms,fn){var t=setTimeout(fn,ms);timers.push(t)}
- function clearTimers(){timers.forEach(clearTimeout);timers=[]}
- function chat(text,mine){var x=document.createElement('div');x.className='chatBubble'+(mine?' mine':'');x.textContent=text;E('chatScroll').appendChild(x);E('chatScroll').scrollTop=E('chatScroll').scrollHeight}
- function options(choices){var box=E('chatChoices');box.innerHTML='';choices.forEach(function(c){var b=document.createElement('button');b.type='button';b.textContent=c.label;b.onclick=function(){box.innerHTML='';chat(c.label,true);trust+=c.trust;later(400,function(){c.act()})};box.appendChild(b)})}
- function firstReply(){
- chat('Ты не в своём городе. Тебя доставили на закрытую базу «Сектор 7». Здесь проверяют людей, умеющих принимать решения.',false);
- later(700,function(){chat('У тебя был выбор у фургона. Ты согласился, и мы дали тебе простой биржевой тест. Но зачем тебя выбрали — ещё предстоит выяснить.',false);
+'use strict';
+var trust=1, chatTrust=0, awarded={1:true}, answered='', attempts=2, task=0, step=0, stage='none';
+var timers=[],swipeFrom=null,locked=false;
+function E(id){return document.getElementById(id)}
+function delay(ms,fn){var t=setTimeout(fn,ms);timers.push(t);return t}
+function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function rank(){return trust>=4?'Доверенное лицо':trust===3?'Аналитик':trust===2?'Стажёр':'Новичок'}
+function updateTrust(){
+ E('trustHUD').classList.add('visible');
+ E('trustStars').textContent=Array.from({length:4},function(_,i){return i<trust?'★':'☆'}).join(' ');
+ E('trustRank').textContent='ДОВЕРИЕ '+trust+'/4 • '+rank();
+ E('trustFill').style.width=(trust/4*100)+'%';
+ var existingStatus=E('trustStatus');if(existingStatus)existingStatus.textContent='Доверие: '+trust+'/4 • '+rank();
+}
+function toast(text){
+ E('trustToast').textContent=text;E('trustToast').classList.add('show');
+ delay(1900,function(){E('trustToast').classList.remove('show')});
+}
+function award(n){
+ if(awarded[n])return;awarded[n]=true;trust=Math.min(4,trust+1);
+ updateTrust();toast('★ ДОВЕРИЕ +1 · ЗАДАНИЕ '+n);
+ try{localStorage.setItem('kush_best_trust',String(Math.max(trust,Number(localStorage.getItem('kush_best_trust'))||0)))}catch(e){}
+}
+function bubble(message,own){var x=document.createElement('div');x.className='chatBubble'+(own?' mine':'');x.textContent=message;E('chatScroll').appendChild(x);E('chatScroll').scrollTop=E('chatScroll').scrollHeight}
+function photoSVG(kind){
+ var v=kind==='chart'?'<path d="M15 99 49 83 74 94 113 56 151 75 185 46 231 64 263 29" stroke="#6aedaf" stroke-width="5" fill="none"/><path d="M15 125 51 132 92 100 125 126 166 111 197 139 263 122" stroke="#fe97a5" stroke-width="4" fill="none"/>':kind==='spoof'?'<rect x="18" y="30" width="111" height="85" rx="7" fill="#1a4c49"/><path d="M26 98 42 86 58 64 83 48 112 35" stroke="#77ffb2" fill="none" stroke-width="4"/><rect x="151" y="30" width="111" height="85" rx="7" fill="#50343c"/><path d="M157 46 183 64 197 59 215 93 246 112" stroke="#ff8ea2" fill="none" stroke-width="4"/>':'<path d="M14 95 54 89 89 110 120 81 157 91 196 56 263 76" fill="none" stroke="#ffdb8a" stroke-width="5"/><path d="M14 123 54 121 89 119 120 127 157 125 196 131 263 128" fill="none" stroke="#79d9ba" stroke-width="3"/>';
+ return '<svg viewBox="0 0 280 150" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="278" height="148" rx="12" fill="#0b1728" stroke="#526989"/><g stroke="#2a3c59" stroke-width="1"><path d="M0 40h280M0 80h280M0 120h280M45 0v150M90 0v150M135 0v150M180 0v150M225 0v150"/></g>'+v+'</svg>'
+}
+function evidence(title,kind,sub){return '<div class="evidence"><div class="evidenceLabel">'+title+'</div>'+photoSVG(kind)+(sub?'<div class="missionStep">'+sub+'</div>':'')+'</div>'}
+function photoMessage(title,kind){
+ var p=document.createElement('div');p.className='chatEvidence';p.innerHTML='<strong>📎 '+title+'</strong>'+photoSVG(kind)+'<small>Изображение из терминала • Сектор 7</small>';
+ E('chatScroll').appendChild(p);E('chatScroll').scrollTop=E('chatScroll').scrollHeight;
+}
+function options(items){
+ var box=E('chatChoices');box.innerHTML='';
+ items.forEach(function(item){
+  var b=document.createElement('button');b.type='button';b.textContent=item.text;
+  b.onclick=function(){box.innerHTML='';bubble(item.text,true);chatTrust+=item.delta||0;delay(360,item.next)};
+  box.appendChild(b);
+ });
+}
+function firstChat(){
+ bubble('Ты на базе «Сектор 7». Фургон привёз тебя сюда после согласия работать с нашей группой.',false);
+ delay(750,function(){
+ bubble('У тебя 1 значок доверия за биржевой прогноз. После каждого задания получишь ещё один. Всего 4 ранга.',false);
  options([
- {label:'Где я? И как отсюда выбраться?',trust:0,act:explain},
- {label:'Это похоже на похищение. Отпустите меня.',trust:-2,act:explain},
- {label:'Я слушаю. Что вы от меня хотите?',trust:2,act:explain}
- ])})
+  {text:'Где я и почему меня выбрали?',delta:0,next:explain},
+  {text:'У меня есть вопросы к вашей организации.',delta:1,next:explain},
+  {text:'Хорошо. Покажи следующее задание.',delta:1,next:explain}
+ ]);
+ })
+}
+function explain(){
+ bubble('«Сектор 7» — вымышленная аналитическая группа. Мы проверяем осторожность, наблюдательность и умение сопоставлять факты.',false);
+ delay(600,function(){
+  bubble('Выполняй проверки, не гонись за цифрами. Твои ответы и решения будут влиять на финальную сцену.',false);
+  options([
+    {text:'Начать проверку рисков.',delta:1,next:function(){openTask(2)}},
+    {text:'Мне нужна информация, прежде чем решать.',delta:2,next:function(){bubble('Это разумно. Сейчас покажу данные каждого актива.',false);delay(650,function(){openTask(2)})}}
+  ]);
+ });
+}
+function transitionTo(scene){
+ E('phoneCurtain').classList.add('on');
+ delay(500,function(){
+  E('phoneStage').classList.toggle('open',scene==='phone');
+  E('missionTwo').classList.toggle('open',scene==='task');
+  E('phoneCurtain').classList.remove('on');
+ });
+}
+function returnChat(text,kind,next){
+ transitionTo('phone');
+ delay(780,function(){
+  bubble(text,false);
+  if(kind)photoMessage('Файл от Незнакомца',kind);
+  delay(560,function(){
+   options([{text:'Прочитать данные и начать следующий этап →',delta:1,next:next}]);
+  });
+ });
+}
+var tasks={
+ 2:{name:'Выбери минимальный риск',desc:'Три актива. Не путай доходность и риск. Ищем самый низкий риск. У тебя две попытки.',correct:'SOL',tries:2,items:[
+ {id:'NORD',desc:'Рост +2,4% • риск 6/10'},{id:'ARK',desc:'Рост +8,1% • риск 9/10'},{id:'SOL',desc:'Рост +1,1% • риск 2/10'}],
+ pictures:[['ОТЧЁТ ПО АКТИВАМ','chart','Риски: 6 / 9 / 2']]},
+ 3:{name:'Найди поддельный прогноз',desc:'Сравни скриншот отчёта с настоящими данными. Один отчёт обещает рост, но исходный график идёт вниз. Определи подозрительную метку. Ошибиться можно дважды.',correct:'ARK',tries:2,items:[
+ {id:'NORD',desc:'Отчёт: умеренный рост • график: растёт'},{id:'ARK',desc:'Отчёт: +15% • график: падает'},{id:'SOL',desc:'Отчёт: без роста • график: ровный'}],
+ pictures:[['СНИМОК 1 • РЕАЛЬНЫЕ ДАННЫЕ','spoof','Слева рост, справа падение'],['СНИМОК 2 • ОТЧЁТ','chart','Проверь несовпадение']]},
+ 4:{name:'Финальная проверка',desc:'Два последовательных шага: сначала найди устойчивый актив, затем проверь движение по второму снимку. На каждый шаг две попытки.',correct:'NORD',tries:2,items:[
+ {id:'NORD',desc:'Риск 3/10 • резерв 85%'},{id:'ARK',desc:'Риск 8/10 • резерв 30%'},{id:'SOL',desc:'Риск 5/10 • резерв 45%'}],
+ pictures:[['ДОКУМЕНТ А • РЕЗЕРВЫ','stable','Сравни риск и резерв'],['ДОКУМЕНТ Б • ГРАФИК','chart','Не доверяй только росту']]}
+};
+function openTask(n){
+ task=n;step=0;answered='';locked=false;attempts=tasks[n].tries;
+ E('phoneStage').classList.remove('open');transitionTo('task');renderTask();
+}
+function taskConfig(){
+ var t=tasks[task];
+ if(task===4&&step===1)return {name:'Подтверди движение',desc:'Второй этап. На снимке Б линия ближе к правому краю находится выше, чем слева. Какое направление показывает график?',correct:'UP',tries:2,items:[{id:'UP',desc:'↑ РОСТ • линия поднялась'},{id:'DOWN',desc:'↓ ПАДЕНИЕ • линия опустилась'},{id:'FLAT',desc:'→ БОКОВИК • без изменения'}],pictures:[['СНИМОК Б • КОНТРОЛЬНЫЙ ГРАФИК','chart','Слева ниже • справа выше']]};
+ return t
+}
+function renderTask(){
+ var t=taskConfig(),card=E('missionTwo').querySelector('.missionCard');
+ card.innerHTML='<div class="kicker">СЕКТОР 7 • ЗАДАНИЕ '+String(task).padStart(2,'0')+' / 04</div><h2>'+t.name+'</h2><p class="note">'+t.desc+'</p><div class="missionStep">ФАЙЛЫ ИЗ ПЕРЕПИСКИ</div><div class="evidenceRow">'+t.pictures.map(function(p){return evidence(p[0],p[1],p[2])}).join('')+'</div><div class="assetGrid" id="taskOptions">'+t.items.map(function(x){return '<button class="assetCard" type="button" data-choice="'+x.id+'"><strong>'+x.id+'</strong><span>'+x.desc+'</span></button>'}).join('')+'</div><div class="status"><span>★ '+trust+'/4 • '+rank()+'</span><span id="secondTries">Попытки: '+attempts+'</span></div><button id="submitAsset" type="button" disabled>ПОДТВЕРДИТЬ</button><div id="secondFeedback">Изучи файлы и выбери ответ.</div>';
+ var existingStatus=E('trustStatus');if(existingStatus)existingStatus.textContent='Доверие: '+trust+'/4 • '+rank();
+ card.querySelectorAll('.assetCard').forEach(function(btn){btn.addEventListener('click',function(){
+  if(locked)return;answered=btn.getAttribute('data-choice');
+  card.querySelectorAll('.assetCard').forEach(function(b){b.classList.remove('chosen')});btn.classList.add('chosen');
+  E('submitAsset').disabled=false;E('secondFeedback').textContent='Выбрано '+answered+'. Подтверди решение.';
+ })});
+ E('submitAsset').addEventListener('click',submitTask);
+}
+function submitTask(){
+ if(locked||!answered)return;locked=true;attempts--;E('submitAsset').disabled=true;
+ E('secondTries').textContent='Попытки: '+attempts;
+ var right=answered===taskConfig().correct;
+ if(right){
+  E('secondFeedback').textContent='ВЕРНО! Анализ принят.';
+  E('secondFeedback').classList.add('resultPulse');
+  if(task===4&&step===0){
+   delay(1050,function(){step=1;attempts=2;answered='';locked=false;renderTask()});
+  }else{
+   award(task);
+   delay(1200,function(){
+    if(task===2)returnChat('Задание 2 принято. Доверие повышено. Следующее сложнее: кто-то прислал поддельный рыночный отчёт.', 'spoof',function(){openTask(3)});
+    else if(task===3)returnChat('Отлично. Ты нашёл несоответствие между снимком и текстом. Последняя проверка состоит из двух частей.','stable',function(){openTask(4)});
+    else finishStory(true);
+   });
+  }
+ }else if(attempts===0){
+  E('secondFeedback').textContent='Попытки закончились. Испытание не пройдено.';
+  delay(1300,function(){finishStory(false)});
+ }else{
+  E('secondFeedback').textContent='Неверно. Сравни цифры и скриншоты ещё раз.';
+  answered='';locked=false;
+  document.querySelectorAll('#missionTwo .assetCard').forEach(function(x){x.classList.remove('chosen')});
  }
- function explain(){
- chat('Твои решения фиксируются. Чем больше доверия, тем больше ты узнаешь. Но никто не заставит тебя соглашаться с каждым приказом.',false);
- later(700,function(){chat('Следующий шаг: выбрать самый безопасный актив. Самый большой рост — не всегда лучший выбор.',false);
- options([
- {label:'Я готов ко второму заданию.',trust:1,act:missionEntry},
- {label:'Сначала скажи, кто ты на самом деле.',trust:-1,act:function(){chat('Пока называй меня Незнакомцем. Я тоже под наблюдением. Докажи, что можешь думать самостоятельно.',false);later(700,missionEntry)}},
- {label:'Я буду выполнять задания, но проверю каждое условие.',trust:2,act:missionEntry}
- ])})
- }
- function missionEntry(){chat('Задание 02 отправлено на терминал. Выбирай актив с минимальным риском. У тебя две попытки.',false);later(1200,function(){E('phoneCurtain').classList.add('on');later(750,function(){E('phoneStage').classList.remove('open');E('missionTwo').classList.add('open');E('phoneCurtain').classList.remove('on');E('trustStatus').textContent='Доверие: '+(trust>1?'высокое':trust>=0?'нейтральное':'низкое')})})}
- function unlock(){if(E('lockFace').classList.contains('unlocked'))return;E('lockFace').classList.add('unlocked');later(420,function(){chat('НЕЗНАКОМЕЦ • защищённый канал',false);later(500,firstReply)})}
- var swipe=E('swipeArea');
- swipe.addEventListener('pointerdown',function(e){swipeFrom=e.clientY});
- swipe.addEventListener('pointerup',function(e){if(swipeFrom!==null&&(swipeFrom-e.clientY>25||Math.abs(e.clientY-swipeFrom)<12))unlock();swipeFrom=null});
- swipe.addEventListener('click',unlock);
- E('lockFace').addEventListener('touchstart',function(e){swipeFrom=e.touches[0].clientY},{passive:true});
- E('lockFace').addEventListener('touchend',function(e){if(swipeFrom!==null&&swipeFrom-e.changedTouches[0].clientY>35)unlock();swipeFrom=null},{passive:true});
- window.startPhoneStory=function(){clearTimers();window.chapterClose();E('end').classList.remove('active');E('phoneStage').classList.add('open');E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';chatState=0;trust=0;answer='';secondTries=2;stopped=false};
- window.chooseAsset=function(code,btn){if(stopped)return;answer=code;document.querySelectorAll('.assetCard').forEach(function(x){x.classList.remove('chosen')});btn.classList.add('chosen');E('submitAsset').disabled=false;E('secondFeedback').textContent='Выбран '+code+'. Подтверди ответ.'};
- window.submitAsset=function(){if(stopped||!answer)return;E('submitAsset').disabled=true;secondTries--;E('secondTries').textContent='Попытки: '+secondTries;
- if(answer==='SOL'){stopped=true;E('secondFeedback').textContent='Верно! SOL — риск 2 из 10, самый низкий.';trust+=1;later(1600,function(){showSecondEnding(true)})}
- else if(secondTries<=0){stopped=true;E('secondFeedback').textContent='Неверно. Попытки закончились.';later(1600,function(){showSecondEnding(false)})}
- else{E('secondFeedback').textContent='Слишком высокий риск. Ещё одна попытка.';answer='';document.querySelectorAll('.assetCard').forEach(function(x){x.classList.remove('chosen')})}};
- function showSecondEnding(win){
-  E('phoneCurtain').classList.add('on');
-  later(700,function(){
-   E('missionTwo').classList.remove('open');window.chapterClose();
-   E('endingCut').classList.add('visible');
-   E('endingKicker').textContent=win?'ГЛАВА 1 ПРОЙДЕНА':'КОНЦОВКА 3';
-   E('endingTitle').textContent=win?(trust>=2?'ДОВЕРИЕ ЗАСЛУЖЕНО':'ПОД НАБЛЮДЕНИЕМ'):'НЕУДАЧНЫЙ ВЫБОР';
-   E('endingCut').querySelector('button').textContent='ПРОЙТИ ИСТОРИЮ СНОВА';
-   E('phoneCurtain').classList.remove('on');
-  })
- }
- window.storyToMenu=function(){
- clearTimers();E('phoneStage').classList.remove('open');E('missionTwo').classList.remove('open');
+}
+function finishStory(win){
+ E('phoneCurtain').classList.add('on');
+ delay(680,function(){
+  E('missionTwo').classList.remove('open');E('phoneStage').classList.remove('open');window.chapterClose();
+  E('endingCut').classList.add('visible');
+  E('endingKicker').textContent=win?'ЧЕТЫРЕ ЗАДАНИЯ ВЫПОЛНЕНЫ':'СЮЖЕТНАЯ КОНЦОВКА';
+  E('endingTitle').textContent=win?(chatTrust>=3?'ДОВЕРЕННЫЙ АНАЛИТИК':'НОВЫЙ СОТРУДНИК'):'ДОСТУП ЗАКРЫТ';
+  E('endingCut').querySelector('button').textContent='НАЧАТЬ ИСТОРИЮ ЗАНОВО';
+  E('phoneCurtain').classList.remove('on');
+ });
+}
+function unlock(){
+ if(E('lockFace').classList.contains('unlocked'))return;
+ E('lockFace').classList.add('unlocked');
+ delay(360,function(){bubble('НЕЗНАКОМЕЦ • защищённый канал',false);delay(530,firstChat)});
+}
+var swipe=E('swipeArea');
+swipe.addEventListener('pointerdown',function(e){swipeFrom=e.clientY});
+swipe.addEventListener('pointerup',function(e){if(swipeFrom!==null&&(swipeFrom-e.clientY>22||Math.abs(e.clientY-swipeFrom)<12))unlock();swipeFrom=null});
+swipe.addEventListener('click',unlock);
+E('lockFace').addEventListener('touchstart',function(e){swipeFrom=e.touches[0].clientY},{passive:true});
+E('lockFace').addEventListener('touchend',function(e){if(swipeFrom!==null&&swipeFrom-e.changedTouches[0].clientY>32)unlock();swipeFrom=null},{passive:true});
+window.startPhoneStory=function(){
+ clearTimers();window.chapterClose();E('end').classList.remove('active');E('phoneStage').classList.add('open');
+ E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';
+ trust=1;chatTrust=0;awarded={1:true};answered='';attempts=2;task=0;step=0;locked=false;
+ updateTrust();toast('★ ДОВЕРИЕ +1 · ЗАДАНИЕ 1');
+};
+window.chooseAsset=function(id,btn){if(locked)return;answered=id;document.querySelectorAll('#missionTwo .assetCard').forEach(function(x){x.classList.remove('chosen')});btn.classList.add('chosen');E('submitAsset').disabled=false};
+window.submitAsset=function(){submitTask()};
+window.storyToMenu=function(){
+ clearTimers();E('phoneStage').classList.remove('open');E('missionTwo').classList.remove('open');E('trustHUD').classList.remove('visible');E('trustToast').classList.remove('show');
  E('phoneCurtain').classList.remove('on');window.chapterClose();window.backToMenu();
  E('endingCut').querySelector('button').textContent='В ГЛАВНОЕ МЕНЮ';
- };
+};
 })();
 
 window.startIntegratedChapter=function(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('present').classList.add('hide');document.getElementById('endingCut').classList.remove('visible');window.chapterLaunch()};
