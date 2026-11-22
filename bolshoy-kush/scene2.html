@@ -203,6 +203,23 @@ button{font:inherit;cursor:pointer}
 #timeCard{position:fixed;inset:0;display:grid;place-items:center;background:#10121e;color:#f9e4a9;font-size:clamp(27px,6vw,74px);font-weight:1000;letter-spacing:.12em;z-index:22;opacity:0;pointer-events:none;transition:opacity .55s}
 #timeCard.visible{opacity:1}
 @media(max-height:440px){#present .dialogue{padding:9px 14px;font-size:15px}#present.choosing .dialogue{bottom:78px}#present .choices button{min-height:45px}}
+
+/* LEGIBILITY / RESPONSIVE PRESENT-DAY SCENE */
+#present{background:linear-gradient(#78badc 0%,#ffe1a4 58%,#7d8192 75%);font-family:system-ui,Arial,sans-serif}
+#present>svg{width:100%;height:100%;display:block;object-fit:contain;filter:drop-shadow(0 8px 8px #0d16332a)}
+#present .masked{opacity:0;transform:translate(120px,0);transition:opacity .5s linear,transform 1.2s cubic-bezier(.2,.72,.25,1)}
+#present.unload .masked{opacity:1;transform:translate(0,0)}
+#present .dialogue{z-index:4;bottom:clamp(85px,15vh,130px);display:flex;flex-direction:column;gap:7px;width:min(780px,93vw);padding:13px 18px;border:3px solid #ffdc82;background:#121d36f2;line-height:1.3;box-shadow:0 8px 35px #090d2488;font-size:clamp(16px,2.2vw,22px)}
+#present .dialogue .speaker{font-size:clamp(12px,1.7vw,16px);letter-spacing:.08em;color:#ffdf7a}
+#present .sceneLabel{font-size:clamp(18px,3vw,29px);background:#1f244bdc;border:2px solid #fff4bb;z-index:4}
+#present .choices{width:min(760px,94vw);z-index:5;bottom:max(11px,env(safe-area-inset-bottom))}
+#present .choices button{min-height:55px;font-size:clamp(15px,2.7vw,23px);border:3px solid #fff4cc;box-shadow:0 6px 0 #181b34a8}
+#present.choosing .dialogue{bottom:clamp(87px,17vh,135px)}
+#present .masked{filter:drop-shadow(0px 7px 5px #1921376c)}
+#present .heroNow{filter:drop-shadow(0 6px 6px #19213764)}
+#present .van{filter:drop-shadow(0 8px 12px #11172a66)}
+@media(max-height:480px){#present .dialogue{bottom:77px;font-size:15px;padding:8px 13px;gap:2px}#present.choosing .dialogue{bottom:78px}#present .dialogue .speaker{font-size:11px}#present .choices button{min-height:48px}}
+@media(max-width:550px) and (orientation:portrait){#present .dialogue{bottom:165px}#present.choosing .dialogue{bottom:165px}#present .choices{flex-direction:column}#present .choices button{min-height:64px}}
 </style>
 <script>
 var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('present').classList.add('hide');document.getElementById('present').classList.remove('arrived','unload','speaking','choosing');document.getElementById('timeCard').classList.remove('visible');document.getElementById('endingCut').classList.remove('visible');document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
@@ -243,10 +260,11 @@ function showHomeScene(){document.getElementById('city').classList.add('hide');d
 after(7100,function(){document.getElementById('timeCard').classList.add('visible')});
 after(8900,function(){document.getElementById('home').classList.add('hide');document.getElementById('present').classList.remove('hide')});
 after(9200,function(){document.getElementById('timeCard').classList.remove('visible')});
-after(9700,function(){document.getElementById('present').classList.add('arrived')});
-after(12100,function(){document.getElementById('present').classList.add('unload')});
-after(13800,function(){document.getElementById('present').classList.add('speaking')});
-after(16600,function(){document.getElementById('present').classList.add('choosing')});}
+after(9600,function(){document.getElementById('present').classList.add('arrived')});
+after(11900,function(){document.getElementById('present').classList.add('unload')});
+after(13200,function(){document.getElementById('present').classList.add('speaking')});
+after(15000,function(){document.getElementById('present').classList.add('choosing')});}
+function previewPresent(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('present').classList.remove('hide');after(450,function(){document.getElementById('present').classList.add('arrived')});after(1800,function(){document.getElementById('present').classList.add('unload')});after(3300,function(){document.getElementById('present').classList.add('speaking')});after(4600,function(){document.getElementById('present').classList.add('choosing')});}
 function chooseEnding(choice){const p=document.getElementById('present');if(!p.classList.contains('choosing'))return;p.classList.remove('choosing');const accepted=choice==='yes';document.getElementById('endingKicker').textContent=accepted?'ГЛАВА 1':'КОНЦОВКА 1';document.getElementById('endingTitle').textContent=accepted?'СТАНОВЛЕНИЕ':'ОТКАЗ';after(600,function(){document.getElementById('endingCut').classList.add('visible')})}
 function backToMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide')}
 function resetVault(){startVault()}
@@ -261,7 +279,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
    <div class="logo">БОЛЬШОЙ<br><b>КУШ!</b></div>
    <p class="intro">Перед тобой огромный сейф. Открой его одним нажатием и забери сокровища!</p>
    <button id="playBtn" class="bigbutton" type="button" onclick="startVault()">▶ ИГРАТЬ ➜</button>
-   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D &nbsp; ● СЦЕНА 2</div><button type="button" id="testScene" onclick="showCityDirect()" style="margin-top:12px;background:#ffffff20;border:1px solid #ffffff80;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">ПОСМОТРЕТЬ «ДЕНЬ НАЗАД»</button>
+   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D &nbsp; ● СЦЕНА 2</div><button type="button" onclick="previewPresent()" style="margin-top:8px;margin-left:6px;border:2px solid #fff0a9;background:#ffda7e;color:#443060;border-radius:12px;padding:11px 16px;font-weight:1000">СЦЕНА С ФУРГОНОМ ➜</button><button type="button" id="testScene" onclick="showCityDirect()" style="margin-top:12px;background:#ffffff20;border:1px solid #ffffff80;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">ПОСМОТРЕТЬ «ДЕНЬ НАЗАД»</button>
   </div>
   <svg class="art" viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" aria-label="Нарисованный банк и персонаж">
    <ellipse cx="260" cy="407" rx="215" ry="21" fill="#221045" opacity=".4"/>
@@ -387,7 +405,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 </svg>
 <div class="homeTitle">В ЭТО ВРЕМЯ • ДОМА</div><div class="homeShadow"></div><div class="impactBlink"></div><div class="endCard">ПРОДОЛЖЕНИЕ СЛЕДУЕТ…</div>
 </section><section id="present" class="hide" aria-label="Нынешний день, встреча у фургона">
-<svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
 <defs><linearGradient id="psky" x2="0" y2="1"><stop stop-color="#7dbfdc"/><stop offset="1" stop-color="#ffe0aa"/></linearGradient><linearGradient id="vanBlue" x2="0" y2="1"><stop stop-color="#556982"/><stop offset="1" stop-color="#25334b"/></linearGradient></defs>
 <rect width="1200" height="700" fill="url(#psky)"/><circle cx="973" cy="100" r="64" fill="#fff1bc"/>
 <path d="M0 455Q290 395 544 458T1200 431V700H0Z" fill="#b8a27d"/>
@@ -417,7 +435,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <circle cx="1018" cy="550" r="50" fill="#1c253a" stroke="#7e8b9c" stroke-width="14"/><circle cx="1018" cy="550" r="20" fill="#a8b8bf"/>
 <rect x="1074" y="441" width="20" height="30" rx="6" fill="#ffe7a5"/>
 </g>
-<g class="masked" transform="translate(710 165)">
+<g transform="translate(710 165)"><g class="masked">
 <path d="M75 268 57 425h61l35-152" fill="#222b3e" stroke="#151f31" stroke-width="7"/>
 <path d="M153 272l25 154h63l-36-163" fill="#263348" stroke="#151f31" stroke-width="7"/>
 <path d="M78 135q70-29 125 5l20 152q-79 31-167 0Z" fill="#262c3c" stroke="#121b2b" stroke-width="9"/>
@@ -428,10 +446,10 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <rect x="103" y="79" width="75" height="26" rx="10" fill="#4f5a6c"/><rect x="112" y="85" width="19" height="8" rx="3" fill="#b2bec3"/><rect x="150" y="85" width="19" height="8" rx="3" fill="#b2bec3"/>
 <path d="M111 139h60" stroke="#647182" stroke-width="6"/>
 <path d="M80 255l80-23 67 18" stroke="#111c2b" stroke-width="15" stroke-linecap="round" fill="none"/>
-</g>
+</g></g>
 </svg>
 <div class="sceneLabel">НЫНЕШНИЙ ДЕНЬ</div>
-<div class="dialogue">Либо ты работаешь на нас, либо тебе не выжить. Выбирай.</div>
+<div class="dialogue"><span class="speaker">НЕЗНАКОМЕЦ В МАСКЕ</span><span>«Либо ты работаешь на нас, либо тебе не выжить. Выбирай».</span></div>
 <div class="choices"><button type="button" id="decline" onclick="chooseEnding('no')">✕ ОТКАЗАТЬ</button><button type="button" id="accept" onclick="chooseEnding('yes')">✓ СОГЛАСИТЬСЯ</button></div>
 </section>
 <div id="timeCard">НЫНЕШНИЙ ДЕНЬ</div>
