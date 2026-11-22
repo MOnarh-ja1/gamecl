@@ -130,8 +130,8 @@ button{font:inherit;cursor:pointer}
 #city .duo>.handshake .joint{transform-origin:340px 255px}
 #city.handshakeNow .duo>.handshake .joint{animation:handShake 0.36s ease-in-out 4 alternate}
 @keyframes handShake{from{transform:translateY(-5px)}to{transform:translateY(6px)}}
-#city.handshakeNow .duo>svg:first-child .raiseRight{opacity:0}
-#city.handshakeNow .duo>svg:nth-child(2) .raiseLeft{opacity:0}
+#city.handshakeNow .duo>svg:first-child .raiseRight{opacity:1}
+#city.handshakeNow .duo>svg:nth-child(2) .raiseLeft{opacity:1}
 #city .duo>svg:first-child,#city .duo>svg:nth-child(2){transition:transform 2.4s ease-in-out,opacity 2.1s ease}
 #city.separate .duo>.handshake{opacity:0}
 #city.separate .duo>svg:first-child{transform:translateX(-100vw);opacity:0}
@@ -139,9 +139,28 @@ button{font:inherit;cursor:pointer}
 #city.celebrate .duo .raiseLeft,#city.celebrate .duo .raiseRight{transform:none!important}
 .storyPerson .scratch{transform-origin:188px 218px;transform-box:view-box;animation:scratchBehind .5s ease-in-out infinite alternate}
 @keyframes scratchBehind{from{transform:rotate(-3deg)}to{transform:rotate(5deg)}}
+
+/* New animated cut-scene: a different character watching television at home. */
+#home{position:fixed;inset:0;z-index:10;background:#29354c;overflow:hidden}
+#home>svg{height:100%;width:100%;display:block}
+#home .tvScreen{animation:tvFlicker 1.8s infinite alternate}
+@keyframes tvFlicker{from{fill:#47a8d1}to{fill:#69c5da}}
+#home .watcher{transform-origin:650px 565px;animation:watchTV 3s ease-in-out infinite}
+@keyframes watchTV{50%{transform:translateY(2px)}}
+#home .stranger{transform:translateX(470px);opacity:0;transition:transform 2.1s ease-in,opacity .9s}
+#home.enter .stranger{transform:translateX(0);opacity:1}
+#home .couch{filter:drop-shadow(0 9px 11px #14172566)}
+#home .tvLight{opacity:.22;animation:tvFlickerOpacity 2s linear infinite}
+@keyframes tvFlickerOpacity{50%{opacity:.1}}
+#home .homeShadow{position:absolute;inset:0;background:#10101b;opacity:0;pointer-events:none}
+#home.blackout .homeShadow{animation:dramaticFade 1.2s ease-in forwards}
+@keyframes dramaticFade{0%{opacity:0}35%{opacity:.65}100%{opacity:1}}
+#home .homeTitle{position:absolute;top:max(15px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);padding:9px 20px;border-radius:14px;background:#17233cbf;border:1px solid #ffffff55;font-size:clamp(15px,3vw,22px);font-weight:900;color:#fff2d2;white-space:nowrap}
+#home .endCard{position:absolute;inset:0;display:grid;place-items:center;color:#fff8e2;text-align:center;font-weight:900;letter-spacing:.06em;font-size:clamp(20px,4vw,39px);opacity:0;pointer-events:none;transition:opacity .8s}
+#home.blackout .endCard{opacity:1;transition-delay:1s}
 </style>
 <script>
-var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
+var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
 function startVault(){
  clearStory();
  document.getElementById('menu').classList.add('hide');
@@ -172,8 +191,10 @@ function tapVault(){
  after(14800,function(){document.getElementById('storyFade').classList.remove('on')});
  after(16000,function(){document.getElementById('city').classList.add('handshakeNow')});
  after(18500,function(){document.getElementById('city').classList.add('separate')});
+ after(21500,function(){showHomeScene()});
 }
-function showCityDirect(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide');document.getElementById('dayBefore').classList.add('show');after(1200,function(){document.getElementById('dayBefore').classList.remove('show')});after(1800,function(){document.getElementById('city').classList.add('handshakeNow')});after(4300,function(){document.getElementById('city').classList.add('separate')})}
+function showCityDirect(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide');document.getElementById('dayBefore').classList.add('show');after(1200,function(){document.getElementById('dayBefore').classList.remove('show')});after(1800,function(){document.getElementById('city').classList.add('handshakeNow')});after(4300,function(){document.getElementById('city').classList.add('separate')});after(7000,function(){showHomeScene()})}
+function showHomeScene(){document.getElementById('city').classList.add('hide');document.getElementById('home').classList.remove('hide');after(1800,function(){document.getElementById('home').classList.add('enter')});after(5400,function(){document.getElementById('home').classList.add('blackout')})}
 function resetVault(){startVault()}
 function goMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
 </script>
@@ -277,4 +298,34 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 </svg></div><svg class="handshake" viewBox="0 0 680 520" preserveAspectRatio="none" aria-hidden="true">
 <g class="joint"><path d="M266 215 Q310 258 334 256" stroke="#e8b394" stroke-width="25" stroke-linecap="round" fill="none"/><path d="M414 215 Q370 258 341 256" stroke="#ce997b" stroke-width="25" stroke-linecap="round" fill="none"/><ellipse cx="340" cy="256" rx="22" ry="13" fill="#d9a486" stroke="#9f746b" stroke-width="3"/></g>
 </svg><div class="captionCity">ДЕНЬ НАЗАД</div></section>
-<div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div></body></html>
+<section id="home" class="hide" aria-label="Другой персонаж дома смотрит телевизор">
+<svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Комната, диван, телевизор, сидящий человек и тень в дверном проёме">
+<defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#556b80"/><stop offset="1" stop-color="#35445b"/></linearGradient><linearGradient id="floor" x2="0" y2="1"><stop stop-color="#886a62"/><stop offset="1" stop-color="#423849"/></linearGradient><linearGradient id="windowNight" x2="0" y2="1"><stop stop-color="#1c375c"/><stop offset="1" stop-color="#506a81"/></linearGradient></defs>
+<rect width="1200" height="700" fill="url(#wall)"/><rect y="530" width="1200" height="170" fill="url(#floor)"/>
+<rect x="82" y="98" width="245" height="290" rx="9" fill="#dac8ae" stroke="#2a3348" stroke-width="15"/><rect x="101" y="119" width="209" height="249" fill="url(#windowNight)"/><circle cx="249" cy="171" r="28" fill="#dce4ce" opacity=".8"/><path d="M199 119v249M101 245h209" stroke="#bdbaa7" stroke-width="12"/>
+<rect x="851" y="99" width="244" height="425" rx="7" fill="#2b3149" stroke="#b7a48d" stroke-width="22"/><rect x="880" y="135" width="185" height="390" rx="5" fill="#151b2a"/>
+<g class="stranger" fill="#192033"><ellipse cx="961" cy="257" rx="44" ry="53"/><path d="M918 300q-45 30-50 92l-7 137h194l-17-147q-8-57-45-79Z"/><path d="M921 460l-19 97m96-97 19 97" stroke="#192033" stroke-width="42" stroke-linecap="round"/></g>
+<path d="M0 536h1200" stroke="#dac09f" stroke-width="13"/>
+<rect x="208" y="432" width="390" height="113" rx="19" fill="#3a394b" stroke="#202a3b" stroke-width="12"/><rect x="220" y="446" width="365" height="78" rx="14" fill="#6c6170"/>
+<g class="tvLight"><path d="M599 230 241 75 241 488 599 490Z" fill="#8af1ff"/></g>
+<g transform="translate(81 0)">
+<rect x="0" y="197" width="402" height="272" rx="22" fill="#1e273b" stroke="#86909a" stroke-width="12"/>
+<rect class="tvScreen" x="19" y="216" width="365" height="235" rx="12" fill="#58b6cd"/>
+<path d="M29 405 112 291 176 365 252 266 373 415" fill="#2d899b"/><circle cx="285" cy="284" r="37" fill="#f9e4a3"/>
+<path d="M202 471v51m-80 8h160" stroke="#242b3c" stroke-width="20" stroke-linecap="round"/>
+</g>
+<g class="watcher">
+<path d="M558 474L512 578h69l86-86" fill="#36445c" stroke="#23354b" stroke-width="8"/><path d="M647 480l15 113h70l-24-144" fill="#32445a" stroke="#23354b" stroke-width="8"/>
+<path d="M546 582l-47 21h82v-24m87 12 3 21h84l-28-24" fill="#e9e5d9" stroke="#353e4c" stroke-width="7"/>
+<path d="M555 340q82-37 144 3l22 164q-83 29-164-6Z" fill="#e8a666" stroke="#694953" stroke-width="8"/>
+<path d="M565 374q-43 47-13 102" stroke="#d6a083" stroke-width="26" fill="none" stroke-linecap="round"/><path d="M688 361q28 43 48 99" stroke="#d6a083" stroke-width="26" fill="none" stroke-linecap="round"/>
+<ellipse cx="627" cy="277" rx="55" ry="70" fill="#dca88b" stroke="#8f5b5d" stroke-width="7"/>
+<path d="M573 271q-12-76 48-79 62-8 67 67l-25-22q-38 17-87 9Z" fill="#282c43"/>
+<circle cx="602" cy="284" r="4" fill="#323444"/><circle cx="645" cy="284" r="4" fill="#323444"/>
+<path d="M612 333q13 6 26-2" fill="none" stroke="#a16b66" stroke-width="4"/>
+</g>
+<rect class="couch" x="468" y="486" width="322" height="83" rx="19" fill="#5d4668" stroke="#302d48" stroke-width="11"/><rect x="467" y="568" width="34" height="55" rx="6" fill="#3b3249"/><rect x="756" y="568" width="34" height="55" rx="6" fill="#3b3249"/>
+<ellipse cx="635" cy="650" rx="236" ry="22" fill="#201d2a" opacity=".23"/>
+</svg>
+<div class="homeTitle">В ЭТО ВРЕМЯ • ДОМА</div><div class="homeShadow"></div><div class="endCard">ПРОДОЛЖЕНИЕ СЛЕДУЕТ…</div>
+</section><div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div></body></html>
