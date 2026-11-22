@@ -5,18 +5,110 @@
 #trade{background:linear-gradient(#18243b 0%,#0b101b 70%)}.room{position:absolute;inset:0;background:radial-gradient(circle at 50% 44%,#294d8050,transparent 65%)}.monitor{position:absolute;left:4%;top:9%;width:68%;height:67%;border:11px solid #303d51;border-radius:20px;background:#0b1424;box-shadow:0 20px 50px #0008;overflow:hidden}.monitorHead{height:43px;background:#152139;border-bottom:1px solid #425474;display:flex;justify-content:space-between;padding:12px 15px;color:#d0e2ff;font-weight:900;font-size:clamp(11px,1.5vw,15px)}.graph{position:absolute;top:43px;bottom:0;left:0;right:0;background-image:linear-gradient(#ffffff13 1px,transparent 1px),linear-gradient(90deg,#ffffff13 1px,transparent 1px);background-size:45px 45px}.graph svg{width:100%;height:100%}.monitorFoot{position:absolute;left:25%;bottom:1%;width:26%;height:13px;border-radius:20px;background:#344256}.desk{position:absolute;bottom:0;left:0;width:100%;height:20%;background:linear-gradient(#655045,#352720);border-top:10px solid #876d5c}.hands{position:absolute;left:15%;bottom:5%;width:46%;height:14%;display:flex;justify-content:space-between;pointer-events:none}.hand{width:29%;height:100%;background:#e0b093;border:5px solid #ae796d;border-radius:65% 65% 30% 30%;transform:rotate(45deg)}.hand:last-child{transform:rotate(-45deg)}.mission{position:absolute;right:1.5%;top:9%;width:26%;background:#111e38f5;border:2px solid #ffe09b;border-radius:20px;padding:14px;box-shadow:0 10px 25px #0008}.mission h3{margin:0 0 7px;color:#ffdf91;font-size:clamp(12px,1.5vw,16px);letter-spacing:.06em}.mission h2{margin:0 0 8px;font-size:clamp(18px,2.2vw,27px);line-height:1.12}.mission p{margin:6px 0 11px;color:#dce5fa;line-height:1.35;font-size:clamp(13px,1.5vw,16px)}.attempt{font-weight:900;font-size:15px;color:#eacf9f;margin-bottom:11px}.buttons{display:flex;gap:9px}.vote{flex:1;min-width:0;min-height:56px;color:#fff;font-weight:1000;font-size:clamp(14px,1.6vw,20px);border:2px solid #fff1bd;border-radius:14px}.up{background:linear-gradient(#57bc83,#237d77)}.down{background:linear-gradient(#dd7384,#923e68)}.msg{font-weight:900;min-height:42px;margin-top:12px;color:#f9dba5;font-size:clamp(13px,1.5vw,17px)}.progress{width:100%;height:7px;border-radius:10px;background:#273b5e;overflow:hidden;margin:8px 0}.progress div{height:100%;width:0;background:#f8cc7a;transition:width .3s}.intro{color:#aebee0;font-size:12px;margin-top:6px}#end{background:#080b15;text-align:center;align-items:center;justify-content:center;padding:25px}#end.active{display:flex}.endInner{max-width:700px}.eyebrow{color:#ffd281;letter-spacing:.18em;font-size:17px;font-weight:1000}.headline{font-size:clamp(35px,7vw,75px);font-weight:1000;margin:15px 0}.desc{font-size:clamp(16px,2vw,24px);line-height:1.4;color:#e8edfc;margin-bottom:23px}.restart{border:2px solid #fff0bc;background:#f2c76d;color:#3a2a48;border-radius:15px;padding:13px 24px;font-weight:1000;font-size:17px}.black{position:fixed;inset:0;z-index:30;pointer-events:none;background:#02040a;opacity:0;transition:opacity .7s}.black.on{opacity:1}
 @media(max-width:760px){.monitor{left:3%;top:10%;width:94%;height:39%}.mission{left:3%;right:3%;top:auto;bottom:max(7px,env(safe-area-inset-bottom));width:94%;border-radius:15px;padding:10px 12px}.mission h2{font-size:18px;margin:3px 0}.mission p{font-size:13px;margin:4px 0}.mission h3{font-size:12px}.vote{min-height:46px}.msg{min-height:25px;margin-top:6px;font-size:13px}.attempt{margin-bottom:5px;font-size:13px}.monitorFoot{display:none}.hands{display:none}.rideWindow{top:15%;height:25%}.bagHero{width:53vw;height:52%;top:27%}.subtitle{font-size:13px}.tag{font-size:13px}}
 @media(max-height:470px){.mission{width:34%;right:1%;left:auto;top:11%;bottom:auto}.monitor{width:62%;height:69%;top:13%;left:2%}.mission h2{font-size:16px}.mission p{font-size:12px}.vote{font-size:12px;min-height:42px}.mission h3{font-size:11px}.msg{min-height:24px;font-size:12px}}
+
+/* Fullscreen cinematic animation pass — iPhone portrait and landscape */
+html,body{height:100%;height:100dvh;width:100vw;overscroll-behavior:none}
+.scene{width:100vw;height:100vh;height:100dvh;inset:0}
+.scene.active{animation:sceneAppear .7s ease-out both}
+@keyframes sceneAppear{from{opacity:.35;filter:brightness(.6)}to{opacity:1;filter:brightness(1)}}
+#ride .sky{animation:skyTravel 8s ease-in-out infinite alternate}
+@keyframes skyTravel{to{filter:hue-rotate(7deg) brightness(1.13)}}
+#ride .rail{animation:metalRattle .45s ease-in-out infinite alternate}
+@keyframes metalRattle{to{transform:translateY(2px)}}
+#ride .side{box-shadow:inset -12px 0 18px #080e1d88}
+#ride .rideWindow{animation:windowRattle .65s ease-in-out infinite alternate}
+@keyframes windowRattle{to{transform:translateY(2px)}}
+#ride .rideWindow:before{content:"";position:absolute;left:-130%;top:0;width:80%;height:100%;background:linear-gradient(110deg,transparent,#efffff3d,transparent);z-index:2;animation:windowLight 4.6s linear infinite}
+@keyframes windowLight{to{left:190%}}
+#ride .roadMove{animation:passing .65s linear infinite}
+#ride .bench{animation:benchShake .65s ease-in-out infinite alternate}
+@keyframes benchShake{to{transform:translateY(1.5px)}}
+#ride .bagHero svg{animation:swayBag 1.8s ease-in-out infinite alternate;transform-origin:center 55%}
+@keyframes swayBag{to{transform:rotate(2.5deg) translateY(3px)}}
+#ride .bagHero svg path:nth-of-type(8){animation:clothShift 2.3s ease-in-out infinite alternate}
+@keyframes clothShift{to{filter:brightness(1.12)}}
+#ride .tag,#trade .tag{animation:titleDescend .7s cubic-bezier(.2,.8,.25,1) both}
+@keyframes titleDescend{from{opacity:0;translate:0 -22px}to{opacity:1;translate:0 0}}
+#ride .subtitle{animation:captionReveal .8s ease .3s both}
+@keyframes captionReveal{from{opacity:0;transform:translate(-50%,18px)}to{opacity:1;transform:translate(-50%,0)}}
+#ride .skip{animation:skipPulse 2s ease-in-out infinite;touch-action:manipulation}
+@keyframes skipPulse{50%{box-shadow:0 0 0 8px #ffdb7730,0 7px 15px #0005}}
+#trade .room{animation:roomPulse 7s ease-in-out infinite alternate}
+@keyframes roomPulse{to{filter:brightness(1.32)}}
+#trade .monitor{animation:monitorOn .85s cubic-bezier(.2,.85,.3,1) both}
+@keyframes monitorOn{from{opacity:0;transform:scale(.965);filter:brightness(.4)}to{opacity:1;transform:scale(1);filter:brightness(1)}}
+#trade .graph{animation:screenGlow 3s ease-in-out infinite alternate}
+@keyframes screenGlow{to{filter:brightness(1.13)}}
+#trade .graph:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(to bottom,#b9ebff07 0px,#b9ebff07 1px,transparent 2px,transparent 6px);pointer-events:none;animation:scanlines 8s linear infinite}
+@keyframes scanlines{to{background-position:0 30px}}
+#trade #chartPath{stroke-dasharray:1650;stroke-dashoffset:0;animation:chartDraw 2s ease-out both;transition:stroke .55s ease,filter .55s ease}
+@keyframes chartDraw{from{stroke-dashoffset:1650}to{stroke-dashoffset:0}}
+#trade #chartDot{animation:dotGlow 1.3s ease-in-out infinite;transform-origin:center;transform-box:fill-box;transition:cy .9s ease}
+@keyframes dotGlow{50%{opacity:.55;scale:1.3}}
+#trade .hands{animation:handsBreathe 2.7s ease-in-out infinite alternate}
+@keyframes handsBreathe{to{transform:translateY(3px)}}
+#trade .mission{animation:missionSlide .65s cubic-bezier(.2,.9,.25,1) both}
+@keyframes missionSlide{from{opacity:0;translate:30px 0}to{opacity:1;translate:0 0}}
+#trade .vote{transition:transform .16s,filter .2s,box-shadow .2s;touch-action:manipulation}
+#trade .vote:not(:disabled):active{filter:brightness(1.22);box-shadow:0 2px 0 #171c32}
+#trade .vote:disabled{opacity:.65;filter:saturate(.5)}
+#trade .msg{transition:color .25s}
+#trade .msg.good{color:#86f3ac;animation:msgPop .45s ease}
+#trade .msg.bad{color:#ffc0ba;animation:msgPop .45s ease}
+@keyframes msgPop{0%{scale:.94;opacity:.3}100%{scale:1;opacity:1}}
+#trade .progress div{transition:width .45s ease-out}
+#end .endInner{animation:endReveal .85s ease both}
+@keyframes endReveal{from{opacity:0;scale:.89;filter:blur(7px)}to{opacity:1;scale:1;filter:blur(0)}}
+#end .restart{animation:skipPulse 2.1s ease-in-out infinite}
+@media (orientation:portrait){
+ #ride .rideWindow{top:15%;height:23%;width:36%}
+ #ride .rideWindow.left{left:3%}
+ #ride .rideWindow.right{right:3%}
+ #ride .bagHero{top:30%;height:50%;width:min(64vw,360px)}
+ #ride .bench{bottom:14%;height:13%;left:7%;width:86%}
+ #ride .subtitle{bottom:max(12px,env(safe-area-inset-bottom));padding:12px 15px;font-size:clamp(14px,3.8vw,18px)}
+ #trade .monitor{left:3vw;width:94vw;top:max(54px,calc(env(safe-area-inset-top) + 43px));height:35dvh;border-width:8px;border-radius:16px}
+ #trade .monitorHead{height:34px;padding:9px;font-size:10px}
+ #trade .graph{top:34px}
+ #trade .mission{position:absolute;left:3vw;right:auto;top:auto;bottom:max(8px,env(safe-area-inset-bottom));width:94vw;padding:clamp(10px,2.5vh,18px);max-height:52dvh;overflow:auto;overscroll-behavior:contain}
+ #trade .mission h2{font-size:clamp(18px,4.6vw,23px)}
+ #trade .mission p{font-size:clamp(12px,3.1vw,16px);margin:5px 0}
+ #trade .attempt{font-size:clamp(13px,3.1vw,15px)}
+ #trade .vote{min-height:clamp(47px,7.5vh,64px);font-size:clamp(15px,3.8vw,20px)}
+ #trade .msg{min-height:28px}
+ #trade .intro{font-size:11px}
+ #trade .monitorFoot{display:none}
+ #trade .hands{display:none}
+ #trade .desk{height:20%}
+}
+@media (orientation:landscape) and (max-height:520px){
+ #ride .bagHero{height:67vh;top:14%}
+ #ride .rideWindow{top:16%;height:42%}
+ #ride .subtitle{bottom:8px;padding:8px 12px;font-size:13px}
+ #trade .tag{top:5px;font-size:12px;padding:6px 12px}
+ #trade .monitor{top:12%;height:76%;width:62%;left:2%}
+ #trade .mission{top:11%;height:auto;max-height:86%;overflow:auto;bottom:auto;right:1%;left:auto;width:34%;padding:8px 10px}
+ #trade .mission h2{font-size:16px}
+ #trade .mission p{font-size:12px;line-height:1.15}
+ #trade .vote{min-height:43px;font-size:13px}
+ #trade .msg{font-size:12px;min-height:22px}
+ #trade .intro{display:none}
+ #trade .monitorHead{height:30px;padding:7px}
+ #trade .graph{top:30px}
+}
 </style></head><body>
 <div id="black" class="black"></div>
 <section id="ride" class="scene active"><div class="sky"></div><div class="rail"></div><div class="side"></div><div class="side right"></div><div class="rideWindow left"><div class="roadMove"></div></div><div class="rideWindow right"><div class="roadMove"></div></div><div class="bench"></div><div class="bagHero"><svg viewBox="0 0 230 400" xmlns="http://www.w3.org/2000/svg"><path d="M75 245L57 367h41l25-110m12-1 27 111h41l-19-128" fill="#344868" stroke="#26364b" stroke-width="7"/><path d="M60 360l-23 21q0 15 23 15h58v-19l-21-17m67 0-5 21q0 15 20 15h43l-21-36" fill="#e9e9e7" stroke="#26364b" stroke-width="6"/><path d="M67 143q47-25 94 0l22 114q-54 38-139 0Z" fill="#efc584" stroke="#685674" stroke-width="8"/><path d="M62 158q-25 26-27 98m137-99q25 26 26 95" stroke="#dfa989" stroke-width="26" fill="none" stroke-linecap="round"/><circle cx="35" cy="260" r="16" fill="#dfa989"/><circle cx="198" cy="257" r="16" fill="#dfa989"/><path d="M90 147v-18h29v19" fill="#dca58c"/><path d="M68 101q-5-72 47-77 58 2 62 76l-14 77q-52 23-89 0Z" fill="#ac8f67" stroke="#68563d" stroke-width="7"/><path d="M71 107q40-16 104 0m-92-53q24-16 63-3" fill="none" stroke="#c1ae86" stroke-width="6"/><path d="M81 178q40 15 79-2" fill="none" stroke="#554333" stroke-width="5"/></svg></div><div class="tag">ГЛАВА 1 • ПО ДОРОГЕ НА БАЗУ</div><button class="skip" onclick="openTrade()">ПРОПУСТИТЬ ➜</button><div class="subtitle">Фургон едет. Герой в мешке на голове пытается понять, куда его везут…</div></section>
 <section id="trade" class="scene"><div class="room"></div><div class="tag">БИРЖА • ЗАДАНИЕ ДЛЯ НОВИКА</div><div class="monitor"><div class="monitorHead"><span>MPOL TERMINAL • MARKET</span><span id="marketStatus">НОВЫЙ ПРОГНОЗ</span></div><div class="graph"><svg viewBox="0 0 900 450" preserveAspectRatio="none"><path id="chartPath" d="M20 320L135 270L215 303L310 210L398 255L490 169L568 197L653 131L727 177L827 111" stroke="#f7d67a" stroke-width="7" fill="none" stroke-linejoin="round" stroke-linecap="round"/><circle id="chartDot" cx="827" cy="111" r="12" fill="#f9ebac" stroke="#17223a" stroke-width="6"/></svg></div></div><div class="monitorFoot"></div><div class="desk"></div><div class="hands"><div class="hand"></div><div class="hand"></div></div><aside class="mission"><h3>ЗАДАНИЕ №1 • НОВИЧОК</h3><h2>Биржа пойдёт вверх или вниз?</h2><p>Угадай направление хотя бы один раз. У тебя <b>три попытки</b>. Каждый прогноз — новый раунд.</p><div id="attempts" class="attempt">ПОПЫТКИ: ● ● ●</div><div class="progress"><div id="bar"></div></div><div class="buttons"><button id="btnDown" class="vote down" onclick="guess('down')">↘ УПАДЁТ</button><button id="btnUp" class="vote up" onclick="guess('up')">↗ ВЫРАСТЕТ</button></div><div id="msg" class="msg">Выбери прогноз.</div><div class="intro">График вымышленный. Результат раунда показывается сразу.</div></aside></section>
 <section id="end" class="scene"><div class="endInner"><div id="endKick" class="eyebrow"></div><div id="endTitle" class="headline"></div><div id="endDesc" class="desc"></div><button class="restart" onclick="location.reload()">↻ ИГРАТЬ ЕЩЁ</button></div></section>
 <script>
-var phase='ride',tries=0,locked=false,target= Math.random()<.5?'up':'down',timer=null;
+var phase='ride',tries=0,locked=false,target=Math.random()<.5?'up':'down',timer=null,priceTimer=null;
 function show(id){document.querySelectorAll('.scene').forEach(function(s){s.classList.remove('active')});document.getElementById(id).classList.add('active');phase=id}
 function dim(cb){document.getElementById('black').classList.add('on');setTimeout(function(){cb();document.getElementById('black').classList.remove('on')},700)}
-function openTrade(){if(phase!=='ride')return;dim(function(){show('trade')})}
+function openTrade(){if(phase!=='ride')return;clearTimeout(timer);dim(function(){show('trade');startTickers()})}
 function update(){var dots='';for(var i=0;i<3;i++)dots+=i<tries?'● ':'○ ';document.getElementById('attempts').textContent='ПОПЫТКИ: '+dots+' ('+(3-tries)+' осталось)';document.getElementById('bar').style.width=(tries/3*100)+'%'}
-function guess(value){if(phase!=='trade'||locked)return;locked=true;tries++;var correct=value===target;update();var msg=document.getElementById('msg');document.getElementById('marketStatus').textContent=target==='up'?'РЫНОК РАСТЁТ ↑':'РЫНОК ПАДАЕТ ↓';document.getElementById('chartPath').setAttribute('d',target==='up'?'M20 320L135 270L215 303L310 210L398 255L490 169L568 197L653 131L727 177L827 63':'M20 130L135 185L215 167L310 233L398 204L490 279L568 255L653 327L727 304L827 402');document.getElementById('chartDot').setAttribute('cy',target==='up'?'63':'402');msg.textContent=correct?'Верно! Первый контракт выполнен.':'Не угадал. Биржа пошла в другую сторону.';if(correct){setTimeout(function(){finish(true)},1600)}else if(tries>=3){setTimeout(function(){finish(false)},1600)}else{setTimeout(function(){target=Math.random()<.5?'up':'down';document.getElementById('marketStatus').textContent='НОВЫЙ ПРОГНОЗ';msg.textContent='Новый раунд. Попробуй ещё раз.';locked=false},1450)}}
-function finish(win){dim(function(){show('end');document.getElementById('endKick').textContent=win?'МИССИЯ ПРОЙДЕНА':'КОНЦОВКА 2';document.getElementById('endTitle').textContent=win?'ПЕРВЫЙ УСПЕХ':'ПРОВАЛ';document.getElementById('endDesc').textContent=win?'Прогноз оказался верным. Экран погас — впереди новое задание.':'Все три прогноза неверны. Слышен короткий сигнал, экран темнеет. Эта сюжетная ветка завершена.'})}
+function guess(value){if(phase!=='trade'||locked)return;locked=true;document.getElementById('btnDown').disabled=true;document.getElementById('btnUp').disabled=true;tries++;var correct=value===target;update();var msg=document.getElementById('msg');document.getElementById('marketStatus').textContent=target==='up'?'РЫНОК РАСТЁТ ↑':'РЫНОК ПАДАЕТ ↓';document.getElementById('chartPath').setAttribute('d',target==='up'?'M20 320L135 270L215 303L310 210L398 255L490 169L568 197L653 131L727 177L827 63':'M20 130L135 185L215 167L310 233L398 204L490 279L568 255L653 327L727 304L827 402');document.getElementById('chartDot').setAttribute('cy',target==='up'?'63':'402');msg.className='msg '+(correct?'good':'bad');void msg.offsetWidth;msg.textContent=correct?'Верно! Первый контракт выполнен.':'Не угадал. Биржа пошла в другую сторону.';if(correct){setTimeout(function(){finish(true)},1600)}else if(tries>=3){setTimeout(function(){finish(false)},1600)}else{setTimeout(function(){target=Math.random()<.5?'up':'down';document.getElementById('marketStatus').textContent='НОВЫЙ ПРОГНОЗ';msg.className='msg';msg.textContent='Новый раунд. Попробуй ещё раз.';document.getElementById('chartPath').setAttribute('d','M20 320L135 270L215 303L310 210L398 255L490 169L568 197L653 131L727 177L827 111');document.getElementById('chartDot').setAttribute('cy','111');document.getElementById('btnDown').disabled=false;document.getElementById('btnUp').disabled=false;locked=false},1450)}}
+function finish(win){clearInterval(priceTimer);dim(function(){show('end');document.getElementById('endKick').textContent=win?'МИССИЯ ПРОЙДЕНА':'КОНЦОВКА 2';document.getElementById('endTitle').textContent=win?'ПЕРВЫЙ УСПЕХ':'ПРОВАЛ';document.getElementById('endDesc').textContent=win?'Прогноз оказался верным. Экран погас — впереди новое задание.':'Все три прогноза неверны. Слышен короткий сигнал, экран темнеет. Эта сюжетная ветка завершена.'})}
+function startTickers(){if(priceTimer)return;var lbl=document.getElementById('marketStatus'),t=0;priceTimer=setInterval(function(){if(phase!=='trade'||locked)return;t++;lbl.textContent=(t%2?'BTC +':'BTC -')+(Math.random()*2.4).toFixed(2)+'% • LIVE'},1200)}
 update();timer=setTimeout(openTrade,6500);
 </script></body></html>
