@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#44206f">
-<title>Большой куш — Сейф</title>
+<title>Большой куш — День назад (исправленная сцена)</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#241349;color:white;font-family:system-ui,-apple-system,Arial,sans-serif;touch-action:manipulation;user-select:none}
@@ -109,6 +109,18 @@ button{font:inherit;cursor:pointer}
 #city.celebrate .duo .raiseRight{transform:rotate(-125deg)}
 #city.separate .duo svg:first-child{transform:translateX(-75vw);opacity:0}
 #city.separate .duo svg:nth-child(2){transform:translateX(75vw);opacity:0}
+
+#city .duo .raiseLeft,#city .duo .raiseRight{transform-box:fill-box;transition:transform 1.25s cubic-bezier(.18,.75,.28,1)}
+#city .duo .raiseLeft{transform-origin:50% 4%}
+#city .duo .raiseRight{transform-origin:50% 4%}
+#city.celebrate .duo .raiseLeft{transform:rotate(145deg)}
+#city.celebrate .duo .raiseRight{transform:rotate(-145deg)}
+#city .duo svg{transition:transform 3s ease-in-out,opacity 2.6s}
+#city.separate .duo svg:first-child{transform:translateX(-110vw) rotate(-5deg);opacity:0}
+#city.separate .duo svg:nth-child(2){transform:translateX(110vw) rotate(5deg);opacity:0}
+#dayBefore{font-size:clamp(39px,8vw,105px);background:#0e1325;opacity:0}
+#dayBefore.show{opacity:1}
+#city .captionCity{background:#3d3263;font-size:clamp(14px,3vw,24px);padding:12px 25px}
 </style>
 <script>
 var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
@@ -136,13 +148,14 @@ function tapVault(){
  after(8700,function(){document.getElementById('bubble2').classList.add('show')});
  after(10900,function(){document.getElementById('bubble2').classList.add('leave')});
  after(11500,function(){document.getElementById('storyFade').classList.add('on')});
- after(12100,function(){document.getElementById('dayBefore').classList.add('show')});
- after(13200,function(){document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide')});
- after(13600,function(){document.getElementById('dayBefore').classList.remove('show')});
- after(14300,function(){document.getElementById('storyFade').classList.remove('on')});
- after(15100,function(){document.getElementById('city').classList.add('celebrate')});
- after(17100,function(){document.getElementById('city').classList.add('separate')});
+ after(11900,function(){document.getElementById('dayBefore').classList.add('show')});
+ after(13400,function(){document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide')});
+ after(14100,function(){document.getElementById('dayBefore').classList.remove('show')});
+ after(14800,function(){document.getElementById('storyFade').classList.remove('on')});
+ after(16000,function(){document.getElementById('city').classList.add('celebrate')});
+ after(18500,function(){document.getElementById('city').classList.add('separate')});
 }
+function showCityDirect(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide');document.getElementById('dayBefore').classList.add('show');after(1200,function(){document.getElementById('dayBefore').classList.remove('show')});after(1800,function(){document.getElementById('city').classList.add('celebrate')});after(4300,function(){document.getElementById('city').classList.add('separate')})}
 function resetVault(){startVault()}
 function goMenu(){document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
 </script>
@@ -155,7 +168,7 @@ function goMenu(){document.getElementById('vault').classList.add('hide');documen
    <div class="logo">БОЛЬШОЙ<br><b>КУШ!</b></div>
    <p class="intro">Перед тобой огромный сейф. Открой его одним нажатием и забери сокровища!</p>
    <button id="playBtn" class="bigbutton" type="button" onclick="startVault()">▶ ИГРАТЬ ➜</button>
-   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D</div>
+   <div class="smalltext">● ПОЛНЫЙ ЭКРАН &nbsp; ● БЕЗ 3D &nbsp; ● СЦЕНА 2</div><button type="button" id="testScene" onclick="showCityDirect()" style="margin-top:12px;background:#ffffff20;border:1px solid #ffffff80;color:#fff;border-radius:12px;padding:10px 14px;font-weight:800">ПОСМОТРЕТЬ «ДЕНЬ НАЗАД»</button>
   </div>
   <svg class="art" viewBox="0 0 520 430" xmlns="http://www.w3.org/2000/svg" aria-label="Нарисованный банк и персонаж">
    <ellipse cx="260" cy="407" rx="215" ry="21" fill="#221045" opacity=".4"/>
