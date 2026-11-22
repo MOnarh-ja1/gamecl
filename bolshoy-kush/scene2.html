@@ -157,10 +157,10 @@ button{font:inherit;cursor:pointer}
 @keyframes dramaticFade{0%{opacity:0}35%{opacity:.65}100%{opacity:1}}
 #home .homeTitle{position:absolute;top:max(15px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);padding:9px 20px;border-radius:14px;background:#17233cbf;border:1px solid #ffffff55;font-size:clamp(15px,3vw,22px);font-weight:900;color:#fff2d2;white-space:nowrap}
 #home .endCard{position:absolute;inset:0;display:grid;place-items:center;color:#fff8e2;text-align:center;font-weight:900;letter-spacing:.06em;font-size:clamp(20px,4vw,39px);opacity:0;pointer-events:none;transition:opacity .8s}
-#home.blackout .endCard{opacity:1;transition-delay:1s}
+#home.blackout .endCard{opacity:0}
 
 /* Wide living-room view and readable non-graphic dramatic beat */
-#home>svg{width:100%;height:100%;object-fit:contain}
+#home>svg{width:100%;height:100%;object-fit:cover}
 #home .strangerArm{transform-box:view-box;transform-origin:1006px 350px;transition:transform .3s ease-out}
 #home .impactStars{opacity:0;transform-origin:700px 220px}
 #home.impact .strangerArm{transform:rotate(-29deg)}
@@ -171,9 +171,41 @@ button{font:inherit;cursor:pointer}
 #home .impactBlink{position:absolute;inset:0;background:#fff2bf;pointer-events:none;opacity:0}
 #home.impact .impactBlink{animation:blinkHit .6s ease-out}
 @keyframes blinkHit{0%{opacity:0}16%{opacity:.45}100%{opacity:0}}
+
+/* PRESENT DAY */
+#present{position:fixed;inset:0;z-index:10;overflow:hidden;background:linear-gradient(#84c8f2,#eac591);isolation:isolate}
+#present>svg{display:block;width:100%;height:100%}
+#present .van{transform:translateX(970px);transition:transform 2.3s cubic-bezier(.12,.67,.26,1)}
+#present.arrived .van{transform:translateX(0)}
+#present .vanDoor{transform-origin:865px 379px;transition:transform .65s ease .15s}
+#present.unload .vanDoor{transform:translateX(-69px)}
+#present .masked{opacity:0;transform:translate(200px,8px);transition:opacity .35s,transform 1.6s ease}
+#present.unload .masked{opacity:1;transform:translate(0,0)}
+#present .heroNow{animation:heroBreathing 3.1s ease-in-out infinite}
+@keyframes heroBreathing{50%{transform:translateY(3px)}}
+#present .sceneLabel{position:absolute;top:max(12px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);background:#2b315ac9;border:1px solid #ffffff90;padding:9px 21px;border-radius:14px;color:#ffe8ad;font-weight:1000;font-size:clamp(15px,2.4vw,23px);white-space:nowrap}
+#present .dialogue{position:absolute;bottom:max(14px,env(safe-area-inset-bottom));left:50%;width:min(780px,94vw);transform:translateX(-50%);padding:16px 20px;background:#151c35e9;border:2px solid #f1c982;border-radius:20px;text-align:center;color:#fff7e5;font-weight:900;font-size:clamp(15px,2.6vw,25px);box-shadow:0 12px 30px #0c102b88;opacity:0;pointer-events:none}
+#present.speaking .dialogue{animation:showLine .55s ease-out both}
+@keyframes showLine{from{opacity:0;transform:translate(-50%,18px)}to{opacity:1;transform:translate(-50%,0)}}
+#present .choices{position:absolute;z-index:5;left:50%;bottom:max(14px,env(safe-area-inset-bottom));transform:translateX(-50%);display:none;gap:12px;width:min(650px,94vw)}
+#present.choosing .choices{display:flex;animation:choicesIn .55s both}
+@keyframes choicesIn{from{opacity:0;transform:translate(-50%,30px)}to{opacity:1;transform:translate(-50%,0)}}
+#present.choosing .dialogue{bottom:calc(max(14px,env(safe-area-inset-bottom)) + 79px)}
+#present .choices button{flex:1;min-width:0;border:2px solid #ffffffb0;border-radius:16px;min-height:57px;color:#fff;font-size:clamp(15px,2.5vw,21px);font-weight:1000;text-shadow:0 2px 4px #0006;box-shadow:0 7px 0 #16182f6b;transition:transform .15s}
+#present .choices button:active{transform:translateY(5px)}
+#decline{background:linear-gradient(130deg,#c95b74,#7b2d60)}#accept{background:linear-gradient(130deg,#69bd8b,#267e78)}
+#endingCut{position:fixed;inset:0;z-index:25;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:25px;background:#0a0d17;color:#fff}
+#endingCut.visible{display:flex;animation:fadeEnding 1.4s ease both}
+@keyframes fadeEnding{from{opacity:0}to{opacity:1}}
+#endingCut .endingKicker{color:#e0b978;letter-spacing:.25em;font-size:clamp(13px,2vw,19px);font-weight:900}
+#endingCut .endingTitle{font-size:clamp(32px,7vw,86px);font-weight:1000;line-height:1.04;margin:18px 0 35px;text-shadow:0 8px 35px #bf8a765e}
+#endingCut button{padding:13px 30px;border:2px solid #fff2b1;border-radius:16px;background:linear-gradient(#ffeb9c,#ffba51);font-size:18px;font-weight:1000;color:#402858}
+#timeCard{position:fixed;inset:0;display:grid;place-items:center;background:#10121e;color:#f9e4a9;font-size:clamp(27px,6vw,74px);font-weight:1000;letter-spacing:.12em;z-index:22;opacity:0;pointer-events:none;transition:opacity .55s}
+#timeCard.visible{opacity:1}
+@media(max-height:440px){#present .dialogue{padding:9px 14px;font-size:15px}#present.choosing .dialogue{bottom:78px}#present .choices button{min-height:45px}}
 </style>
 <script>
-var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
+var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('present').classList.add('hide');document.getElementById('present').classList.remove('arrived','unload','speaking','choosing');document.getElementById('timeCard').classList.remove('visible');document.getElementById('endingCut').classList.remove('visible');document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
 function startVault(){
  clearStory();
  document.getElementById('menu').classList.add('hide');
@@ -207,7 +239,16 @@ function tapVault(){
  after(21500,function(){showHomeScene()});
 }
 function showCityDirect(){clearStory();document.getElementById('menu').classList.add('hide');document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide');document.getElementById('dayBefore').classList.add('show');after(1200,function(){document.getElementById('dayBefore').classList.remove('show')});after(1800,function(){document.getElementById('city').classList.add('handshakeNow')});after(4300,function(){document.getElementById('city').classList.add('separate')});after(7000,function(){showHomeScene()})}
-function showHomeScene(){document.getElementById('city').classList.add('hide');document.getElementById('home').classList.remove('hide','enter','impact','blackout');after(1900,function(){document.getElementById('home').classList.add('enter')});after(4400,function(){document.getElementById('home').classList.add('impact')});after(5600,function(){document.getElementById('home').classList.add('blackout')})}
+function showHomeScene(){document.getElementById('city').classList.add('hide');document.getElementById('home').classList.remove('hide','enter','impact','blackout');after(1900,function(){document.getElementById('home').classList.add('enter')});after(4400,function(){document.getElementById('home').classList.add('impact')});after(5600,function(){document.getElementById('home').classList.add('blackout')});
+after(7100,function(){document.getElementById('timeCard').classList.add('visible')});
+after(8900,function(){document.getElementById('home').classList.add('hide');document.getElementById('present').classList.remove('hide')});
+after(9200,function(){document.getElementById('timeCard').classList.remove('visible')});
+after(9700,function(){document.getElementById('present').classList.add('arrived')});
+after(12100,function(){document.getElementById('present').classList.add('unload')});
+after(13800,function(){document.getElementById('present').classList.add('speaking')});
+after(16600,function(){document.getElementById('present').classList.add('choosing')});}
+function chooseEnding(choice){const p=document.getElementById('present');if(!p.classList.contains('choosing'))return;p.classList.remove('choosing');const accepted=choice==='yes';document.getElementById('endingKicker').textContent=accepted?'ГЛАВА 1':'КОНЦОВКА 1';document.getElementById('endingTitle').textContent=accepted?'СТАНОВЛЕНИЕ':'ОТКАЗ';after(600,function(){document.getElementById('endingCut').classList.add('visible')})}
+function backToMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide')}
 function resetVault(){startVault()}
 function goMenu(){clearStory();document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
 </script>
@@ -312,7 +353,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <g class="joint"><path d="M266 215 Q310 258 334 256" stroke="#e8b394" stroke-width="25" stroke-linecap="round" fill="none"/><path d="M414 215 Q370 258 341 256" stroke="#ce997b" stroke-width="25" stroke-linecap="round" fill="none"/><ellipse cx="340" cy="256" rx="22" ry="13" fill="#d9a486" stroke="#9f746b" stroke-width="3"/></g>
 </svg><div class="captionCity">ДЕНЬ НАЗАД</div></section>
 <section id="home" class="hide" aria-label="Другой персонаж дома смотрит телевизор">
-<svg viewBox="-110 -75 1420 820" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Комната, диван, телевизор, сидящий человек и тень в дверном проёме">
+<svg viewBox="-110 -75 1420 820" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Комната, диван, телевизор, сидящий человек и тень в дверном проёме">
 <defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#556b80"/><stop offset="1" stop-color="#35445b"/></linearGradient><linearGradient id="floor" x2="0" y2="1"><stop stop-color="#886a62"/><stop offset="1" stop-color="#423849"/></linearGradient><linearGradient id="windowNight" x2="0" y2="1"><stop stop-color="#1c375c"/><stop offset="1" stop-color="#506a81"/></linearGradient></defs>
 <rect x="-110" y="-75" width="1420" height="830" fill="url(#wall)"/><rect x="-110" y="530" width="1420" height="225" fill="url(#floor)"/>
 <rect x="82" y="98" width="245" height="290" rx="9" fill="#dac8ae" stroke="#2a3348" stroke-width="15"/><rect x="101" y="119" width="209" height="249" fill="url(#windowNight)"/><circle cx="249" cy="171" r="28" fill="#dce4ce" opacity=".8"/><path d="M199 119v249M101 245h209" stroke="#bdbaa7" stroke-width="12"/>
@@ -345,4 +386,57 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
 <rect x="1080" y="405" width="80" height="126" rx="12" fill="#4a5366"/><path d="M1119 410v-115" stroke="#8b745f" stroke-width="11"/><path d="M1119 299q-49-11-48-54m48 54q46-11 45-55" stroke="#6f9e79" stroke-width="34" stroke-linecap="round" fill="none"/>
 </svg>
 <div class="homeTitle">В ЭТО ВРЕМЯ • ДОМА</div><div class="homeShadow"></div><div class="impactBlink"></div><div class="endCard">ПРОДОЛЖЕНИЕ СЛЕДУЕТ…</div>
+</section><section id="present" class="hide" aria-label="Нынешний день, встреча у фургона">
+<svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="psky" x2="0" y2="1"><stop stop-color="#7dbfdc"/><stop offset="1" stop-color="#ffe0aa"/></linearGradient><linearGradient id="vanBlue" x2="0" y2="1"><stop stop-color="#556982"/><stop offset="1" stop-color="#25334b"/></linearGradient></defs>
+<rect width="1200" height="700" fill="url(#psky)"/><circle cx="973" cy="100" r="64" fill="#fff1bc"/>
+<path d="M0 455Q290 395 544 458T1200 431V700H0Z" fill="#b8a27d"/>
+<rect y="500" width="1200" height="200" fill="#7d8192"/><path d="M0 520h1200" stroke="#eee2bd" stroke-width="10"/><path d="M60 632h145m140 0h145m140 0h145m140 0h145" fill="none" stroke="#e7d9b4" stroke-width="10" stroke-linecap="round"/>
+<path d="M0 455h1190" stroke="#776e66" stroke-width="6"/>
+<g class="heroNow" transform="translate(170 126)">
+<path d="M78 300 60 456l45 4 32-145" fill="#374c6d" stroke="#26354c" stroke-width="7"/>
+<path d="M141 316l30 144 45-5-17-157" fill="#384f72" stroke="#26354c" stroke-width="7"/>
+<path d="M58 446l-23 32q-2 13 24 14h73v-29l-28-18m70 0-5 34q1 14 25 14h77q-6-24-54-46" fill="#f1f0e6" stroke="#353b55" stroke-width="7"/>
+<path d="M81 144q59-20 108 0l24 174q-74 23-155-2Z" fill="#f0c57b" stroke="#665370" stroke-width="8"/>
+<path d="M74 160q-25 30-27 117m149-117q30 28 32 115" fill="none" stroke="#e6b192" stroke-width="29" stroke-linecap="round"/>
+<circle cx="47" cy="286" r="17" fill="#e6b192"/><circle cx="227" cy="286" r="17" fill="#e6b192"/>
+<path d="M119 144v-19h33v21" fill="#d6a083"/>
+<ellipse cx="135" cy="80" rx="55" ry="67" fill="#e6b192" stroke="#986b65" stroke-width="6"/>
+<path d="M81 80Q65 5 126 9q63-10 66 70l-22-20q-43 14-83 1Z" fill="#373342"/>
+<circle cx="114" cy="91" r="5" fill="#242d39"/><circle cx="160" cy="91" r="5" fill="#242d39"/>
+<path d="M123 126q14-3 26 0" stroke="#a4736c" stroke-width="5" fill="none"/>
+</g>
+<g class="van">
+<ellipse cx="907" cy="581" rx="237" ry="24" fill="#25324777"/>
+<rect x="673" y="295" width="411" height="254" rx="37" fill="url(#vanBlue)" stroke="#1d2b42" stroke-width="14"/>
+<path d="M970 302h75q60 40 67 109v131h-146Z" fill="#435c77" stroke="#1d2b42" stroke-width="13"/>
+<path d="M986 319h48q39 35 49 82h-98Z" fill="#b0d8e5" stroke="#23384c" stroke-width="9"/>
+<rect x="706" y="322" width="198" height="186" rx="18" fill="#37465f" stroke="#7892a2" stroke-width="10"/>
+<g class="vanDoor"><rect x="711" y="323" width="192" height="177" rx="13" fill="#5d6d80" stroke="#253449" stroke-width="8"/><rect x="878" y="403" width="12" height="31" rx="5" fill="#d5d7d2"/></g>
+<circle cx="771" cy="550" r="50" fill="#1c253a" stroke="#7e8b9c" stroke-width="14"/><circle cx="771" cy="550" r="20" fill="#a8b8bf"/>
+<circle cx="1018" cy="550" r="50" fill="#1c253a" stroke="#7e8b9c" stroke-width="14"/><circle cx="1018" cy="550" r="20" fill="#a8b8bf"/>
+<rect x="1074" y="441" width="20" height="30" rx="6" fill="#ffe7a5"/>
+</g>
+<g class="masked" transform="translate(710 165)">
+<path d="M75 268 57 425h61l35-152" fill="#222b3e" stroke="#151f31" stroke-width="7"/>
+<path d="M153 272l25 154h63l-36-163" fill="#263348" stroke="#151f31" stroke-width="7"/>
+<path d="M78 135q70-29 125 5l20 152q-79 31-167 0Z" fill="#262c3c" stroke="#121b2b" stroke-width="9"/>
+<path d="M80 154Q51 193 43 262m153-110q36 33 43 99" fill="none" stroke="#272e3e" stroke-width="31" stroke-linecap="round"/>
+<circle cx="43" cy="264" r="17" fill="#232c3a"/><circle cx="239" cy="257" r="17" fill="#232c3a"/>
+<ellipse cx="139" cy="80" rx="53" ry="66" fill="#1d2536" stroke="#333d52" stroke-width="9"/>
+<path d="M85 90q-10-67 48-75 60-5 63 75" fill="#2d3546"/>
+<rect x="103" y="79" width="75" height="26" rx="10" fill="#4f5a6c"/><rect x="112" y="85" width="19" height="8" rx="3" fill="#b2bec3"/><rect x="150" y="85" width="19" height="8" rx="3" fill="#b2bec3"/>
+<path d="M111 139h60" stroke="#647182" stroke-width="6"/>
+<path d="M80 255l80-23 67 18" stroke="#111c2b" stroke-width="15" stroke-linecap="round" fill="none"/>
+</g>
+</svg>
+<div class="sceneLabel">НЫНЕШНИЙ ДЕНЬ</div>
+<div class="dialogue">Либо ты работаешь на нас, либо тебе не выжить. Выбирай.</div>
+<div class="choices"><button type="button" id="decline" onclick="chooseEnding('no')">✕ ОТКАЗАТЬ</button><button type="button" id="accept" onclick="chooseEnding('yes')">✓ СОГЛАСИТЬСЯ</button></div>
+</section>
+<div id="timeCard">НЫНЕШНИЙ ДЕНЬ</div>
+<section id="endingCut" aria-live="polite">
+<div class="endingKicker" id="endingKicker"></div>
+<div class="endingTitle" id="endingTitle"></div>
+<button type="button" onclick="backToMenu()">В ГЛАВНОЕ МЕНЮ</button>
 </section><div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div></body></html>
