@@ -430,6 +430,11 @@ html,body{height:100%;height:100dvh;width:100vw;overscroll-behavior:none}
 #phoneChat .chatEvidence small{font-size:11px;color:#c6d3ef}
 #phoneStage .trustMini{color:#ffe29b;font-size:12px}
 @media(max-width:580px){#missionTwo .missionCard{max-height:90dvh;padding:12px}#missionTwo .note{font-size:13px;line-height:1.3}#missionTwo h2{font-size:24px}#missionTwo .assetCard{min-height:80px}#missionTwo .assetCard strong{font-size:15px}#missionTwo .assetCard span{font-size:10px}#trustHUD{min-width:107px}#trustToast{max-width:90vw;white-space:normal}#missionTwo .evidence svg{max-height:125px}}
+#dialogueTapHint{flex-shrink:0;cursor:pointer;text-align:center;font-size:10px;letter-spacing:.03em;font-weight:900;color:#bfcdf1;padding:7px 9px;background:#182743;border-top:1px solid #3e557d;animation:hintBlink 1.9s ease-in-out infinite}
+#dialogueTapHint span{color:#ffdf89;font-size:18px;vertical-align:middle}
+@keyframes hintBlink{50%{opacity:.55}}
+#chatScroll{cursor:pointer}
+#chatChoices button{touch-action:manipulation}
 </style>
 <script>
 var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('present').classList.add('hide');document.getElementById('present').classList.remove('arrived','unload','speaking','choosing');document.getElementById('timeCard').classList.remove('visible');document.getElementById('endingCut').classList.remove('visible');document.getElementById('home').classList.add('hide');document.getElementById('home').classList.remove('enter','impact','blackout');document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','handshakeNow','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
@@ -679,7 +684,7 @@ function goMenu(){clearStory();document.getElementById('vault').classList.add('h
  <div id="phoneChat">
   <header><div class="avatar">?</div><div><strong>Незнакомец</strong><small>в сети • зашифрованный канал</small></div></header>
   <div id="chatScroll"></div>
-  <div id="chatChoices"></div>
+  <div id="dialogueTapHint">НАЖМИ НА ПЕРЕПИСКУ, ЧТОБЫ УСКОРИТЬ ДИАЛОГ <span>››</span></div><div id="chatChoices"></div>
  </div>
  <div id="lockFace"><div class="lockClock">09:41</div><div class="lockDate">Сегодня • новое сообщение</div>
   <div class="notification"><b>НЕИЗВЕСТНЫЙ ОТПРАВИТЕЛЬ</b>Ты прошёл первое испытание. Открой сообщения.</div>
@@ -845,10 +850,13 @@ window.chapterClose=function(){clearTimeout(rideTimer);cancelAnimationFrame(conf
 (function(){
 'use strict';
 var trust=1, chatTrust=0, awarded={1:true}, answered='', attempts=2, task=0, step=0, stage='none';
-var timers=[],swipeFrom=null,locked=false;
+var timers=[],swipeFrom=null,locked=false,pendingDialogue=null;
 function E(id){return document.getElementById(id)}
 function delay(ms,fn){var t=setTimeout(fn,ms);timers.push(t);return t}
-function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function clearTimers(){timers.forEach(clearTimeout);timers=[];pendingDialogue=null}
+function dialogueDelay(ms,fn){if(pendingDialogue){clearTimeout(pendingDialogue.id);pendingDialogue=null}var entry={id:null,fn:fn};entry.id=delay(ms,function(){if(pendingDialogue===entry)pendingDialogue=null;fn()});pendingDialogue=entry}
+function skipDialogue(){if(!E('phoneStage').classList.contains('open')||!E('lockFace').classList.contains('unlocked')||!pendingDialogue)return;var p=pendingDialogue;pendingDialogue=null;clearTimeout(p.id);p.fn()}
+function touchDialogue(e){if(e.target.closest('#chatChoices button')||e.target.closest('#lockFace'))return;skipDialogue()}
 function rank(){return trust>=4?'Доверенное лицо':trust===3?'Аналитик':trust===2?'Стажёр':'Новичок'}
 function updateTrust(){
  E('trustHUD').classList.add('visible');
@@ -880,13 +888,13 @@ function options(items){
  var box=E('chatChoices');box.innerHTML='';
  items.forEach(function(item){
   var b=document.createElement('button');b.type='button';b.textContent=item.text;
-  b.onclick=function(){box.innerHTML='';bubble(item.text,true);chatTrust+=item.delta||0;delay(360,item.next)};
+  b.onclick=function(){box.innerHTML='';bubble(item.text,true);chatTrust+=item.delta||0;dialogueDelay(360,item.next)};
   box.appendChild(b);
  });
 }
 function firstChat(){
  bubble('Ты на базе «Сектор 7». Фургон привёз тебя сюда после согласия работать с нашей группой.',false);
- delay(750,function(){
+ dialogueDelay(750,function(){
  bubble('У тебя 1 значок доверия за биржевой прогноз. После каждого задания получишь ещё один. Всего 4 ранга.',false);
  options([
   {text:'Где я и почему меня выбрали?',delta:0,next:explain},
@@ -897,11 +905,11 @@ function firstChat(){
 }
 function explain(){
  bubble('«Сектор 7» — вымышленная аналитическая группа. Мы проверяем осторожность, наблюдательность и умение сопоставлять факты.',false);
- delay(600,function(){
+ dialogueDelay(600,function(){
   bubble('Выполняй проверки, не гонись за цифрами. Твои ответы и решения будут влиять на финальную сцену.',false);
   options([
     {text:'Начать проверку рисков.',delta:1,next:function(){openTask(2)}},
-    {text:'Мне нужна информация, прежде чем решать.',delta:2,next:function(){bubble('Это разумно. Сейчас покажу данные каждого актива.',false);delay(650,function(){openTask(2)})}}
+    {text:'Мне нужна информация, прежде чем решать.',delta:2,next:function(){bubble('Это разумно. Сейчас покажу данные каждого актива.',false);dialogueDelay(650,function(){openTask(2)})}}
   ]);
  });
 }
@@ -915,10 +923,10 @@ function transitionTo(scene){
 }
 function returnChat(text,kind,next){
  transitionTo('phone');
- delay(780,function(){
+ dialogueDelay(780,function(){
   bubble(text,false);
   if(kind)photoMessage('Файл от Незнакомца',kind);
-  delay(560,function(){
+  dialogueDelay(560,function(){
    options([{text:'Прочитать данные и начать следующий этап →',delta:1,next:next}]);
   });
  });
@@ -994,7 +1002,7 @@ function finishStory(win){
 function unlock(){
  if(E('lockFace').classList.contains('unlocked'))return;
  E('lockFace').classList.add('unlocked');
- delay(360,function(){bubble('НЕЗНАКОМЕЦ • защищённый канал',false);delay(530,firstChat)});
+ dialogueDelay(360,function(){bubble('НЕЗНАКОМЕЦ • защищённый канал',false);dialogueDelay(530,firstChat)});
 }
 var swipe=E('swipeArea');
 swipe.addEventListener('pointerdown',function(e){swipeFrom=e.clientY});
@@ -1002,6 +1010,9 @@ swipe.addEventListener('pointerup',function(e){if(swipeFrom!==null&&(swipeFrom-e
 swipe.addEventListener('click',unlock);
 E('lockFace').addEventListener('touchstart',function(e){swipeFrom=e.touches[0].clientY},{passive:true});
 E('lockFace').addEventListener('touchend',function(e){if(swipeFrom!==null&&swipeFrom-e.changedTouches[0].clientY>32)unlock();swipeFrom=null},{passive:true});
+E('chatScroll').addEventListener('click',touchDialogue);
+E('dialogueTapHint').addEventListener('click',skipDialogue);
+E('phoneChat').querySelector('header').addEventListener('click',touchDialogue);
 window.startPhoneStory=function(){
  clearTimers();window.chapterClose();E('end').classList.remove('active');E('phoneStage').classList.add('open');
  E('lockFace').classList.remove('unlocked');E('chatScroll').innerHTML='';E('chatChoices').innerHTML='';
