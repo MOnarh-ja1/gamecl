@@ -855,7 +855,7 @@ function updateTrust(){
  E('trustStars').textContent=Array.from({length:4},function(_,i){return i<trust?'★':'☆'}).join(' ');
  E('trustRank').textContent='ДОВЕРИЕ '+trust+'/4 • '+rank();
  E('trustFill').style.width=(trust/4*100)+'%';
- E('trustStatus').textContent='Доверие: '+trust+'/4 • '+rank();
+ var existingStatus=E('trustStatus');if(existingStatus)existingStatus.textContent='Доверие: '+trust+'/4 • '+rank();
 }
 function toast(text){
  E('trustToast').textContent=text;E('trustToast').classList.add('show');
@@ -946,7 +946,7 @@ function taskConfig(){
 function renderTask(){
  var t=taskConfig(),card=E('missionTwo').querySelector('.missionCard');
  card.innerHTML='<div class="kicker">СЕКТОР 7 • ЗАДАНИЕ '+String(task).padStart(2,'0')+' / 04</div><h2>'+t.name+'</h2><p class="note">'+t.desc+'</p><div class="missionStep">ФАЙЛЫ ИЗ ПЕРЕПИСКИ</div><div class="evidenceRow">'+t.pictures.map(function(p){return evidence(p[0],p[1],p[2])}).join('')+'</div><div class="assetGrid" id="taskOptions">'+t.items.map(function(x){return '<button class="assetCard" type="button" data-choice="'+x.id+'"><strong>'+x.id+'</strong><span>'+x.desc+'</span></button>'}).join('')+'</div><div class="status"><span>★ '+trust+'/4 • '+rank()+'</span><span id="secondTries">Попытки: '+attempts+'</span></div><button id="submitAsset" type="button" disabled>ПОДТВЕРДИТЬ</button><div id="secondFeedback">Изучи файлы и выбери ответ.</div>';
- E('trustStatus').textContent='Доверие: '+trust+'/4 • '+rank();
+ var existingStatus=E('trustStatus');if(existingStatus)existingStatus.textContent='Доверие: '+trust+'/4 • '+rank();
  card.querySelectorAll('.assetCard').forEach(function(btn){btn.addEventListener('click',function(){
   if(locked)return;answered=btn.getAttribute('data-choice');
   card.querySelectorAll('.assetCard').forEach(function(b){b.classList.remove('chosen')});btn.classList.add('chosen');
