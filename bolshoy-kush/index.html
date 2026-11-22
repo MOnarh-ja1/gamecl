@@ -79,10 +79,29 @@ button{font:inherit;cursor:pointer}
 #desert .heat{animation:heatShift 4s ease-in-out infinite alternate}
 @keyframes heatShift{to{transform:translateY(-8px);opacity:.38}}
 
+
+#desert,#city{position:fixed;inset:0;overflow:hidden}#city{z-index:10;background:#9ac9e7}#city>svg{width:100%;height:100%;display:block}
+.storyPerson{position:absolute;left:50%;bottom:-3%;transform:translateX(-50%);width:min(43vw,330px);height:min(86vh,510px);filter:drop-shadow(0 10px 9px #41313965);animation:rise 1s ease-out both}
+.storyPerson svg{width:100%;height:100%;overflow:visible}
+@keyframes rise{from{opacity:0;transform:translate(-50%,36px)}to{opacity:1;transform:translate(-50%,0)}}
+.storyPerson .scratch{transform-box:fill-box;transform-origin:20% 85%;animation:scratchHead .8s ease-in-out infinite alternate}
+@keyframes scratchHead{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.storyPerson .head{transform-box:fill-box;transform-origin:50% 85%;animation:confused 3.4s ease-in-out infinite alternate}
+@keyframes confused{to{transform:rotate(8deg)}}
+.storyBubble{position:absolute;top:7%;left:50%;transform:translateX(-50%);z-index:3;width:max-content;max-width:92vw;padding:13px 24px;border-radius:22px;background:#fff4dc;border:3px solid #7c5c80;color:#423153;text-align:center;font-weight:900;font-size:clamp(16px,3vw,29px);box-shadow:0 7px 0 #43355f55;opacity:0;pointer-events:none}
+.storyBubble.show{animation:bubbleIn .4s forwards}.storyBubble.leave{animation:bubbleOut .4s forwards}
+@keyframes bubbleIn{from{opacity:0;transform:translate(-50%,18px) scale(.85)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes bubbleOut{from{opacity:1;transform:translate(-50%,0)}to{opacity:0;transform:translate(-50%,-18px)}}
+#storyFade{position:fixed;inset:0;z-index:15;pointer-events:none;background:#0e1325;opacity:0;transition:opacity 1.2s ease}#storyFade.on{opacity:1}
+#city .duo{position:absolute;bottom:-5%;left:50%;width:min(75vw,680px);height:min(86vh,540px);transform:translateX(-50%);display:flex;align-items:end;justify-content:space-around}
+#city .duo svg{height:100%;width:42%}
+#city .captionCity{position:absolute;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);padding:10px 22px;border:2px solid #ffffff9c;border-radius:16px;background:#2b446f;color:#fff4d8;font-weight:900;white-space:nowrap;font-size:clamp(15px,3vw,23px)}
+@media(max-height:450px){.storyPerson{height:92vh;width:min(30vw,240px)}.storyBubble{top:3%;padding:9px 18px;font-size:16px}#city .duo{height:95vh;width:min(60vw,480px)}}
 </style>
 <script>
-var vaultBusy=false;
+var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('city').classList.add('hide');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
 function startVault(){
+ clearStory();
  document.getElementById('menu').classList.add('hide');
  var v=document.getElementById('vault');
  v.classList.remove('hide','open','spinning','swinging','sucked');
@@ -99,11 +118,14 @@ function tapVault(){
  setTimeout(function(){v.classList.add('swinging');},1150);
  setTimeout(function(){v.classList.add('sucked');document.getElementById('tunnel').classList.add('active');},2800);
  setTimeout(function(){document.getElementById('flash').classList.add('active');},3900);
- setTimeout(function(){
-  document.getElementById('desert').classList.remove('hide');
-  v.classList.add('hide');
-  document.getElementById('tunnel').classList.remove('active');
- },4200);
+ after(4200,function(){document.getElementById('desert').classList.remove('hide');v.classList.add('hide');document.getElementById('tunnel').classList.remove('active');document.getElementById('flash').classList.remove('active');});
+ after(5800,function(){document.getElementById('bubble1').classList.add('show')});
+ after(8200,function(){document.getElementById('bubble1').classList.add('leave')});
+ after(8700,function(){document.getElementById('bubble2').classList.add('show')});
+ after(10900,function(){document.getElementById('bubble2').classList.add('leave')});
+ after(11500,function(){document.getElementById('storyFade').classList.add('on')});
+ after(13000,function(){document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide')});
+ after(13400,function(){document.getElementById('storyFade').classList.remove('on')});
 }
 function resetVault(){startVault()}
 function goMenu(){document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
@@ -173,6 +195,37 @@ function goMenu(){document.getElementById('vault').classList.add('hide');documen
 <g fill="#4f8060" stroke="#386b56" stroke-width="6" stroke-linecap="round"><path d="M1028 555v-139M1028 493q-53 0-53-53v-22M1028 470q55 0 55-48v-28" fill="none"/><path d="M104 571v-66M104 544q-28 0-28-29" fill="none" stroke-width="13"/></g>
 <g fill="#d19352" opacity=".55"><ellipse cx="1028" cy="562" rx="28" ry="7"/><ellipse cx="104" cy="572" rx="20" ry="6"/></g>
 <g class="heat" fill="none" stroke="#ffe9bf" stroke-width="4" opacity=".25"><path d="M660 445q20-10 40 0t40 0"/><path d="M430 530q15-7 30 0t30 0"/></g>
-</svg>
-</section>
-</body></html>
+</svg><div class="storyPerson"><svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="505" rx="94" ry="11" fill="#24334744"/>
+<path d="M105 337L99 474L135 477L153 343Z" fill="#3d4b68" stroke="#303954" stroke-width="7"/><path d="M152 343l21 134 37-3-12-139Z" fill="#3c496a" stroke="#303954" stroke-width="7"/>
+<path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
+<path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#f3d6a0" stroke="#4e5175" stroke-width="7"/>
+<path d="M105 212Q84 243 83 319" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#e8b394"/>
+<path d="M195 211Q227 260 222 318" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#e8b394"/>
+<path d="M138 195v-24h28v24" fill="#e8b394" stroke="#aa7969" stroke-width="5"/>
+<g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#e8b394" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#403343"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
+<g class="scratch"><path d="M188 226Q226 179 195 125" fill="none" stroke="#e8b394" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#e8b394" stroke-width="9" stroke-linecap="round"/></g></svg></div><div id="bubble1" class="storyBubble">Как я тут оказался?</div><div id="bubble2" class="storyBubble">Голова трещит...</div></section><section id="city" class="hide" aria-label="Город и друг">
+<svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="csky" x2="0" y2="1"><stop stop-color="#82c3f2"/><stop offset="1" stop-color="#f4e5c7"/></linearGradient></defs>
+<rect width="1200" height="700" fill="url(#csky)"/><circle cx="978" cy="111" r="63" fill="#fff2bd"/>
+<g fill="#718baa"><rect x="0" y="220" width="170" height="280"/><rect x="170" y="100" width="200" height="400"/><rect x="360" y="240" width="130" height="260"/><rect x="488" y="169" width="154" height="331"/><rect x="640" y="111" width="203" height="389"/><rect x="840" y="213" width="140" height="287"/><rect x="975" y="156" width="225" height="344"/></g>
+<g fill="#f8eabf" opacity=".86"><path d="M190 140h26v29h-26zm47 0h26v29h-26zm47 0h26v29h-26zm-94 70h26v29h-26zm47 0h26v29h-26zm47 0h26v29h-26zm-94 70h26v29h-26zm47 0h26v29h-26zm47 0h26v29h-26zM674 160h33v34h-33zm50 0h33v34h-33zm50 0h33v34h-33zm-100 65h33v34h-33zm50 0h33v34h-33zm50 0h33v34h-33zm-100 65h33v34h-33zm50 0h33v34h-33zm50 0h33v34h-33zM1010 192h33v35h-33zm53 0h33v35h-33zm53 0h33v35h-33zm-106 70h33v35h-33zm53 0h33v35h-33zm53 0h33v35h-33z"/></g>
+<rect x="0" y="495" width="1200" height="52" fill="#a7b4ae"/><rect x="0" y="547" width="1200" height="153" fill="#52627b"/><path d="M0 551h1200" stroke="#d1c3b8" stroke-width="8"/><path d="M40 632h150m145 0h150m145 0h150m145 0h150" stroke="#f4e3ae" stroke-width="11" stroke-linecap="round"/>
+<path d="M100 525v-105m1005 105v-130" stroke="#7f6851" stroke-width="15"/><circle cx="100" cy="421" r="64" fill="#58916c"/><circle cx="1105" cy="392" r="85" fill="#518860"/>
+</svg><div class="duo"><svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="505" rx="94" ry="11" fill="#24334744"/>
+<path d="M105 337L99 474L135 477L153 343Z" fill="#3d4b68" stroke="#303954" stroke-width="7"/><path d="M152 343l21 134 37-3-12-139Z" fill="#3c496a" stroke="#303954" stroke-width="7"/>
+<path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
+<path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#f3d6a0" stroke="#4e5175" stroke-width="7"/>
+<path d="M105 212Q84 243 83 319" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#e8b394"/>
+<path d="M195 211Q227 260 222 318" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#e8b394"/>
+<path d="M138 195v-24h28v24" fill="#e8b394" stroke="#aa7969" stroke-width="5"/>
+<g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#e8b394" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#403343"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
+<g class="scratch"><path d="M188 226Q226 179 195 125" fill="none" stroke="#e8b394" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#e8b394" stroke-width="9" stroke-linecap="round"/></g></svg><svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="505" rx="94" ry="11" fill="#24334744"/>
+<path d="M105 337L99 474L135 477L153 343Z" fill="#3d4b68" stroke="#303954" stroke-width="7"/><path d="M152 343l21 134 37-3-12-139Z" fill="#3c496a" stroke="#303954" stroke-width="7"/>
+<path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
+<path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#477ab1" stroke="#4e5175" stroke-width="7"/>
+<path d="M105 212Q84 243 83 319" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#ce997b"/>
+<path d="M195 211Q227 260 222 318" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#ce997b"/>
+<path d="M138 195v-24h28v24" fill="#ce997b" stroke="#aa7969" stroke-width="5"/>
+<g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#ce997b" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#2e303b"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
+<g class="armRest"><path d="M188 226Q226 179 195 125" fill="none" stroke="#ce997b" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#ce997b" stroke-width="9" stroke-linecap="round"/></g></svg></div><div class="captionCity">ГОРОД — ВСТРЕЧА С ДРУГОМ</div></section>
+<div id="storyFade"></div></body></html>
