@@ -97,9 +97,21 @@ button{font:inherit;cursor:pointer}
 #city .duo svg{height:100%;width:42%}
 #city .captionCity{position:absolute;left:50%;top:max(14px,env(safe-area-inset-top));transform:translateX(-50%);padding:10px 22px;border:2px solid #ffffff9c;border-radius:16px;background:#2b446f;color:#fff4d8;font-weight:900;white-space:nowrap;font-size:clamp(15px,3vw,23px)}
 @media(max-height:450px){.storyPerson{height:92vh;width:min(30vw,240px)}.storyBubble{top:3%;padding:9px 18px;font-size:16px}#city .duo{height:95vh;width:min(60vw,480px)}}
+
+/* Day-before flashback: two arms on every character, both raise hands and part */
+#dayBefore{position:fixed;inset:0;z-index:16;display:grid;place-items:center;pointer-events:none;color:#fff9eb;font-size:clamp(27px,6vw,70px);font-weight:1000;letter-spacing:.13em;text-align:center;text-shadow:0 4px 18px #000;opacity:0;transition:opacity .55s ease}
+#dayBefore.show{opacity:1}
+#city .duo svg{transition:transform 2.3s cubic-bezier(.4,0,.65,1),opacity 2s ease}
+#city .duo .raiseLeft,#city .duo .raiseRight{transform-box:view-box;transition:transform 1s cubic-bezier(.18,.72,.25,1)}
+#city .duo .raiseLeft{transform-origin:105px 212px}
+#city .duo .raiseRight{transform-origin:195px 211px}
+#city.celebrate .duo .raiseLeft{transform:rotate(125deg)}
+#city.celebrate .duo .raiseRight{transform:rotate(-125deg)}
+#city.separate .duo svg:first-child{transform:translateX(-75vw);opacity:0}
+#city.separate .duo svg:nth-child(2){transform:translateX(75vw);opacity:0}
 </style>
 <script>
-var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('city').classList.add('hide');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
+var vaultBusy=false;var storyTimers=[];function after(t,fn){storyTimers.push(setTimeout(fn,t))}function clearStory(){storyTimers.forEach(clearTimeout);storyTimers=[];document.getElementById('city').classList.add('hide');document.getElementById('city').classList.remove('celebrate','separate');document.getElementById('dayBefore').classList.remove('show');document.getElementById('storyFade').classList.remove('on');document.getElementById('bubble1').className='storyBubble';document.getElementById('bubble2').className='storyBubble';}
 function startVault(){
  clearStory();
  document.getElementById('menu').classList.add('hide');
@@ -124,8 +136,12 @@ function tapVault(){
  after(8700,function(){document.getElementById('bubble2').classList.add('show')});
  after(10900,function(){document.getElementById('bubble2').classList.add('leave')});
  after(11500,function(){document.getElementById('storyFade').classList.add('on')});
- after(13000,function(){document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide')});
- after(13400,function(){document.getElementById('storyFade').classList.remove('on')});
+ after(12100,function(){document.getElementById('dayBefore').classList.add('show')});
+ after(13200,function(){document.getElementById('desert').classList.add('hide');document.getElementById('city').classList.remove('hide')});
+ after(13600,function(){document.getElementById('dayBefore').classList.remove('show')});
+ after(14300,function(){document.getElementById('storyFade').classList.remove('on')});
+ after(15100,function(){document.getElementById('city').classList.add('celebrate')});
+ after(17100,function(){document.getElementById('city').classList.add('separate')});
 }
 function resetVault(){startVault()}
 function goMenu(){document.getElementById('vault').classList.add('hide');document.getElementById('desert').classList.add('hide');document.getElementById('menu').classList.remove('hide');}
@@ -200,7 +216,7 @@ function goMenu(){document.getElementById('vault').classList.add('hide');documen
 <path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
 <path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#f3d6a0" stroke="#4e5175" stroke-width="7"/>
 <path d="M105 212Q84 243 83 319" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#e8b394"/>
-<path d="M195 211Q227 260 222 318" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#e8b394"/>
+
 <path d="M138 195v-24h28v24" fill="#e8b394" stroke="#aa7969" stroke-width="5"/>
 <g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#e8b394" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#403343"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
 <g class="scratch"><path d="M188 226Q226 179 195 125" fill="none" stroke="#e8b394" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#e8b394" stroke-width="9" stroke-linecap="round"/></g></svg></div><div id="bubble1" class="storyBubble">Как я тут оказался?</div><div id="bubble2" class="storyBubble">Голова трещит...</div></section><section id="city" class="hide" aria-label="Город и друг">
@@ -215,17 +231,17 @@ function goMenu(){document.getElementById('vault').classList.add('hide');documen
 <path d="M105 337L99 474L135 477L153 343Z" fill="#3d4b68" stroke="#303954" stroke-width="7"/><path d="M152 343l21 134 37-3-12-139Z" fill="#3c496a" stroke="#303954" stroke-width="7"/>
 <path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
 <path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#f3d6a0" stroke="#4e5175" stroke-width="7"/>
-<path d="M105 212Q84 243 83 319" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#e8b394"/>
-<path d="M195 211Q227 260 222 318" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#e8b394"/>
+<g class="raiseLeft"><path d="M105 212Q84 243 83 319" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#e8b394"/></g>
+<g class="raiseRight"><path d="M195 211Q227 260 222 318" fill="none" stroke="#e8b394" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#e8b394"/></g>
 <path d="M138 195v-24h28v24" fill="#e8b394" stroke="#aa7969" stroke-width="5"/>
 <g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#e8b394" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#403343"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
-<g class="scratch"><path d="M188 226Q226 179 195 125" fill="none" stroke="#e8b394" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#e8b394" stroke-width="9" stroke-linecap="round"/></g></svg><svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="505" rx="94" ry="11" fill="#24334744"/>
+</svg><svg viewBox="0 0 300 520" xmlns="http://www.w3.org/2000/svg"><ellipse cx="150" cy="505" rx="94" ry="11" fill="#24334744"/>
 <path d="M105 337L99 474L135 477L153 343Z" fill="#3d4b68" stroke="#303954" stroke-width="7"/><path d="M152 343l21 134 37-3-12-139Z" fill="#3c496a" stroke="#303954" stroke-width="7"/>
 <path d="M100 470l-24 25q-3 12 15 14h52v-22l-10-18Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/><path d="M174 469l-7 23q-2 16 16 17h52q11-11-24-40Z" fill="#f3f3eb" stroke="#3d4561" stroke-width="6"/>
 <path d="M111 196Q145 180 189 196L212 348Q151 365 91 348Z" fill="#477ab1" stroke="#4e5175" stroke-width="7"/>
-<path d="M105 212Q84 243 83 319" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#ce997b"/>
-<path d="M195 211Q227 260 222 318" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#ce997b"/>
+<g class="raiseLeft"><path d="M105 212Q84 243 83 319" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="83" cy="324" r="16" fill="#ce997b"/></g>
+<g class="raiseRight"><path d="M195 211Q227 260 222 318" fill="none" stroke="#ce997b" stroke-width="28" stroke-linecap="round"/><circle cx="222" cy="322" r="16" fill="#ce997b"/></g>
 <path d="M138 195v-24h28v24" fill="#ce997b" stroke="#aa7969" stroke-width="5"/>
 <g class="head"><ellipse cx="151" cy="119" rx="55" ry="70" fill="#ce997b" stroke="#925e60" stroke-width="6"/><path d="M95 119Q83 35 141 45Q197 30 208 111L194 88Q174 93 158 84Q131 95 100 89Z" fill="#2e303b"/><path d="M119 122q12-7 24 0m22 0q12-7 24 0" stroke="#63444d" stroke-width="5" fill="none"/><circle cx="132" cy="134" r="5" fill="#282d3d"/><circle cx="178" cy="134" r="5" fill="#282d3d"/><path d="M151 137l-5 23h11m-22 15q15-6 32 0" fill="none" stroke="#aa7067" stroke-width="4" stroke-linecap="round"/></g>
-<g class="armRest"><path d="M188 226Q226 179 195 125" fill="none" stroke="#ce997b" stroke-width="23" stroke-linecap="round"/><path d="M195 125l-13-25m13 25 1-29m-1 29 18-24" fill="none" stroke="#ce997b" stroke-width="9" stroke-linecap="round"/></g></svg></div><div class="captionCity">ГОРОД — ВСТРЕЧА С ДРУГОМ</div></section>
-<div id="storyFade"></div></body></html>
+</svg></div><div class="captionCity">ДЕНЬ НАЗАД</div></section>
+<div id="storyFade"></div><div id="dayBefore" aria-live="polite">ДЕНЬ НАЗАД</div></body></html>
